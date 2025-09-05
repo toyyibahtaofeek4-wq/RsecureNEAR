@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <title>RESCUE - NEAR</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+    }
+
+    .slider-content {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-frame {
+      width: 100vw;   
+      height: 100vh;  
+      border: none;
+      display: none;
+    }
+
+    .slide-frame.active {
+      display: block;
+    }
+
+    .indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .indicator-bar {
+      height: 6px;
+      width: 40px;
+      background: #ddd;
+      margin: 0 6px;
+      border-radius: 3px;
+      transition: background 0.3s;
+    }
+
+    .indicator-bar.active {
+      background: red;
+    }
+
+   
+    @media (max-width: 600px) {
+      .indicator-bar {
+        width: 25px;
+        height: 5px;
+        margin: 0 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="slider-content" class="slider-content">
+    <div class="indicator" id="indicator"></div>
+  </div>
+
+  <script>
+    
+    const slides = [
+      { url: "/html/slide1.html" },
+      { url: "/html/slide2.html" },
+      { url: "/html/slide3.html" },
+      { url: "/html/slide4.html" },
+      { url: "/html/slide5.html" }
+    ];
+
+    let current = 0;
+    const contentEl = document.getElementById('slider-content');
+    const indicatorEl = document.getElementById('indicator');
+
+    slides.forEach((slide, idx) => {
+      const iframe = document.createElement('iframe');
+      iframe.src = slide.url;
+      iframe.className = "slide-frame" + (idx === 0 ? " active" : "");
+      contentEl.insertBefore(iframe, indicatorEl);
+
+      const bar = document.createElement('div');
+      bar.className = 'indicator-bar' + (idx === 0 ? ' active' : '');
+      indicatorEl.appendChild(bar);
+    });
+
+    const frames = document.querySelectorAll('.slide-frame');
+
+    function showSlide(idx) {
+      frames.forEach((frame, i) => {
+        frame.classList.toggle('active', i === idx);
+      });
+      Array.from(indicatorEl.children).forEach((bar, i) => {
+        bar.classList.toggle('active', i === idx);
+      });
+    }
+
+
+    const interval = setInterval(() => {
+      if (current < slides.length - 1) {
+        current++;
+        showSlide(current);
+      } else {
+        clearInterval(interval); // stop the slider
+        // Redirect to login.html after last slide
+        // window.location.href = "signup.html";
+      }
+    }, 4000);
+  </script>
+</body>
+</html>

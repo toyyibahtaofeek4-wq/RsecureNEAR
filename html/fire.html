@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS for maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Animated background */
+     .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, #efefef, #ddd, #f8f8f8, #e6e6e6);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      z-index: -2;
+    }
+        header .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #d32f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header .logo i {
+      color: white;
+      font-size: 24px;
+    }
+
+
+    /* Fire service overlay */
+    .fire-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50,20c10,0,20,10,20,20c0,20-20,40-20,40S30,60,30,40C30,30,40,20,50,20z" fill="none" stroke="rgba(255,87,34,0.15)" stroke-width="2"/><path d="M50,25c5,0,15,5,15,15c0,15-15,30-15,30S35,55,35,40C35,30,45,25,50,25z" fill="rgba(255,87,34,0.1)"/></svg>');
+      background-size: 200px;
+      opacity: 0.5;
+      z-index: -1;
+    }
+    
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+    }
+
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #d32f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header .logo i {
+      color: white;
+      font-size: 24px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+    }
+
+    header .location {
+      font-size: 13px;
+      color: #666;
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #444;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .emergency-btn {
+      width: 230px;
+      height: 230px;
+      background: #d32f2f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    .emergency-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+    .emergency-btn i {
+      font-size: 60px;
+      color: #fff;
+    }
+    .emergency-text {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #d32f2f;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,87,34,0.6); }
+      70% { box-shadow: 0 0 0 25px rgba(255,87,34,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,87,34,0); }
+    }
+
+    /* Location info */
+    .location-info {
+      background: #ffecb3;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 15px auto;
+      max-width: 500px;
+      font-size: 14px;
+    }
+    
+    .location-info i {
+      color: #d32f2f;
+      margin-right: 8px;
+    }
+
+    /* Map container */
+    .map-container {
+      margin: 25px auto;
+      height: 400px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #fireMap {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Nearby Fire Stations */
+    .stations-list {
+      margin-top: 25px;
+      text-align: left;
+    }
+    .stations-list h2 {
+      background: #d32f2f;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .station-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #fff8e1;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .station-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .station-icon {
+      font-size: 24px;
+      color: #d32f2f;
+      flex-shrink: 0;
+    }
+    .station-info {
+      flex-grow: 1;
+    }
+    .station-name {
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .station-distance {
+      font-size: 13px;
+      color: #64748b;
+    }
+    .station-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .call-btn, .direction-btn {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .call-btn {
+      background: #d32f2f;
+      color: white;
+      border: none;
+    }
+    .call-btn:hover {
+      background: #e64a19;
+    }
+    .direction-btn {
+      background: #ffe0b2;
+      color: #d32f2f;
+      border: 1px solid #ffcc80;
+    }
+    .direction-btn:hover {
+      background: #ffcc80;
+    }
+
+    /* Emergency contacts */
+    .emergency-contacts {
+      margin-top: 25px;
+      text-align: left;
+    }
+    .emergency-contacts h2 {
+      background: #d32f2f;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 15px;
+      font-size: 15px;
+      color: #222;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .contact-item:hover {
+      background: rgba(255,87,34,0.1);
+      border-radius: 6px;
+    }
+    .contact-item i {
+      font-size: 18px;
+      color: #d32f2f;
+    }
+
+    /* Loading spinner */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ffe0b2;
+      border-top: 4px solid #d32f2f;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      flex: 1;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: #d32f2f;
+    }
+
+    nav .nav-item.sos {
+      background: #d32f2f;
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .emergency-btn {
+        width: 200px;
+        height: 200px;
+      }
+      .emergency-btn i {
+        font-size: 50px;
+      }
+      .map-container {
+        height: 300px;
+      }
+      .station-actions {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 16px;
+      }
+      .emergency-btn {
+        width: 180px;
+        height: 180px;
+      }
+      .emergency-btn i {
+        font-size: 45px;
+      }
+      .map-container {
+        height: 250px;
+      }
+      .station-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .station-actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .call-btn, .direction-btn {
+        flex: 1;
+        text-align: center;
+      }
+    }
+    
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-btn {
+      color: red;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .back-btn:hover {
+      color: red;
+    }
+    
+    /* Fire station cluster style */
+    .cluster-icon {
+      background-color: rgba(211, 47, 47, 0.8);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="background-animation"></div>
+  <div class="fire-image"></div>
+  
+  <!-- HEADER -->
+  <header>
+    <div class="left">
+      <div class="logo">
+        <i class="fas fa-fire"></i>
+      </div>
+      <div>
+        <h1>Fire Service Assistance</h1>
+        <p class="location">
+           <a href="home.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+          <i class="fas fa-map-marker-alt"></i> <span id="userLocation">Locating...</span></p>
+      </div>
+    </div>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <div class="emergency-btn">
+      <i class="fas fa-phone"></i>
+    </div>
+    <p class="emergency-text">CALL FIRE EMERGENCY</p>
+
+    <div class="location-info">
+      <i class="fas fa-info-circle"></i>
+      <span id="locationStatus">Getting your location...</span>
+    </div>
+
+    <!-- Map Container -->
+    <div class="map-container">
+      <div id="fireMap"></div>
+    </div>
+
+    <!-- Nearby Fire Stations -->
+    <div class="stations-list">
+      <h2>Nearby Fire Stations</h2>
+      <div id="stationsContainer">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emergency Contacts -->
+    <div class="emergency-contacts">
+      <h2>Emergency Contacts</h2>
+      <div class="contact-item" onclick="callNumber('112')">
+        <i class="fas fa-fire-extinguisher"></i> Fire Emergency: 112 or 199
+      </div>
+      <div class="contact-item" onclick="callNumber('08137927629')">
+        <i class="fas fa-info-circle"></i> Fire Non-Emergency: 08137927629
+      </div>
+      <div class="contact-item" onclick="callNumber('08079279345')">
+        <i class="fas fa-exclamation-triangle"></i> Fire Prevention Unit: 08079279345
+      </div>
+    </div>
+  </main>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-item active"><a href="home.html"><i class="fas fa-home" style="color: #d32f2f;"></a></i>Home</div>
+    <div class="nav-item"><i class="fas fa-map-marker-alt"></i>Map</div>
+    <div class="nav-item "><i class="fas fa-fire"></i>SOS</div>
+    <div class="nav-item"><i class="fas fa-bell"></i>Alerts</div>
+    <div class="nav-item"><i class="fas fa-user"></i>Profile</div>
+  </nav>
+
+  <!-- Leaflet JS for maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet MarkerCluster for grouping nearby markers -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  
+  <script>
+    // Global variables
+    let userLocation = null;
+    let userMarker = null;
+    let fireStations = [];
+    let map = null;
+    let fireStationMarkers = null;
+    
+    // Custom fire station icon
+    const fireStationIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmY1NzIyIiBkPSJNNDQ4IDIwOGMwLTQ0LjItMjMuOS04My4xLTU5LjUtMTA0LjRDNDA2LjkgOTAuNiA0MTYgNjkuOCA0MTYgNDhjMC0yNi41LTYuNS01MS4yLTE3LjktNzMuNEM0MDQuOSAyMy4zIDQzMiA1MS40IDQzMiA4OGMwIDI5LjUtMTcuMyA1NC44LTQyIDY2LjVWMjA4YzAgNDQuMi0yMy45IDgzLjEtNTkuNSAxMDQuNEMzNjcuMSAzMDkuNCAzNTIgMzQyLjIgMzUyIDM4NGMwIDQ0LjIgMjMuOSA4My4xIDU5LjUgMTA0LjRDMzc3LjEgNDk5LjQgMzg0IDUxMiAzOTIgNTEyYzI2LjUgMCA0OC0yMS41IDQ4LTQ4YzAtMTQuOS02LjUtMjguMy0xNi45LTM3LjZDNDQyLjcgNDA5LjggNDQ4IDM5OCA0NDggMzg0YzAtMjYuNiA2LjUtNTEuMiAxNy45LTczLjRDNDQwLjkgMjk2LjcgNDQ4IDI3Mi41IDQ0OCAyNDhjMC0yNi41LTYuNS01MS4yLTE3LjktNzMuNHoiLz48cGF0aCBmaWxsPSIjZmY3YTAwIiBkPSJNMjU2IDIwOGMwLTQ0LjItMjMuOS04My4xLTU5LjUtMTA0LjRDMjE0LjkgOTAuNiAyMjQgNjkuOCAyMjQgNDhjMC0yNi41LTYuNS01MS4yLTE3LjktNzMuNEMyMTIuOSAyMy4zIDI0MCA1MS40IDI0MCA4OGMwIDI5LjUtMTcuMyA1NC44LTQyIDY2LjVWMjA4YzAgNDQuMi0yMy45IDgzLjEtNTkuNSAxMDQuNEMxNzUuMSAzMDkuNCAxNjAgMzQyLjIgMTYwIDM4NGMwIDQ0LjIgMjMuOSA4My4xIDU5LjUgMTA0LjRDMjE1LjEgNDk5LjQgMjIyIDUxMiAyMzAgNTEyYzI2LjUgMCA0OC0yMS41IDQ4LTQ4YzAtMTQuOS02LjUtMjguMy0xNi45LTM3LjZDMjgwLjcgNDA5LjggMjg2IDM5OCAyODYgMzg0YzAtMjYuNiA2LjUtNTEuMiAxNy45LTczLjRDMjg4LjkgMjk2LjcgMjk2IDI3Mi41IDI5NiAyNDhjMC0yNi41LTYuNS01MS4yLTE3LjktNzMuNHoiLz48cGF0aCBmaWxsPSIjZmY3YTAwIiBkPSJNNjQgMjA4YzAtNDQuMi0yMy45LTgzLjEtNTkuNS0xMDQuNEMyMi45IDkwLjYgMzIgNjkuOCAzMiA0OGMwLTI2LjUtNi41LTUxLjItMTcuOS03My40QzIwLjkgMjMuMyA0OCA1MS40IDQ4IDg4YzAgMjkuNS0xNy4zIDU0LjgtNDIgNjYuNVYyMDhjMCA0NC4yLTIzLjkgODMuMS01OS41IDEwNC40Qy0xNi45IDMwOS40LTMyIDM0Mi4yLTMyIDM4NGMwIDQ0LjIgMjMuOSA4My4xIDU5LjUgMTA0LjRDMjMuMSA0OTkuNCAzMCA1MTIgMzggNTEyYzI2LjUgMCA0OC0yMS41IDQ4LTQ4YzAtMTQuOS02LjUtMjguMy0xNi45LTM3LjZDOTYuNyA0MDkuOCAxMDIgMzk4IDEwMiAzODRjMC0yNi42IDYuNS01MS4yIDE3LjktNzMuNEMxMDQuOSAyOTYuNyAxMTIgMjcyLjUgMTEyIDI0OGMwLTI2LjUtNi41LTUxLjItMTcuOS03My40eiIvPjwvc3ZnPg==',
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+      popupAnchor: [0, -30]
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the map with a default view
+      map = L.map('fireMap').setView([0, 0], 2);
+      
+      // Add tile layer (OpenStreetMap)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // Initialize marker cluster group for fire stations
+      fireStationMarkers = L.markerClusterGroup({
+        iconCreateFunction: function(cluster) {
+          const count = cluster.getChildCount();
+          return L.divIcon({
+            html: `<div class="cluster-icon">${count}</div>`,
+            className: 'marker-cluster-custom',
+            iconSize: L.point(40, 40)
+          });
+        }
+      });
+      map.addLayer(fireStationMarkers);
+      
+      // Try to get user's location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          locationSuccess,
+          locationError,
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+        );
+      } else {
+        showError('Geolocation is not supported by this browser.');
+      }
+      
+      // Emergency button functionality
+      document.querySelector('.emergency-btn').addEventListener('click', function() {
+        if (confirm('Call fire emergency number?')) {
+          window.location.href = 'tel:112';
+        }
+      });
+    });
+    
+    // Handle successful location retrieval
+    function locationSuccess(position) {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+      userLocation = { lat: userLat, lng: userLng };
+      
+      // Update UI with location
+      document.getElementById('locationStatus').textContent = 
+        `Your location: ${userLat.toFixed(4)}, ${userLng.toFixed(4)}`;
+      
+      // Center map on user's location
+      map.setView([userLat, userLng], 14);
+      
+      // Add user marker
+      userMarker = L.marker([userLat, userLng])
+        .addTo(map)
+        .bindPopup('Your Location')
+        .openPopup();
+      
+      // Add circle to show accuracy
+      L.circle([userLat, userLng], {
+        color: '#ff5722',
+        fillColor: '#ffcc80',
+        fillOpacity: 0.2,
+        radius: position.coords.accuracy / 2
+      }).addTo(map);
+      
+      // Get address from coordinates
+      getAddressFromCoords(userLat, userLng);
+      
+      // Find nearby fire stations
+      findNearbyFireStations(userLat, userLng);
+    }
+    
+    // Handle location errors
+    function locationError(error) {
+      let errorMessage;
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          errorMessage = "Location access denied. Using default location.";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          errorMessage = "Location information unavailable.";
+          break;
+        case error.TIMEOUT:
+          errorMessage = "Location request timed out.";
+          break;
+        default:
+          errorMessage = "An unknown error occurred.";
+          break;
+      }
+      
+      showError(errorMessage);
+      
+      // Use a default location (Ikeja, Lagos)
+      const defaultLat = 6.5244;
+      const defaultLng = 3.3792;
+      userLocation = { lat: defaultLat, lng: defaultLng };
+      
+      map.setView([defaultLat, defaultLng], 13);
+      userMarker = L.marker([defaultLat, defaultLng])
+        .addTo(map)
+        .bindPopup('Default Location (Ikeja, Lagos)')
+        .openPopup();
+      
+      document.getElementById('userLocation').textContent = 'Ikeja, Lagos';
+      document.getElementById('locationStatus').textContent = 
+        `Using default location: ${defaultLat.toFixed(4)}, ${defaultLng.toFixed(4)}`;
+      
+      findNearbyFireStations(defaultLat, defaultLng);
+    }
+    
+    // Get address from coordinates using Reverse Geocoding
+    function getAddressFromCoords(lat, lng) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.display_name) {
+            const address = data.display_name.split(',').slice(0, 3).join(',');
+            document.getElementById('userLocation').textContent = address;
+          }
+        })
+        .catch(error => {
+          console.error('Error getting address:', error);
+          document.getElementById('userLocation').textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+        });
+    }
+    
+    // Find nearby fire stations (using Overpass API for real data)
+    function findNearbyFireStations(lat, lng) {
+      // Show loading state
+      document.getElementById('stationsContainer').innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      `;
+      
+      // Use Overpass API to find real fire stations
+      const radius = 10000; // 10km radius
+      const overpassQuery = `
+        [out:json][timeout:25];
+        (
+          node["amenity"="fire_station"](around:${radius},${lat},${lng});
+          way["amenity"="fire_station"](around:${radius},${lat},${lng});
+          relation["amenity"="fire_station"](around:${radius},${lat},${lng});
+        );
+        out center;
+      `;
+      
+      const overpassUrl = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
+      
+      fetch(overpassUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (data.elements && data.elements.length === 0) {
+            // If no real stations found, generate simulated ones
+            fireStations = generateFireStations(lat, lng);
+          } else {
+            // Process real fire station data
+            fireStations = processFireStationData(data.elements, lat, lng);
+          }
+          
+          // Display the stations
+          displayFireStations();
+          
+          // Add markers to the map
+          addFireStationMarkers();
+        })
+        .catch(error => {
+          console.error('Error fetching fire stations:', error);
+          // Fallback to simulated stations
+          fireStations = generateFireStations(lat, lng);
+          displayFireStations();
+          addFireStationMarkers();
+        });
+    }
+    
+    // Process real fire station data from Overpass API
+    function processFireStationData(elements, userLat, userLng) {
+      const stations = [];
+      
+      elements.forEach(element => {
+        let stationLat, stationLng, name;
+        
+        if (element.type === 'node') {
+          stationLat = element.lat;
+          stationLng = element.lon;
+        } else if (element.center) {
+          stationLat = element.center.lat;
+          stationLng = element.center.lon;
+        } else {
+          return; // Skip if no coordinates
+        }
+        
+        // Get station name or use default
+        name = element.tags.name || 'Fire Station';
+        
+        // Calculate distance
+        const distance = calculateDistance(userLat, userLng, stationLat, stationLng);
+        
+        stations.push({
+          id: element.id,
+          name: name,
+          lat: stationLat,
+          lng: stationLng,
+          distance: distance.toFixed(1),
+          phone: '+2348123456789' // Default phone number
+        });
+      });
+      
+      // Sort by distance
+      return stations.sort((a, b) => a.distance - b.distance);
+    }
+    
+    // Generate simulated fire stations (fallback)
+    function generateFireStations(lat, lng) {
+      const stations = [];
+      const names = [
+        'Central Fire Station', 
+        'North Fire Department', 
+        'South Fire Command',
+        'West Fire Station',
+        'East Fire Brigade',
+        'Community Fire Service'
+      ];
+      
+      // Generate 4-6 random fire stations
+      const count = 4 + Math.floor(Math.random() * 3);
+      
+      for (let i = 0; i < count; i++) {
+        // Generate random coordinates near the user (within ~5km)
+        const stationLat = lat + (Math.random() * 0.05 - 0.025);
+        const stationLng = lng + (Math.random() * 0.05 - 0.025);
+        
+        // Calculate distance
+        const distance = calculateDistance(lat, lng, stationLat, stationLng);
+        
+        stations.push({
+          id: i + 1,
+          name: names[Math.floor(Math.random() * names.length)],
+          lat: stationLat,
+          lng: stationLng,
+          distance: distance.toFixed(1),
+          phone: '+23481234567' + i
+        });
+      }
+      
+      // Sort by distance
+      return stations.sort((a, b) => a.distance - b.distance);
+    }
+    
+    // Calculate distance between two points (in km)
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+      const R = 6371; // Earth's radius in km
+      const dLat = deg2rad(lat2 - lat1);
+      const dLng = deg2rad(lng2 - lng1);
+      
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLng/2) * Math.sin(dLng/2);
+      
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      const distance = R * c; // Distance in km
+      
+      return distance;
+    }
+    
+    function deg2rad(deg) {
+      return deg * (Math.PI/180);
+    }
+    
+    // Display fire stations in the list
+    function displayFireStations() {
+      const stationsContainer = document.getElementById('stationsContainer');
+      
+      if (fireStations.length === 0) {
+        stationsContainer.innerHTML = '<div class="station-item">No fire stations found nearby.</div>';
+        return;
+      }
+      
+      stationsContainer.innerHTML = '';
+      
+      fireStations.forEach(station => {
+        const stationElement = document.createElement('div');
+        stationElement.className = 'station-item';
+        stationElement.innerHTML = `
+          <div class="station-icon">
+            <i class="fas fa-fire-extinguisher"></i>
+          </div>
+          <div class="station-info">
+            <div class="station-name">${station.name}</div>
+            <div class="station-distance">${station.distance} km away</div>
+          </div>
+          <div class="station-actions">
+            <button class="call-btn" data-phone="${station.phone}">Call</button>
+            <button class="direction-btn" data-lat="${station.lat}" data-lng="${station.lng}">Directions</button>
+          </div>
+        `;
+        
+        stationsContainer.appendChild(stationElement);
+        
+        // Add click event to call buttons
+        stationElement.querySelector('.call-btn').addEventListener('click', function(e) {
+          e.stopPropagation();
+          callNumber(this.getAttribute('data-phone'));
+        });
+        
+        // Add click event to direction buttons
+        stationElement.querySelector('.direction-btn').addEventListener('click', function(e) {
+          e.stopPropagation();
+          const lat = this.getAttribute('data-lat');
+          const lng = this.getAttribute('data-lng');
+          openDirections(lat, lng);
+        });
+        
+        // Clicking the station item focuses the map on that station
+        stationElement.addEventListener('click', function() {
+          map.setView([station.lat, station.lng], 16);
+        });
+      });
+    }
+    
+    // Add fire station markers to the map
+    function addFireStationMarkers() {
+      // Clear existing markers
+      fireStationMarkers.clearLayers();
+      
+      fireStations.forEach(station => {
+        const marker = L.marker([station.lat, station.lng], {icon: fireStationIcon})
+          .bindPopup(`
+            <strong>${station.name}</strong><br>
+            Distance: ${station.distance} km<br>
+            <a href="tel:${station.phone}">Call: ${station.phone}</a>
+          `);
+        
+        fireStationMarkers.addLayer(marker);
+      });
+      
+      // Fit map to show all stations and user location
+      if (userLocation && fireStations.length > 0) {
+        const bounds = L.latLngBounds([userLocation]);
+        fireStations.forEach(station => {
+          bounds.extend([station.lat, station.lng]);
+        });
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
+    }
+    
+    // Call a phone number
+    function callNumber(phone) {
+      if (confirm(`Call ${phone}?`)) {
+        window.location.href = 'tel:' + phone;
+      }
+    }
+    
+    // Open directions in Google Maps
+    function openDirections(lat, lng) {
+      if (userLocation) {
+        window.open(`https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${lat},${lng}&travelmode=driving`);
+      } else {
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`);
+      }
+    }
+    
+    // Show error message
+    function showError(message) {
+      document.getElementById('locationStatus').textContent = message;
+      document.getElementById('locationStatus').style.color = '#e53e3e';
+    }
+  </script>
+</body>
+</html>

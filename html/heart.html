@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RescureNEAR - Heart Attack Emergency</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --brand: #d32f2f;
+      --ink: #111;
+      --bg: #fff;
+      --card: #fafafa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+     .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+  
+   header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      /* height: 80px; */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+
+        @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+
+    header .right #closeBtn {
+  font-size: 20px;
+  margin-left: 12px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+header .right #closeBtn:hover {
+  transform: rotate(180deg) scale(1.2);
+  color: #d32f2f;
+}
+
+
+
+    /* ---------- CONTENT ---------- */
+    .wrap {
+      padding: 20px 16px 80px;
+      flex: 1;
+      animation: fadeInUp .8s ease;
+    }
+
+    .wrap h2 {
+      text-align: center;
+      font-size: 1.7rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp .8s ease;
+    }
+
+    .info-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+      animation: fadeInUp .8s ease;
+      animation-fill-mode: both;
+    }
+
+    .info-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .info-card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+    
+    .info-card:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    
+    .info-card:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+
+    .info-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: var(--brand);
+    }
+
+    .info-card p {
+      font-size: 0.95rem;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 1.6;
+    }
+    
+    .info-card ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    
+    .info-card li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    /* Map Container */
+    #map-container {
+      height: 300px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 16px 0;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+    }
+    
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+    
+    .hospitals-list {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 15px;
+    }
+    
+    .hospital-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .hospital-item:last-child {
+      border-bottom: none;
+    }
+    
+    .hospital-name {
+      font-weight: bold;
+    }
+    
+    .hospital-distance {
+      color: #d32f2f;
+      font-size: 0.9em;
+    }
+    
+    .hospital-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    
+    .hospital-action-btn {
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8em;
+      border: none;
+      background: #d32f2f;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Contact Options */
+    .contact-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transform: translateZ(0);
+      transition: transform .15s ease;
+    }
+    
+    .contact-btn:active {
+      transform: scale(.96);
+    }
+    
+    .contact-btn i {
+      font-size: 1.2rem;
+    }
+    
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(37, 211, 102, .25);
+      animation: pulseBtn 2s infinite;
+    }
+    
+    .call-btn {
+      background-color: #d32f2f;
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(211, 47, 47, .25);
+    }
+    
+    .email-btn {
+      background-color: #34b7f1;
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(52, 183, 241, .25);
+    }
+
+    /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+      animation: fadeInUp .6s ease;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      flex: 1;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    nav .nav-item:hover {
+      transform: translateY(-4px);
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: var(--brand);
+    }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .close-modal {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .modal-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    .modal-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #d32f2f;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+      }
+
+      50% {
+        box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+      }
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-btn {
+      color: red;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .back-btn:hover {
+      color: red;
+    }
+
+     .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      /* hidden by default */
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+
+    <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+
+
+   <header>
+  <div class="left">
+    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+    <div>
+      <h1>Heart First Aid</h1>
+      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+  </div>
+</header>
+
+  <div class="wrap">
+    <h2>Heart Attack Emergency Guide</h2>
+
+    <div class="info-card">
+      <h3>Recognizing Heart Attack Symptoms</h3>
+      <p>Common signs include:</p>
+      <ul>
+        <li>Chest pain or discomfort (pressure, squeezing, fullness)</li>
+        <li>Pain in arms, back, neck, jaw, or stomach</li>
+        <li>Shortness of breath</li>
+        <li>Cold sweat, nausea, lightheadedness</li>
+      </ul>
+      <p><b>Time is critical</b> - seek immediate medical help if you experience these symptoms.</p>
+    </div>
+
+    <div class="info-card">
+      <h3>First Aid While Waiting for Help</h3>
+      <ul>
+        <li>Help the person sit down, rest, and try to stay calm</li>
+        <li>Loosen any tight clothing</li>
+        <li>Ask if they take chest pain medication (like nitroglycerin)</li>
+        <li>Give aspirin if not allergic (chew and swallow)</li>
+        <li>Begin CPR if the person becomes unconscious</li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h3>What To Do Immediately</h3>
+      <p> Call emergency services immediately (911 or local emergency number).<br>
+         Do not drive yourself to the hospital.<br>
+         Do not wait to see if symptoms go away.<br>
+         Do not take any medication without medical advice.
+      </p>
+    </div>
+    
+    <div class="info-card">
+      <h3>Nearby Hospitals</h3>
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+      <div class="hospitals-list" id="hospitals-list">
+        <!-- Hospitals will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <div class="contact-options">
+      <button class="contact-btn call-btn" onclick="showCallModal()">
+        <i class="fas fa-phone"></i> Call Doctor
+      </button>
+      <button class="contact-btn whatsapp-btn" onclick="messageDoctor()">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </button>
+      <button class="contact-btn email-btn" onclick="showEmailModal()">
+        <i class="fas fa-envelope"></i> Email
+      </button>
+    </div>
+  </div>
+
+  <!-- Call Modal -->
+  <div class="modal" id="callModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Call Emergency Services</h3>
+        <span class="close-modal" onclick="closeModal('callModal')">&times;</span>
+      </div>
+      <p>Call your local emergency number immediately:</p>
+      <button class="modal-btn" onclick="callEmergency()">
+        <i class="fas fa-phone"></i> Call 911 (or local emergency)
+      </button>
+    </div>
+  </div>
+  
+  <!-- Email Modal -->
+  <div class="modal" id="emailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Email Doctor</h3>
+        <span class="close-modal" onclick="closeModal('emailModal')">&times;</span>
+      </div>
+      <input type="text" class="modal-input" id="emailSubject" placeholder="Subject" value="Heart Attack Emergency">
+      <textarea class="modal-input" id="emailBody" rows="4" placeholder="Message">I need immediate assistance for a potential heart attack emergency. Please contact me as soon as possible.</textarea>
+      <button class="modal-btn" onclick="emailDoctor()">
+        <i class="fas fa-paper-plane"></i> Send Email
+      </button>
+    </div>
+  </div>
+
+<nav>
+    <div class="nav-item active">
+            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>SOS</a></div>
+
+
+    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+      <i class="fas fa-bell"></i> Alerts
+    </div>
+
+    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+      <i class="fas fa-user"></i> Profile
+    </div>
+
+  </nav>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <script>
+
+    
+const bell = document.querySelector('.right i');
+    const popup = document.getElementById('alertPopup');
+
+    bell.addEventListener('click', () => {
+
+      popup.style.display = 'block';
+
+      bell.classList.add('bell-active');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        bell.classList.remove('bell-active');
+      }, 3000);
+    });
+
+    document.getElementById("closeBtn").addEventListener("click", function () {
+  window.location.href = "map.html";
+});
+
+ document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+     document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+                document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+
+
+    // Initialize map
+    let map;
+    let userMarker;
+    
+    function initMap() {
+      // Create map centered on user's location
+      map = L.map('map').setView([0, 0], 13);
+      
+      // Add tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // Try to get user's location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            
+            // Center map on user's location
+            map.setView([userLat, userLng], 13);
+            
+            // Add marker for user's location
+            userMarker = L.marker([userLat, userLng])
+              .addTo(map)
+              .bindPopup('Your Location')
+              .openPopup();
+              
+            // Find nearby hospitals (simulated)
+            findNearbyHospitals(userLat, userLng);
+          },
+          function(error) {
+            // Default to a known location if geolocation fails
+            map.setView([6.5244, 3.3792], 13); // Default to Lagos, Nigeria
+            alert('Unable to get your location. Showing default area.');
+            
+            // Show sample hospitals
+            showSampleHospitals();
+          }
+        );
+      } else {
+        alert('Geolocation is not supported by your browser.');
+        map.setView([6.5244, 3.3792], 13); // Default to Lagos, Nigeria
+        
+        // Show sample hospitals
+        showSampleHospitals();
+      }
+    }
+    
+    // Simulate finding nearby hospitals
+    function findNearbyHospitals(lat, lng) {
+      // In a real application, you would use a places API here
+      // For demo purposes, we'll create some mock hospitals near the user
+      
+      const hospitals = [
+        {
+          name: 'General Hospital',
+          lat: lat + 0.005,
+          lng: lng + 0.005,
+          distance: '0.8 km'
+        },
+        {
+          name: 'City Medical Center',
+          lat: lat - 0.003,
+          lng: lng + 0.007,
+          distance: '1.2 km'
+        },
+        {
+          name: 'Emergency Care Clinic',
+          lat: lat + 0.008,
+          lng: lng - 0.002,
+          distance: '1.5 km'
+        },
+        {
+          name: 'Community Health Hospital',
+          lat: lat - 0.006,
+          lng: lng - 0.004,
+          distance: '2.0 km'
+        }
+      ];
+      
+      // Clear previous list
+      const hospitalsList = document.getElementById('hospitals-list');
+      hospitalsList.innerHTML = '';
+      
+      // Add hospitals to map and list
+      hospitals.forEach(hospital => {
+        // Add marker for hospital
+        L.marker([hospital.lat, hospital.lng])
+          .addTo(map)
+          .bindPopup(hospital.name);
+          
+        // Add to list
+        const hospitalItem = document.createElement('div');
+        hospitalItem.className = 'hospital-item';
+        hospitalItem.innerHTML = `
+          <div>
+            <div class="hospital-name">${hospital.name}</div>
+            <div class="hospital-distance">${hospital.distance} away</div>
+            <div class="hospital-actions">
+              <button class="hospital-action-btn" onclick="callHospital('${hospital.name}')">
+                <i class="fas fa-phone"></i> Call
+              </button>
+              <button class="hospital-action-btn" onclick="navigateToHospital(${hospital.lat}, ${hospital.lng})">
+                <i class="fas fa-directions"></i> Directions
+              </button>
+            </div>
+          </div>
+        `;
+        
+        hospitalsList.appendChild(hospitalItem);
+      });
+    }
+    
+    // Show sample hospitals when geolocation fails
+    function showSampleHospitals() {
+      const hospitalsList = document.getElementById('hospitals-list');
+      hospitalsList.innerHTML = `
+        <div class="hospital-item">
+          <div>
+            <div class="hospital-name">General Hospital</div>
+            <div class="hospital-distance">1.2 km away</div>
+            <div class="hospital-actions">
+              <button class="hospital-action-btn" onclick="callHospital('General Hospital')">
+                <i class="fas fa-phone"></i> Call
+              </button>
+              <button class="hospital-action-btn" onclick="navigateToHospital(6.5294, 3.3842)">
+                <i class="fas fa-directions"></i> Directions
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hospital-item">
+          <div>
+            <div class="hospital-name">City Medical Center</div>
+            <div class="hospital-distance">2.5 km away</div>
+            <div class="hospital-actions">
+              <button class="hospital-action-btn" onclick="callHospital('City Medical Center')">
+                <i class="fas fa-phone"></i> Call
+              </button>
+              <button class="hospital-action-btn" onclick="navigateToHospital(6.5194, 3.3892)">
+                <i class="fas fa-directions"></i> Directions
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hospital-item">
+          <div>
+            <div class="hospital-name">Emergency Care Clinic</div>
+            <div class="hospital-distance">3.1 km away</div>
+            <div class="hospital-actions">
+              <button class="hospital-action-btn" onclick="callHospital('Emergency Care Clinic')">
+                <i class="fas fa-phone"></i> Call
+              </button>
+              <button class="hospital-action-btn" onclick="navigateToHospital(6.5344, 3.3742)">
+                <i class="fas fa-directions"></i> Directions
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Contact functions
+    function messageDoctor() {
+      const phoneNumber = "2348012345678"; // Example: Nigeria number
+      const message = encodeURIComponent("Hello Doctor, I need help with a potential heart attack emergency.");
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    }
+    
+    function showCallModal() {
+      document.getElementById('callModal').style.display = 'flex';
+    }
+    
+    function callEmergency() {
+      window.location.href = 'tel:911';
+    }
+    
+    function callHospital(hospitalName) {
+      // In a real app, you would have the actual phone number for each hospital
+      window.location.href = 'tel:911';
+    }
+    
+    function showEmailModal() {
+      document.getElementById('emailModal').style.display = 'flex';
+    }
+    
+    function emailDoctor() {
+      const subject = encodeURIComponent(document.getElementById('emailSubject').value);
+      const body = encodeURIComponent(document.getElementById('emailBody').value);
+      window.location.href = `mailto:emergency@rescurnear.com?subject=${subject}&body=${body}`;
+      closeModal('emailModal');
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    
+    function navigateToHospital(lat, lng) {
+      // Open navigation in Google Maps or other mapping service
+      window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`, '_blank');
+    }
+    
+    // Initialize map when page loads
+    window.onload = initMap;
+  </script>
+</body>
+
+</html>

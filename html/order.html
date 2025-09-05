@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RescueNEAR - Ambulance Booking</title>
+    <link rel="shortcut icon" href="../images/s1.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* ---------- HEADER ---------- */
+   header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      /* height: 80px; */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+
+        @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+
+    header .right #closeBtn {
+  font-size: 20px;
+  margin-left: 12px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+header .right #closeBtn:hover {
+  transform: rotate(180deg) scale(1.2);
+  color: #d32f2f;
+}
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+       
+        
+        /* Ambulance Grid */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 32px;
+            color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ambulance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .ambulance-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .ambulance-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .ambulance-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ambulance-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .ambulance-card:hover .ambulance-image img {
+            transform: scale(1.1);
+        }
+        
+        .ambulance-type {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #d32f2f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .ambulance-details {
+            padding: 20px;
+            color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ambulance-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #d32f2f;
+        }
+        
+        .ambulance-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .ambulance-info i {
+            color: #d32f2f;
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .select-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+        
+        .select-btn:hover {
+            background: #f44336;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #333;
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .driver-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+        
+        .driver-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .driver-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .driver-info p {
+            color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-details {
+            margin: 20px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        
+        .detail-item i {
+            color: #d32f2f;
+            margin-right: 15px;
+            width: 20px;
+        }
+        
+        .contact-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 48%;
+        }
+        
+        .call-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+        
+        .call-btn:hover {
+            background: #1da851;
+        }
+        
+        .message-btn {
+            background: #128C7E;
+            color: white;
+            border: none;
+        }
+        
+        .message-btn:hover {
+            background: #0e6e62;
+        }
+        
+        /* Footer */
+        footer {
+            background: #d32f2f;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #ffcb05;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .contact-options {
+                flex-direction: column;
+            }
+            
+            .contact-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .ambulance-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+        
+        .loading-dot {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            background: #d32f2f;
+            border-radius: 50%;
+            animation: loading 1.4s infinite ease-in-out both;
+        }
+        
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes loading {
+            0%, 80%, 100% { transform: scale(0); }
+          
+            40% { transform: scale(1); }
+        }
+
+         /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+      animation: fadeInUp .6s ease;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      flex: 1;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    nav .nav-item:hover {
+      transform: translateY(-4px);
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: var(--brand);
+    }
+
+     .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+           .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      /* hidden by default */
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+
+
+    </style>
+</head>
+<body>
+
+       <header>
+  <div class="left">
+    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+    <div>
+      <h1>Available Drivers</h1>
+      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+  </div>
+</header>
+   <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+
+    <!-- Ambulance Listing -->
+    <section id="ambulances">
+        <div class="container">
+            <h2 class="section-title">Available Ambulances Drivers </h2>
+            <div class="ambulance-grid" id="ambulanceGrid">
+                <!-- Ambulance cards will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="ambulanceModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <div class="driver-avatar">
+                    <img id="modalDriverAvatar" src="" alt="Driver">
+                </div>
+                <div class="driver-info">
+                    <h3 id="modalDriverName"></h3>
+                    <p id="modalAmbulanceType"></p>
+                </div>
+            </div>
+            <div class="modal-details">
+                <div class="detail-item">
+                    <i class="fas fa-hospital"></i>
+                    <span id="modalHospital"></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-ambulance"></i>
+                    <span id="modalAmbulanceId"></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-medkit"></i>
+                    <span id="modalEquipment"></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="modalEta"></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-star"></i>
+                    <span id="modalRating"></span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-phone"></i>
+                    <span id="modalPhone"></span>
+                </div>
+            </div>
+            <div class="contact-options">
+                <button class="contact-btn call-btn" id="modalCallBtn">
+                    <i class="fas fa-phone"></i> Call Now
+                </button>
+                <button class="contact-btn message-btn" id="modalMessageBtn">
+                    <i class="fab fa-whatsapp"></i> Message
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <nav>
+    <div class="nav-item active">
+            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+     <div class="nav-item active" > <a href="/html/soslog.html" id="sosBtn" style="color: #d32f2f; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>SOS</a></div>
+
+
+ <div class="nav-item">
+  <a href="alerts.html" id="alertsBtn" style="color: #2c3e50; text-decoration: none;">
+    <i class="fas fa-bell"></i> Alerts
+  </a>
+</div>
+
+    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+      <i class="fas fa-user"></i> Profile
+    </div>
+
+  </nav>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <script>
+
+        const bell = document.querySelector('.right i');
+    const popup = document.getElementById('alertPopup');
+
+    bell.addEventListener('click', () => {
+
+      popup.style.display = 'block';
+
+      bell.classList.add('bell-active');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        bell.classList.remove('bell-active');
+      }, 3000);
+    });
+
+    document.getElementById("closeBtn").addEventListener("click", function () {
+  window.location.href = "home.html";
+});
+
+ document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+     document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+                document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+        
+        // Ambulance data
+        const ambulances = [
+            {
+                id: 1,
+                type: "als",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Salam James",
+                hospital: "Ibadan City General Hospital ",
+                phone: "+234 8119825334",
+                rating: "4.9 (128 reviews)",
+                eta: "7-10 minutes",
+                equipment: "Defibrillator, Ventilator, ECG Monitor",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 2,
+                type: "bls",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Michael Carter",
+                hospital: "Ikeja Unity Medical Center",
+                phone: "+2348119825334",
+                rating: "4.7 (95 reviews)",
+                eta: "5-8 minutes",
+                equipment: "First Aid, Oxygen, Spinal Board",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 3,
+                type: "neonatal",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Seyi Enitan",
+                hospital: " Abuja Children's Mercy Hospital",
+                phone: "+2348119825334",
+                rating: "4.8 (142 reviews)",
+                eta: "10-12 minutes",
+                equipment: "Infant Incubator, Neonatal Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 4,
+                type: "critical",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. James Wilson",
+                hospital: "Osun Metropolitan Medical Center",
+                phone: "+2348119825334",
+                rating: "4.9 (87 reviews)",
+                eta: "12-15 minutes",
+                equipment: "ICU Equipment, Cardiac Monitor, Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 5,
+                type: "als",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Tayo Olaoluwa",
+                hospital: "Ekiti Regional Medical Center",
+                phone: "+2348119825334",
+                rating: "4.8 (112 reviews)",
+                eta: "8-11 minutes",
+                equipment: "Defibrillator, Ventilator, ECG Monitor",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 6,
+                type: "bls",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Olawale Taylor",
+                hospital: "Lagos State Community Hospital",
+                phone: "+2348119825334",
+                rating: "4.6 (76 reviews)",
+                eta: "6-9 minutes",
+                equipment: "First Aid, Oxygen, Spinal Board",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 7,
+                type: "critical",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Johnson James ",
+                hospital: "University Center Hospital UCH",
+                phone: "+2348119825334",
+                rating: "4.9 (93 reviews)",
+                eta: "9-12 minutes",
+                equipment: "ICU Equipment, Cardiac Monitor, Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 8,
+                type: "neonatal",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. David Kenny",
+                hospital: "Jos Women & Children's Hospital",
+                phone: "+234811982534",
+                rating: "4.7 (105 reviews)",
+                eta: "11-14 minutes",
+                equipment: "Infant Incubator, Neonatal Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 9,
+                type: "als",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Olatunbosun K.",
+                hospital: "Edo Central Hospital",
+                phone: "+2348119825334",
+                rating: "4.8 (134 reviews)",
+                eta: "7-10 minutes",
+                equipment: "Defibrillator, Ventilator, ECG Monitor",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 10,
+                type: "bls",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Thomas Kola",
+                hospital: "Northside Medical Center",
+                phone: "+2348119825334",
+                rating: "4.5 (88 reviews)",
+                eta: "5-8 minutes",
+                equipment: "First Aid, Oxygen, Spinal Board",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 11,
+                type: "critical",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Patricia John",
+                hospital: "Southside Medical Center",
+                phone: "+2348119825334",
+                rating: "4.9 (79 reviews)",
+                eta: "10-13 minutes",
+                equipment: "ICU Equipment, Cardiac Monitor, Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 12,
+                type: "neonatal",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Christopher Martin",
+                hospital: "Pediatric Specialists",
+                phone: "+2348119825334",
+                rating: "4.8 (121 reviews)",
+                eta: "12-15 minutes",
+                equipment: "Infant Incubator, Neonatal Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 13,
+                type: "als",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Amanda Clark",
+                hospital: "Eastside Medical Center",
+                phone: "+2348119825334",
+                rating: "4.7 (97 reviews)",
+                eta: "8-11 minutes",
+                equipment: "Defibrillator, Ventilator, ECG Monitor",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 14,
+                type: "bls",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Daniel Lewis",
+                hospital: "Westside Medical Center",
+                phone: "+2348119825334",
+                rating: "4.6 (83 reviews)",
+                eta: "6-9 minutes",
+                equipment: "First Aid, Oxygen, Spinal Board",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 15,
+                type: "critical",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Susan Walker",
+                hospital: "Downtown Medical Center",
+                phone: "+1 (555) 987-6543", // I just put it there It not a real number i don't have any US number !!!!
+                rating: "4.9 (102 reviews)",
+                eta: "9-12 minutes",
+                equipment: "ICU Equipment, Cardiac Monitor, Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 16,
+                type: "neonatal",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Kevin Hall",
+                hospital: "Ilorin Children's Specialty Center",
+                phone: "+2348119825334",
+                rating: "4.8 (115 reviews)",
+                eta: "11-14 minutes",
+                equipment: "Infant Incubator, Neonatal Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 17,
+                type: "als",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Michelle Young",
+                hospital: "Gonbe Regional Trauma Center",
+                phone: "+23481198253341",
+                rating: "4.9 (126 reviews)",
+                eta: "7-10 minutes",
+                equipment: "Defibrillator, Ventilator, ECG Monitor",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 18,
+                type: "bls",
+                name: "Ambullace Expert Driver",
+                driver: "Dr. Richard Allen",
+                hospital: "Community Health Center",
+                phone: "+2348119825334",
+                rating: "4.5 (91 reviews)",
+                eta: "5-8 minutes",
+                equipment: "First Aid, Oxygen, Spinal Board",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 19,
+                type: "critical",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Barbara King",
+                hospital: "University Medical Center",
+                phone: "+2348119825334",
+                rating: "4.9 (84 reviews)",
+                eta: "10-13 minutes",
+                equipment: "ICU Equipment, Cardiac Monitor, Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            },
+            {
+                id: 20,
+                type: "neonatal",
+                name: "Ambullace Expert Driver",
+                driver: "Mr. Charles Scott",
+                hospital: "Children's Memorial Hospital",
+                phone: "+2348119825334",
+                rating: "4.8 (132 reviews)",
+                eta: "12-15 minutes",
+                equipment: "Infant Incubator, Neonatal Ventilator",
+                image: "../images/s1.png",
+                avatar: "../images/driver.png"
+            }
+        ];
+
+        // DOM elements
+        const ambulanceGrid = document.getElementById('ambulanceGrid');
+        const modal = document.getElementById('ambulanceModal');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        // Generate ambulance cards
+        function generateAmbulanceCards(filter = 'all') {
+            ambulanceGrid.innerHTML = '';
+            
+            const filteredAmbulances = filter === 'all' 
+                ? ambulances 
+                : ambulances.filter(ambulance => ambulance.type === filter);
+            
+            filteredAmbulances.forEach(ambulance => {
+                const card = document.createElement('div');
+                card.className = 'ambulance-card';
+                card.innerHTML = `
+                    <div class="ambulance-image">
+                        <img src="${ambulance.image}" alt="${ambulance.name}">
+                        <div class="ambulance-type">${ambulance.type.toUpperCase()}</div>
+                    </div>
+                    <div class="ambulance-details">
+                        <h3 class="ambulance-name">${ambulance.name}</h3>
+                        <div class="ambulance-info">
+                            <i class="fas fa-user-md"></i>
+                            <span>${ambulance.driver}</span>
+                        </div>
+                        <div class="ambulance-info">
+                            <i class="fas fa-hospital"></i>
+                            <span>${ambulance.hospital}</span>
+                        </div>
+                        <div class="ambulance-info">
+                            <i class="fas fa-phone"></i>
+                            <span>${ambulance.phone}</span>
+                        </div>
+                        <div class="ambulance-info">
+                            <i class="fas fa-star"></i>
+                            <span>${ambulance.rating}</span>
+                        </div>
+                        <button class="select-btn" onclick="openModal(${ambulance.id})">Select Driver</button>
+                    </div>
+                `;
+                ambulanceGrid.appendChild(card);
+            });
+        }
+
+        // Open modal with ambulance details
+        function openModal(id) {
+            const ambulance = ambulances.find(a => a.id === id);
+            if (ambulance) {
+                document.getElementById('modalDriverAvatar').src = ambulance.avatar;
+                document.getElementById('modalDriverName').textContent = ambulance.driver;
+                document.getElementById('modalAmbulanceType').textContent = ambulance.name;
+                document.getElementById('modalHospital').textContent = ambulance.hospital;
+                document.getElementById('modalAmbulanceId').textContent = `Ambulance ID: ${ambulance.type.toUpperCase()}-2023-${ambulance.id.toString().padStart(3, '0')}`;
+                document.getElementById('modalEquipment').textContent = `Equipment: ${ambulance.equipment}`;
+                document.getElementById('modalEta').textContent = `Estimated arrival: ${ambulance.eta}`;
+                document.getElementById('modalRating').textContent = ambulance.rating;
+                document.getElementById('modalPhone').textContent = ambulance.phone;
+                
+                // Set up call button
+                document.getElementById('modalCallBtn').onclick = function() {
+                    alert(`Calling ${ambulance.driver} at ${ambulance.phone}`);
+                };
+                
+                // Set up message button
+                document.getElementById('modalMessageBtn').onclick = function() {
+                    alert(`Opening WhatsApp to message ${ambulance.driver}`);
+                };
+                
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Set up filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter ambulances
+                generateAmbulanceCards(this.dataset.filter);
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            generateAmbulanceCards();
+        });
+    </script>
+</body>
+</html>

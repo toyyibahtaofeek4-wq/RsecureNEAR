@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- intl-tel-input CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css"/>
+
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background:#e53935;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo-top {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin: 40px auto 0 auto;
+      display: block;
+      animation: fadeLogo 1.2s;
+    }
+    @keyframes fadeLogo {
+      from { opacity: 0; transform: scale(0.8);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .form-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #000;
+      text-align: left;
+      margin: 30px 0 0 0;
+      width: 100%;
+      margin-bottom: 5px;
+      max-width: 520px;
+      position: relative;
+      animation: fadeInLeft 1.2s;
+    }
+    .form-title::after {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: #e53935;
+      margin: 8px 0 0 0;
+      border-radius: 2px;
+      transition: width .3s;
+    }
+    @keyframes fadeInLeft {
+      from { transform: translateX(-40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background:#fff;
+      border-radius: 20px;
+      padding: 40px 30px 30px 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.25); 
+      animation: popIn .6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 24px;
+    }
+    form { display:flex; flex-direction:column; gap:20px; width: 100%; }
+    .field input, .field button {
+      width:100%;
+      padding:16px 18px;
+      border:1px solid #dcdcdc;
+      border-radius:12px;
+      font-size:18px;
+      transition: border .25s, box-shadow .25s, transform .1s;
+    }
+    .field input:focus{
+      border-color:#e53935;
+      box-shadow:0 0 0 4px rgba(229,57,53,.15);
+      outline:0;
+    }
+    .btn {
+      background:#e53935;
+      color:#fff;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      font-size:18px;
+      border-radius:14px;
+      box-shadow: 0 10px 25px rgba(229,57,53,.35);
+      transition: transform .15s ease, box-shadow .25s ease;
+      animation: bounceIn 1s;
+      width: 90%;
+      align-self: center;
+      padding: 18px 0;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow:0 14px 28px rgba(229,57,53,.45); }
+    .btn:active { transform: translateY(0); box-shadow:0 8px 18px rgba(229,57,53,.25); }
+
+    .iti { width:100%; }
+    .iti__country-list { z-index: 9999; }
+
+    @keyframes popIn { 
+      from{opacity:0; transform:scale(.9) translateY(20px);} 
+      to{opacity:1; transform:scale(1) translateY(0);} 
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 600px){
+      .logo-top { width: 70px; height: 70px; margin-top: 20px;}
+      .form-title { font-size: 1.2rem; max-width: 100%; }
+      .form-title::after { width: 40px; height: 3px;}
+      .card{ 
+        padding:25px 10px 18px 10px;
+        max-width: 100%;
+      }
+      .btn{ font-size:16px; padding:14px; width: 100%; }
+      .field input { font-size:16px; padding:14px; }
+    }
+  </style>
+</head>
+<body>
+  <img src="images/s1.png" alt="Logo" class="logo-top" />
+  <div class="card">
+    <div class="form-title">Login</div>
+    <form id="signupForm" onsubmit="handleLogin(event)">
+      <!-- <div class="field">
+        <input type="email" id="email" placeholder="Email address" required />
+      </div> -->
+      <div class="field">
+        <input id="phone" type="tel" placeholder="Phone number" />
+      </div>
+      <input type="hidden" id="phone_e164" name="phone_e164"/>
+      <button class="btn" type="submit">Next</button>
+      <p style="text-align:center; margin-top:10px;">
+        Already have an account? 
+        <a href="signup.html" style="color:#e53935; font-weight:600; text-decoration:none;">Signup</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- intl-tel-input JS -->
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js"></script>
+
+  <script>
+     const phoneInput = document.querySelector("#phone");
+  const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "ng",
+    separateDialCode: true,
+    nationalMode: false,
+    autoPlaceholder: "polite",
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js",
+  });
+
+  
+async function handleLogin(e) {
+  e.preventDefault();
+
+  const isValid = iti.isValidNumber();
+  if (!isValid) {
+    alert("Please enter a valid phone number.");
+    phoneInput.focus();
+    return;
+  }
+
+  const phone = iti.getNumber(); 
+
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone })
+    });
+    const data = await res.json();
+
+    if(data.success){
+      localStorage.setItem("login_phone", phone); 
+      alert(" OTP sent to your email!");
+      window.location.href = "verify.html";
+    } else {
+      alert(data.message);
+    }
+  } catch(err) {
+    console.error("Login error:", err);
+    alert(" Something went wrong. Please try again.");
+  }
+}
+
+  </script>
+</body>
+</html>

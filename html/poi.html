@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RescueNEAR - Poison Emergency</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --brand: #d32f2f;
+      --ink: #222;
+      --muted: #666;
+      --bg: #fff;
+      --card: #fafafa;
+      --safe: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+      --hospital: #2196f3;
+    }
+
+    * {
+      margin: 0;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------- HEADER ---------- */
+   header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      /* height: 80px; */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+
+        @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+
+    header .right #closeBtn {
+  font-size: 20px;
+  margin-left: 12px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+header .right #closeBtn:hover {
+  transform: rotate(180deg) scale(1.2);
+  color: #d32f2f;
+}
+
+
+    /* ---------- CONTENT ---------- */
+    .wrap {
+      padding: 18px 14px 80px;
+      flex: 1;
+    }
+
+    .wrap h2 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #2c3e50;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .status-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .status-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .status-safe {
+      background-color: rgba(76, 175, 80, 0.15);
+      color: var(--safe);
+    }
+
+    .status-warning {
+      background-color: rgba(255, 152, 0, 0.15);
+      color: var(--warning);
+    }
+
+    .status-danger {
+      background-color: rgba(244, 67, 54, 0.15);
+      color: var(--danger);
+    }
+
+    .status-hospital {
+      background-color: rgba(33, 150, 243, 0.15);
+      color: var(--hospital);
+    }
+
+    .status-info h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .status-info p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .cta {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .cta button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 1rem;
+      box-shadow: 0 6px 14px rgba(211, 47, 47, 0.3);
+      cursor: pointer;
+      animation: pulseBtn 2s infinite;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .cta button:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+    }
+
+    .cta button:active {
+      transform: scale(.96);
+    }
+
+    .cta button i {
+      font-size: 1.1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-weight: 600;
+      margin: 18px 0 14px;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      animation: fadeIn 1s ease;
+    }
+
+    /* ---------- MAP ---------- */
+    .map-card {
+      background: linear-gradient(180deg, #f9f9f9, #ececec);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+      animation: fadeInUp 0.8s ease;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      width: 100%;
+      height: 380px;
+    }
+
+    @media (min-width:700px) {
+      #map {
+        height: 460px;
+      }
+    }
+
+    .eta-badge {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      z-index: 500;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
+      animation: fadeIn 1.2s ease;
+    }
+
+    /* ---------- GRID ---------- */
+    .subcall {
+      text-align: center;
+      font-weight: 500;
+      margin: 16px 0 14px;
+      color: #2c3e50;
+      animation: fadeInUp 1s ease;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 12px;
+    }
+
+    .chip {
+      background: var(--card);
+      padding: 12px 6px 10px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+    }
+
+    .chip i {
+      font-size: 1.3rem;
+      color: var(--brand);
+    }
+
+    .chip span {
+      font-size: .85rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulseBtn {
+      0% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 15px rgba(211, 47, 47, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+      }
+    }
+
+    /* ---------- NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      flex: 1;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav .nav-item:hover {
+      transform: translateY(-2px);
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: var(--brand);
+    }
+
+    /* Hospital list styles */
+    .hospital-list {
+      margin-top: 20px;
+    }
+
+    .hospital-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .hospital-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(33, 150, 243, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--hospital);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .hospital-info {
+      flex: 1;
+    }
+
+    .hospital-info h4 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .hospital-info p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hospital-distance {
+      font-weight: 600;
+      color: var(--hospital);
+      font-size: 14px;
+    }
+
+    .hospital-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .call-btn {
+      background: rgba(76, 175, 80, 0.15);
+      color: var(--safe);
+    }
+
+    .whatsapp-btn {
+      background: rgba(33, 150, 243, 0.15);
+      color: var(--hospital);
+    }
+
+    .email-btn {
+      background: rgba(244, 67, 54, 0.15);
+      color: var(--danger);
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    .modal-header .close {
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+    }
+
+    .modal-body p {
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .modal-form input,
+    .modal-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .modal-form textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .modal-btn.cancel {
+      background: #f0f0f0;
+      color: var(--muted);
+    }
+
+    .modal-btn.submit {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-btn {
+      color: red;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .back-btn:hover {
+      color: red;
+    }
+
+    .first-aid-tips {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .first-aid-tips h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: var(--danger);
+    }
+
+    .first-aid-tips ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .first-aid-tips li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    /* Loading indicator */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(33, 150, 243, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--hospital);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+           .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      /* hidden by default */
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+
+ <header>
+  <div class="left">
+    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+    <div>
+      <h1>Poison First Aid</h1>
+      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+  </div>
+</header>
+
+  <div class="wrap">
+    <h2>Poison Emergency Assistance</h2>
+
+    <div class="status-card" id="poisonStatus">
+      <div class="status-icon status-hospital">
+        <i class="fas fa-hospital"></i>
+      </div>
+      <div class="status-info">
+        <h3>Emergency Poison Response</h3>
+        <p>Locating nearby hospitals with toxicology units</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <button id="emergencyHelpBtn"><i class="fa-solid fa-phone"></i> Emergency Hotline</button>
+    </div>
+
+    <div class="first-aid-tips">
+      <h3><i class="fas fa-kit-medical"></i> First Aid for Poisoning</h3>
+      <ul>
+        <li>Call emergency services immediately</li>
+        <li>Do not induce vomiting unless instructed by a professional</li>
+        <li>If chemical exposure, remove contaminated clothing and rinse skin</li>
+        <li>Keep the poison container for identification</li>
+        <li>Monitor breathing and be prepared to perform CPR if needed</li>
+      </ul>
+    </div>
+
+    <div class="section-title">Nearby Hospitals</div>
+
+    <div class="map-card">
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div id="eta" class="eta-badge" aria-live="polite">Scanning for hospitals...</div>
+      </div>
+    </div>
+
+    <div class="hospital-list" id="hospitalList">
+      <!-- Hospital items will be dynamically added here -->
+    </div>
+
+    <!-- <p class="subcall">Emergency options</p>
+
+    <div class="grid" id="quickGrid">
+      <div class="chip" data-type="contact"><i class="fa-solid fa-phone"></i><span>Emergency Call</span></div>
+      <div class="chip" data-type="firstaid"><i class="fa-solid fa-kit-medical"></i><span>First Aid Guide</span></div>
+      <div class="chip" data-type="safety"><i class="fa-solid fa-person-shelter"></i><span>Safety Tips</span></div>
+      <div class="chip" data-type="share"><i class="fa-solid fa-share-nodes"></i><span>Share Location</span></div>
+    </div> -->
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Contact Poison Emergency</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Please provide details about the poisoning incident to help us dispatch the right assistance.</p>
+        <form class="modal-form">
+          <input type="text" placeholder="Your Name" required>
+          <input type="tel" placeholder="Phone Number" required>
+          <textarea placeholder="Describe the poisoning, substance, and symptoms" required></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn cancel">Cancel</button>
+        <button class="modal-btn submit">Call for Help</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- First Aid Modal -->
+  <div class="modal" id="firstAidModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Poison First Aid Guide</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <h4>Swallowed Poison:</h4>
+        <ul>
+          <li>Do not induce vomiting</li>
+          <li>Call poison control immediately</li>
+          <li>Have the container with you when you call</li>
+        </ul>
+        
+        <h4>Inhaled Poison:</h4>
+        <ul>
+          <li>Get to fresh air immediately</li>
+          <li>Open doors and windows if safe to do so</li>
+          <li>Call for emergency help</li>
+        </ul>
+        
+        <h4>Skin Exposure:</h4>
+        <ul>
+          <li>Remove contaminated clothing</li>
+          <li>Rinse skin with running water for 15-20 minutes</li>
+          <li>Call poison control for further instructions</li>
+        </ul>
+        
+        <p><strong>Emergency Numbers:</strong><br>
+        Poison Control: 1-800-222-1222<br>
+        Emergency: 911</p>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn cancel">Close</button>
+      </div>
+    </div>
+  </div>
+
+<nav>
+    <div class="nav-item active">
+            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>SOS</a></div>
+
+
+    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+      <i class="fas fa-bell"></i> Alerts
+    </div>
+
+    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+      <i class="fas fa-user"></i> Profile
+    </div>
+
+  </nav>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+
+  <script>
+
+    const bell = document.querySelector('.right i');
+    const popup = document.getElementById('alertPopup');
+
+    bell.addEventListener('click', () => {
+
+      popup.style.display = 'block';
+
+      bell.classList.add('bell-active');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        bell.classList.remove('bell-active');
+      }, 3000);
+    });
+
+    document.getElementById("closeBtn").addEventListener("click", function () {
+  window.location.href = "map.html";
+});
+
+ document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+     document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+                document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+
+    // User location and map variables
+    let userLocation = null;
+    let userMarker = null;
+    let hospitalMarkers = [];
+    let map;
+    let hospitalData = [];
+    let mapMoved = false;
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      initMap();
+      getUserLocation();
+      setupEventListeners();
+    });
+
+    // Initialize the map
+    function initMap() {
+      // Set a default location (Ikeja, Lagos)
+      map = L.map('map').setView([6.4541, 3.3942], 13);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+      
+      // Add event listener for map movement
+      map.on('moveend', function() {
+        if (userLocation) {
+          mapMoved = true;
+          findNearbyHospitals();
+        }
+      });
+    }
+
+    // Get user's current location
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            userLocation = [position.coords.latitude, position.coords.longitude];
+            
+            // Update the map view
+            map.setView(userLocation, 15);
+            
+            // Add user marker
+            userMarker = L.marker(userLocation)
+              .addTo(map)
+              .bindPopup('Your Location')
+              .openPopup();
+            
+            // Update location text
+            document.getElementById('userLocation').textContent = 'Located';
+            
+            // Check for nearby hospitals
+            findNearbyHospitals();
+          },
+          error => {
+            console.error('Error getting location:', error);
+            document.getElementById('userLocation').textContent = 'Location access denied';
+            // Use default location and try to find hospitals
+            findNearbyHospitals();
+          }
+        );
+      } else {
+        alert('Geolocation is not supported by this browser.');
+        document.getElementById('userLocation').textContent = 'Not supported';
+    
+        findNearbyHospitals();
+      }
+    }
+
+ 
+    function findNearbyHospitals() {
+      
+      hospitalMarkers.forEach(marker => map.removeLayer(marker));
+      hospitalMarkers = [];
+      
+      document.getElementById('eta').innerHTML = '<span class="loading"></span> Searching for hospitals...';
+      
+
+      const bounds = map.getBounds();
+      const southWest = bounds.getSouthWest();
+      const northEast = bounds.getNorthEast();
+      
+    
+      const query = `
+        [out:json][timeout:25];
+        (
+          node["amenity"="hospital"](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
+          way["amenity"="hospital"](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
+          relation["amenity"="hospital"](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
+        );
+        out center;
+      `;
+      
+      // Encode query for URL
+      const encodedQuery = encodeURIComponent(query);
+      
+      // Make request to Overpass API
+      fetch(`https://overpass-api.de/api/interpreter?data=${encodedQuery}`)
+        .then(response => response.json())
+        .then(data => {
+          processHospitalData(data.elements);
+        })
+        .catch(error => {
+          console.error('Error fetching hospital data:', error);
+          document.getElementById('eta').textContent = 'Failed to load hospitals';
+          updateStatus('warning', 'Connection Error', 'Could not load hospital data. Check your connection.');
+        });
+    }
+
+    // Process hospital data from Overpass API
+    function processHospitalData(elements) {
+      hospitalData = [];
+      
+      if (!elements || elements.length === 0) {
+        document.getElementById('eta').textContent = 'No hospitals found in this area';
+        updateStatus('warning', 'No hospitals found', 'No hospitals detected in your current area');
+        document.getElementById('hospitalList').innerHTML = 
+          '<div class="hospital-item"><div class="hospital-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="hospital-info"><h4>No hospitals found</h4><p>Try moving the map or contact emergency services directly</p></div></div>';
+        return;
+      }
+      
+      // Process each hospital element
+      elements.forEach(element => {
+        if (element.tags && element.tags.name) {
+          let position;
+          
+          // Get position based on element type
+          if (element.type === 'node') {
+            position = [element.lat, element.lon];
+          } else if (element.center) {
+            position = [element.center.lat, element.center.lon];
+          } else {
+            return; 
+          }
+          
+          // Calculate distance from user if available
+          let distance = 'Unknown';
+          if (userLocation) {
+            distance = calculateDistance(
+              userLocation[0], userLocation[1],
+              position[0], position[1]
+            ).toFixed(1) + ' km';
+          }
+          
+          // Create hospital object
+          const hospital = {
+            id: element.id,
+            position: position,
+            name: element.tags.name || 'Unknown Hospital',
+            address: element.tags['addr:street'] || 
+                     element.tags['addr:full'] || 
+                     'Address not available',
+            phone: element.tags.phone || 'Not available',
+            website: element.tags.website || '',
+            distance: distance
+          };
+          
+          hospitalData.push(hospital);
+        }
+      });
+      
+      // Sort by distance if user location is available
+      if (userLocation) {
+        hospitalData.sort((a, b) => {
+          const distA = parseFloat(a.distance);
+          const distB = parseFloat(b.distance);
+          return distA - distB;
+        });
+      }
+      
+      // Display hospitals
+      displayHospitals();
+    }
+
+    // Calculate distance between two coordinates in kilometers
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Earth's radius in km
+      const dLat = deg2rad(lat2 - lat1);
+      const dLon = deg2rad(lon2 - lon1);
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const distance = R * c;
+      return distance;
+    }
+
+    function deg2rad(deg) {
+      return deg * (Math.PI/180);
+    }
+
+    // Display hospitals on the map and list
+    function displayHospitals() {
+      // Add hospitals to map
+      hospitalData.forEach(hospital => {
+        const hospitalIcon = L.icon({
+          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        });
+        
+        const marker = L.marker(hospital.position, {icon: hospitalIcon})
+          .addTo(map)
+          .bindPopup(`
+            <b>${hospital.name}</b><br>
+            ${hospital.address}<br>
+            ${hospital.phone !== 'Not available' ? 'Phone: ' + hospital.phone : ''}
+          `);
+        
+        hospitalMarkers.push(marker);
+      });
+      
+      // Update ETA badge
+      document.getElementById('eta').textContent = `${hospitalData.length} hospitals found`;
+      
+      // Update status card
+      updateStatus('hospital', 'Hospitals located', `Found ${hospitalData.length} hospitals nearby`);
+      
+      // Populate hospital list
+      const hospitalList = document.getElementById('hospitalList');
+      hospitalList.innerHTML = '';
+      
+      hospitalData.forEach(hospital => {
+        const hospitalItem = document.createElement('div');
+        hospitalItem.className = 'hospital-item';
+        hospitalItem.innerHTML = `
+          <div class="hospital-icon">
+            <i class="fas fa-hospital"></i>
+          </div>
+          <div class="hospital-info">
+            <h4>${hospital.name}</h4>
+            <p>${hospital.address}</p>
+            <p>${hospital.phone}</p>
+            <div class="hospital-actions">
+              ${hospital.phone !== 'Not available' ? `
+                <button class="action-btn call-btn" data-phone="${hospital.phone}">
+                  <i class="fas fa-phone"></i> Call
+                </button>
+              ` : ''}
+              ${hospital.website ? `
+                <button class="action-btn whatsapp-btn" onclick="window.open('${hospital.website}', '_blank')">
+                  <i class="fas fa-globe"></i> Website
+                </button>
+              ` : ''}
+            </div>
+          </div>
+          <div class="hospital-distance">${hospital.distance}</div>
+        `;
+        hospitalList.appendChild(hospitalItem);
+      });
+
+      // Add event listeners to action buttons
+      document.querySelectorAll('.call-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const phone = btn.getAttribute('data-phone');
+          window.location.href = `tel:${phone}`;
+        });
+      });
+    }
+
+    // Update the status card
+    function updateStatus(status, title, message) {
+      const statusCard = document.getElementById('poisonStatus');
+      const statusIcon = statusCard.querySelector('.status-icon');
+      const statusInfo = statusCard.querySelector('.status-info');
+      
+      // Remove existing status classes
+      statusIcon.classList.remove('status-safe', 'status-warning', 'status-danger', 'status-hospital');
+      
+      // Add new status class
+      statusIcon.classList.add(`status-${status}`);
+      
+      // Update content
+      statusInfo.querySelector('h3').textContent = title;
+      statusInfo.querySelector('p').textContent = message;
+      
+      // Update icon based on status
+      const icon = statusIcon.querySelector('i');
+      icon.className = 
+        status === 'safe' ? 'fas fa-check-circle' :
+        status === 'warning' ? 'fas fa-exclamation-triangle' :
+        status === 'hospital' ? 'fas fa-hospital' :
+        'fas fa-exclamation-circle';
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Emergency help button
+      document.getElementById('emergencyHelpBtn').addEventListener('click', () => {
+        window.location.href = 'tel:911';
+      });
+
+      // Quick action chips
+      document.querySelectorAll('.chip[data-type]').forEach(el => {
+        el.addEventListener('click', () => {
+          const type = el.dataset.type;
+          switch(type) {
+            case 'contact':
+              window.location.href = 'tel:911';
+              break;
+            case 'firstaid':
+              document.getElementById('firstAidModal').style.display = 'flex';
+              break;
+            case 'safety':
+              alert('Displaying Poison Safety Tips...');
+              break;
+            case 'share':
+              alert('Sharing your location with emergency contacts...');
+              break;
+          }
+        });
+      });
+
+      // Modal close buttons
+      document.querySelectorAll('.close').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.display = 'none';
+          });
+        });
+      });
+
+      // Modal cancel buttons
+      document.querySelectorAll('.modal-btn.cancel').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.display = 'none';
+          });
+        });
+      });
+
+      // Contact modal submit button
+      document.querySelector('.modal-btn.submit').addEventListener('click', () => {
+        alert('Emergency services have been notified. Help is on the way!');
+        document.getElementById('contactModal').style.display = 'none';
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal')) {
+          event.target.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RescureNEAR - Burns Emergency</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+
+  <!-- Font Awesome Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --brand: #d32f2f;
+      --ink: #111;
+      --bg: #fff;
+      --card: #fafafa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    body {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+     /* ---------- HEADER ---------- */
+   header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      /* height: 80px; */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+
+        @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+
+    header .right #closeBtn {
+  font-size: 20px;
+  margin-left: 12px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+header .right #closeBtn:hover {
+  transform: rotate(180deg) scale(1.2);
+  color: #d32f2f;
+}
+
+    /* ---------- CONTENT ---------- */
+    .wrap {
+      padding: 20px 16px 80px;
+      flex: 1;
+      animation: fadeInUp .8s ease;
+    }
+
+    .wrap h2 {
+      text-align: center;
+      font-size: 1.7rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp .8s ease;
+    }
+
+    .info-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+      animation: fadeInUp .8s ease;
+      animation-fill-mode: both;
+    }
+
+    .info-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .info-card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .info-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: var(--brand);
+    }
+
+    .info-card p {
+      font-size: 0.95rem;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 1.6;
+    }
+
+    /* Contact Options */
+    .contact-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    @media (min-width: 480px) {
+      .contact-options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #fff;
+      color: #2c3e50;
+      font-weight: 600;
+      border: 2px solid #ddd;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .08);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .12);
+    }
+
+    .contact-btn:active {
+      transform: translateY(0);
+    }
+
+    .contact-btn.call {
+      border-color: #25D366;
+      color: #25D366;
+    }
+
+    .contact-btn.whatsapp {
+      background-color: #25D366;
+      color: #fff;
+    }
+
+    .contact-btn.email {
+      border-color: #EA4335;
+      color: #EA4335;
+    }
+
+    .contact-btn.ambulance {
+      background-color: var(--brand);
+      color: #fff;
+      grid-column: 1 / -1;
+      justify-content: center;
+      animation: pulseBtn 2s infinite;
+    }
+
+    .contact-btn i {
+      font-size: 1.2rem;
+    }
+
+    /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+      animation: fadeInUp .6s ease;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      flex: 1;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    nav .nav-item:hover {
+      transform: translateY(-4px);
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: var(--brand);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .modal-header h3 {
+      color: var(--brand);
+      margin: 0;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #777;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.6);
+      }
+
+      50% {
+        box-shadow: 0 0 0 12px rgba(211, 47, 47, 0);
+      }
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-btn {
+      color: red;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .back-btn:hover {
+      color: red;
+    }
+
+         .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      /* hidden by default */
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+
+  </style>
+</head>
+
+<body>
+
+    <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+   <header>
+  <div class="left">
+    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+    <div>
+      <h1>Burns First Aid</h1>
+      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+  </div>
+</header>
+
+  <div class="wrap">
+    <h2>Burns Emergency Guide</h2>
+
+    <div class="info-card">
+      <h3>Recognizing Burn Severity</h3>
+      <p>
+        <b>First-degree:</b> Red, painful, dry (e.g., sunburn)<br>
+        <b>Second-degree:</b> Blisters, swelling, moist appearance<br>
+        <b>Third-degree:</b> White or charred, may be painless (nerve damage)<br>
+        <b>Seek immediate care for second and third-degree burns</b>
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h3>First Aid Treatment</h3>
+      <p>
+        • Cool the burn with cool (not cold) running water for 10-15 minutes<br>
+        • Cover with a sterile, non-adhesive bandage or clean cloth<br>
+        • Do not apply ice, butter, or ointments<br>
+        • Take over-the-counter pain relievers if needed<br>
+        • Seek medical attention for serious burns
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h3>Emergency Contact Options</h3>
+      <p>Select one of the options below to contact medical professionals for your burn emergency. For severe burns, order an ambulance immediately.</p>
+    </div>
+
+    <div class="contact-options">
+      <button class="contact-btn call" onclick="callDoctor()">
+        <i class="fas fa-phone"></i> Call Doctor
+      </button>
+      
+      <button class="contact-btn whatsapp" onclick="whatsappDoctor()">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </button>
+      
+      <button class="contact-btn email" onclick="emailDoctor()">
+        <i class="fas fa-envelope"></i> Email Doctor
+      </button>
+      
+      <button class="contact-btn ambulance" onclick="orderAmbulance()">
+        <i class="fas fa-ambulance"></i> Order Ambulance
+      </button>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-item active">
+            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>SOS</a></div>
+
+
+    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+      <i class="fas fa-bell"></i> Alerts
+    </div>
+
+    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+      <i class="fas fa-user"></i> Profile
+    </div>
+
+  </nav>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+
+  <!-- Contact Modal -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Contact Doctor</h3>
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+      </div>
+      <p id="modalMessage">We're connecting you to a medical professional. Please hold...</p>
+    </div>
+  </div>
+
+  <script>
+
+    const bell = document.querySelector('.right i');
+    const popup = document.getElementById('alertPopup');
+
+    bell.addEventListener('click', () => {
+
+      popup.style.display = 'block';
+
+      bell.classList.add('bell-active');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        bell.classList.remove('bell-active');
+      }, 3000);
+    });
+
+    document.getElementById("closeBtn").addEventListener("click", function () {
+  window.location.href = "map.html";
+});
+
+ document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+     document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+                document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+
+    function callDoctor() {
+      showModal("Calling Doctor", "Connecting to a medical professional...");
+
+      setTimeout(() => {
+        window.location.href = "tel:+2348119825334";
+      }, 1500);
+    }
+
+    function whatsappDoctor() {
+      showModal("WhatsApp Message", "Opening WhatsApp to message a doctor...");
+      const phoneNumber = "2348119825334";
+      const message = encodeURIComponent("Hello Doctor, I need help with a burn emergency.");
+      setTimeout(() => {
+        window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+        closeModal();
+      }, 1500);
+    }
+
+    function emailDoctor() {
+      showModal("Email Doctor", "Preparing your email to a medical professional...");
+      const email = "Ktaofeek015@gmail.com";
+      const subject = encodeURIComponent("Burn Emergency Consultation");
+      const body = encodeURIComponent("Hello Doctor,\n\nI need help with a burn emergency.\n\nPlease provide guidance.");
+      setTimeout(() => {
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        closeModal();
+      }, 1500);
+    }
+
+    function orderAmbulance() {
+      showModal("Ordering Ambulance", "Dispatching emergency ambulance to your location...");
+      setTimeout(() => {
+        window.location.href = "tel:112";
+      }, 1500);
+    }
+
+    // Modal functions
+    function showModal(title, message) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalMessage').textContent = message;
+      document.getElementById('contactModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('contactModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('contactModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  </script>
+</body>
+
+</html>

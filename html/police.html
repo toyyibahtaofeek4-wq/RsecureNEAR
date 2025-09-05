@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Police Assistance - Rescue Near</title>
+  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS for maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, #efefef, #ddd, #f8f8f8, #e6e6e6);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      z-index: -2;
+    }
+
+    /* Police badge overlay */
+    .police-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(59,130,246,0.15)" stroke-width="2"/><path d="M50 25L60 40H75L65 50L75 60H60L50 75L40 60H25L35 50L25 40H40L50 25Z" fill="rgba(59,130,246,0.1)"/></svg>');
+      background-size: 200px;
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+    }
+
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #d32f2f;
+      padding: 5px;
+    }
+
+        header .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #d32f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header .logo i {
+      color: white;
+      font-size: 24px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+    }
+
+    header .location {
+      font-size: 13px;
+      color: #666;
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #444;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .emergency-btn {
+      width: 230px;
+      height: 230px;
+      background: #d32f2f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .emergency-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .emergency-btn i {
+      font-size: 60px;
+      color: #fff;
+    }
+
+    .emergency-text {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #d32f2f;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 25px rgba(211, 47, 47, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+      }
+    }
+
+    /* Location info */
+    .location-info {
+      background: #e0e7ff;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 15px auto;
+      max-width: 500px;
+      font-size: 14px;
+    }
+
+    .location-info i {
+      color: #d32f2f;
+      margin-right: 8px;
+    }
+
+    /* Map container */
+    .map-container {
+      margin: 25px auto;
+      height: 400px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    #policeMap {
+      height: 100%;
+      width: 100%;
+    }
+
+    .map-controls {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .map-btn {
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #d32f2f;
+    }
+
+    /* Nearby Police Stations */
+    .stations-list {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .stations-list h2 {
+      background: #d32f2f;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .station-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .station-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .station-icon {
+      font-size: 24px;
+      color: #d32f2f;
+      flex-shrink: 0;
+    }
+
+    .station-info {
+      flex-grow: 1;
+    }
+
+    .station-name {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .station-distance {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .station-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .call-btn,
+    .direction-btn {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .call-btn {
+      background: #d32f2f;
+      color: white;
+      border: none;
+    }
+
+    .call-btn:hover {
+      background: #b71c1c;
+    }
+
+    .direction-btn {
+      background: #e0e7ff;
+      color: #d32f2f;
+      border: 1px solid #c7d2fe;
+    }
+
+    .direction-btn:hover {
+      background: #c7d2fe;
+    }
+
+    /* Emergency contacts */
+    .emergency-contacts {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .emergency-contacts h2 {
+      background: #d32f2f;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 15px;
+      font-size: 15px;
+      color: #222;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(30, 64, 175, 0.1);
+      border-radius: 6px;
+    }
+
+    .contact-item i {
+      font-size: 18px;
+      color: #d32f2f;
+    }
+
+    /* Loading spinner */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e0e7ff;
+      border-top: 4px solid #d32f2f;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Toast notifications */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      flex: 1;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: #d32f2f;
+    }
+
+    nav .nav-item.sos {
+      background: #d32f2f;
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .emergency-btn {
+        width: 200px;
+        height: 200px;
+      }
+
+      .emergency-btn i {
+        font-size: 50px;
+      }
+
+      .map-container {
+        height: 300px;
+      }
+
+      .station-actions {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 16px;
+      }
+
+      .emergency-btn {
+        width: 180px;
+        height: 180px;
+      }
+
+      .emergency-btn i {
+        font-size: 45px;
+      }
+
+      .map-container {
+        height: 250px;
+      }
+
+      .station-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .station-actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .call-btn,
+      .direction-btn {
+        flex: 1;
+        text-align: center;
+      }
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-btn {
+      color: red;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .back-btn:hover {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+  <div class="background-animation"></div>
+  <div class="police-image"></div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="left">
+      <div class="logo">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div>
+        <h1>Police Assistance</h1>
+        <p class="location">
+          <a href="home.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+          
+          <i class="fas fa-map-marker-alt"></i> <span id="userLocation">Locating...</span>
+        </p>
+      </div>
+    </div>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <div class="emergency-btn">
+      <i class="fas fa-phone"></i>
+    </div>
+    <p class="emergency-text">CALL POLICE EMERGENCY</p>
+
+    <div class="location-info">
+      <i class="fas fa-info-circle"></i>
+      <span id="locationStatus">Getting your location...</span>
+    </div>
+
+    <!-- Map Container -->
+    <div class="map-container">
+      <div id="policeMap"></div>
+      <div class="map-controls">
+        <button class="map-btn" id="locateMeBtn" title="Locate Me">
+          <i class="fas fa-crosshairs"></i>
+        </button>
+        <button class="map-btn" id="refreshStationsBtn" title="Refresh Police Stations">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Nearby Police Stations -->
+    <div class="stations-list">
+      <h2>Nearby Police Stations</h2>
+      <div id="stationsContainer">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emergency Contacts -->
+    <div class="emergency-contacts">
+      <h2>Emergency Contacts</h2>
+      <div class="contact-item" onclick="callNumber('911')">
+        <i class="fas fa-shield-alt"></i> Police Emergency: 911 or 112
+      </div>
+      <div class="contact-item" onclick="callNumber('08137927629')">
+        <i class="fas fa-info-circle"></i> Police Non-Emergency: 08137927629
+      </div>
+      <div class="contact-item" onclick="callNumber('08079279345')">
+        <i class="fas fa-exclamation-triangle"></i> Rapid Response Squad: 08079279345
+      </div>
+    </div>
+  </main>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-item active"><a href="home.html"><i class="fas fa-home" style="color: #d32f2f;"></a></i>Home</div>
+    <div class="nav-item"><i class="fas fa-map-marker-alt"></i>Map</div>
+    <div class="nav-item "><i class="fas fa-shield-alt"></i>SOS</div>
+    <div class="nav-item"><i class="fas fa-bell"></i>Alerts</div>
+    <div class="nav-item "><i class="fas fa-user"></i>Profile</div>
+  </nav>
+
+  <!-- Leaflet JS for maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Global variables
+    let userLocation = null;
+    let userMarker = null;
+    let policeStations = [];
+    let map = null;
+    let watchId = null;
+    let locationCircle = null;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize the map with a default view
+      map = L.map('policeMap').setView([0, 0], 2);
+
+      // Add tile layer (OpenStreetMap)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Add locate me button functionality
+      document.getElementById('locateMeBtn').addEventListener('click', centerMapOnUser);
+      
+      // Add refresh police stations button functionality
+      document.getElementById('refreshStationsBtn').addEventListener('click', function() {
+        if (userLocation) {
+          findNearbyPoliceStations(userLocation.lat, userLocation.lng, true);
+        } else {
+          showToast('Please wait for location to be determined');
+        }
+      });
+
+      // Try to get user's location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          locationSuccess,
+          locationError,
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+        
+        // Start watching position for live updates
+        watchId = navigator.geolocation.watchPosition(
+          locationUpdate,
+          locationError,
+          { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+        );
+      } else {
+        showError('Geolocation is not supported by this browser.');
+      }
+
+      // Emergency button functionality
+      document.querySelector('.emergency-btn').addEventListener('click', function () {
+        if (confirm('Call police emergency number?')) {
+          window.location.href = 'tel:911';
+        }
+      });
+    });
+
+    // Handle successful location retrieval
+    function locationSuccess(position) {
+      updateUserLocation(position);
+    }
+
+    // Handle location updates
+    function locationUpdate(position) {
+      updateUserLocation(position);
+    }
+
+    // Update user location on the map
+    function updateUserLocation(position) {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+      userLocation = { lat: userLat, lng: userLng };
+
+      // Update UI with location
+      document.getElementById('locationStatus').textContent =
+        `Your location: ${userLat.toFixed(6)}, ${userLng.toFixed(6)}`;
+
+      // Center map on user's location if it's the first time or if explicitly requested
+      if (!userMarker) {
+        map.setView([userLat, userLng], 16);
+      }
+
+      // Add or update user marker
+      if (!userMarker) {
+        userMarker = L.marker([userLat, userLng], {
+          icon: L.icon({
+            iconUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23d32f2f" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>',
+            iconSize: [24, 24],
+            iconAnchor: [12, 24],
+            popupAnchor: [0, -24]
+          })
+        })
+          .addTo(map)
+          .bindPopup('Your Location')
+          .openPopup();
+      } else {
+        userMarker.setLatLng([userLat, userLng]);
+      }
+
+      // Add or update accuracy circle
+      if (locationCircle) {
+        map.removeLayer(locationCircle);
+      }
+      
+      locationCircle = L.circle([userLat, userLng], {
+        color: '#d32f2f',
+        fillColor: '#ffcdd2',
+        fillOpacity: 0.2,
+        radius: position.coords.accuracy / 2
+      }).addTo(map);
+
+      // Get address from coordinates
+      getAddressFromCoords(userLat, userLng);
+
+      // Find nearby police stations if we haven't already
+      if (policeStations.length === 0) {
+        findNearbyPoliceStations(userLat, userLng);
+      }
+    }
+
+    // Center map on user's location
+    function centerMapOnUser() {
+      if (userLocation) {
+        map.setView([userLocation.lat, userLocation.lng], 16);
+        showToast('Map centered on your location');
+      } else {
+        showToast('Location not available yet');
+      }
+    }
+
+    // Handle location errors
+    function locationError(error) {
+      let errorMessage;
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          errorMessage = "Location access denied. Using default location.";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          errorMessage = "Location information unavailable.";
+          break;
+        case error.TIMEOUT:
+          errorMessage = "Location request timed out.";
+          break;
+        default:
+          errorMessage = "An unknown error occurred.";
+          break;
+      }
+
+      showError(errorMessage);
+
+      // Use a default location (Ikeja, Lagos)
+      const defaultLat = 6.5244;
+      const defaultLng = 3.3792;
+      userLocation = { lat: defaultLat, lng: defaultLng };
+
+      map.setView([defaultLat, defaultLng], 13);
+      userMarker = L.marker([defaultLat, defaultLng])
+        .addTo(map)
+        .bindPopup('Default Location (Ikeja, Lagos)')
+        .openPopup();
+
+      document.getElementById('userLocation').textContent = 'Ikeja, Lagos';
+      document.getElementById('locationStatus').textContent =
+        `Using default location: ${defaultLat.toFixed(4)}, ${defaultLng.toFixed(4)}`;
+
+      findNearbyPoliceStations(defaultLat, defaultLng);
+    }
+
+    // Get address from coordinates using Reverse Geocoding
+    function getAddressFromCoords(lat, lng) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.display_name) {
+            const address = data.display_name.split(',').slice(0, 3).join(',');
+            document.getElementById('userLocation').textContent = address;
+          }
+        })
+        .catch(error => {
+          console.error('Error getting address:', error);
+          document.getElementById('userLocation').textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+        });
+    }
+
+    // Find nearby police stations
+    function findNearbyPoliceStations(lat, lng, forceRefresh = false) {
+      if (policeStations.length > 0 && !forceRefresh) {
+        return; // Already loaded stations
+      }
+
+      // Show loading state
+      document.getElementById('stationsContainer').innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      `;
+
+      // First try to get real police stations from Overpass API
+      fetchRealPoliceStations(lat, lng)
+        .then(realStations => {
+          if (realStations && realStations.length > 0) {
+            policeStations = realStations;
+            displayPoliceStations();
+            addPoliceStationMarkers();
+            showToast(`Found ${realStations.length} police stations nearby`);
+          } else {
+            // Fall back to simulated data if no real stations found
+            setTimeout(() => {
+              policeStations = generatePoliceStations(lat, lng);
+              displayPoliceStations();
+              addPoliceStationMarkers();
+              showToast('Showing simulated police station data');
+            }, 1000);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching real police stations:', error);
+          // Fall back to simulated data
+          setTimeout(() => {
+            policeStations = generatePoliceStations(lat, lng);
+            displayPoliceStations();
+            addPoliceStationMarkers();
+            showToast('Using simulated police station data');
+          }, 1000);
+        });
+    }
+
+    // Fetch real police stations from Overpass API
+    function fetchRealPoliceStations(lat, lng) {
+      return new Promise((resolve, reject) => {
+        // Query Overpass API for police stations within 10km radius
+        const radius = 10000; // 10km
+        const overpassQuery = `
+          [out:json];
+          node["amenity"="police"](around:${radius},${lat},${lng});
+          out body;
+        `;
+        
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
+        
+        fetch(overpassUrl)
+          .then(response => response.json())
+          .then(data => {
+            if (data.elements && data.elements.length > 0) {
+              const stations = data.elements.map((element, index) => {
+                const stationLat = element.lat;
+                const stationLng = element.lon;
+                const distance = calculateDistance(lat, lng, stationLat, stationLng);
+                
+                return {
+                  id: element.id || index,
+                  name: element.tags.name || 'Police Station',
+                  lat: stationLat,
+                  lng: stationLng,
+                  distance: distance.toFixed(1),
+                  phone: '+2348119825334' 
+                };
+              });
+              
+              // Sort by distance
+              resolve(stations.sort((a, b) => a.distance - b.distance));
+            } else {
+              resolve([]); 
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    }
+
+    // Generate simulated police stations
+    function generatePoliceStations(lat, lng) {
+      const stations = [];
+      const names = [
+        'Central Police Station',
+        'North Precinct',
+        'South Police Department',
+        'West Police Station',
+        'East Police Command',
+        'Community Police Center'
+      ];
+
+      // Generate 4-6 random police stations
+      const count = 4 + Math.floor(Math.random() * 3);
+
+      for (let i = 0; i < count; i++) {
+        // Generate random coordinates near the user (within ~5km)
+        const stationLat = lat + (Math.random() * 0.05 - 0.025);
+        const stationLng = lng + (Math.random() * 0.05 - 0.025);
+
+        // Calculate distance
+        const distance = calculateDistance(lat, lng, stationLat, stationLng);
+
+        stations.push({
+          id: i + 1,
+          name: names[Math.floor(Math.random() * names.length)],
+          lat: stationLat,
+          lng: stationLng,
+          distance: distance.toFixed(1),
+          phone: '+23481234567' + i
+        });
+      }
+
+      // Sort by distance
+      return stations.sort((a, b) => a.distance - b.distance);
+    }
+
+    // Calculate distance between two points using Haversine formula
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+      const R = 6371; // Earth's radius in km
+      const dLat = deg2rad(lat2 - lat1);
+      const dLng = deg2rad(lng2 - lng1);
+
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c; // Distance in km
+
+      return distance;
+    }
+
+    function deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    }
+
+    // Display police stations in the list
+    function displayPoliceStations() {
+      const stationsContainer = document.getElementById('stationsContainer');
+
+      if (policeStations.length === 0) {
+        stationsContainer.innerHTML = '<div class="station-item">No police stations found nearby.</div>';
+        return;
+      }
+
+      stationsContainer.innerHTML = '';
+
+      policeStations.forEach(station => {
+        const stationElement = document.createElement('div');
+        stationElement.className = 'station-item';
+        stationElement.innerHTML = `
+          <div class="station-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="station-info">
+            <div class="station-name">${station.name}</div>
+            <div class="station-distance">${station.distance} km away</div>
+          </div>
+          <div class="station-actions">
+            <button class="call-btn" data-phone="${station.phone}">Call</button>
+            <button class="direction-btn" data-lat="${station.lat}" data-lng="${station.lng}">Directions</button>
+          </div>
+        `;
+
+        stationsContainer.appendChild(stationElement);
+
+        // Add click event to call buttons
+        stationElement.querySelector('.call-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          callNumber(this.getAttribute('data-phone'));
+        });
+
+        // Add click event to direction buttons
+        stationElement.querySelector('.direction-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          const lat = this.getAttribute('data-lat');
+          const lng = this.getAttribute('data-lng');
+          openDirections(lat, lng);
+        });
+
+        // Clicking the station item focuses the map on that station
+        stationElement.addEventListener('click', function () {
+          map.setView([station.lat, station.lng], 16);
+          userMarker.openPopup();
+        });
+      });
+    }
+
+    // Add police station markers to the map
+    function addPoliceStationMarkers() {
+      // Clear existing markers first (except user marker)
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker && layer !== userMarker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      policeStations.forEach(station => {
+        L.marker([station.lat, station.lng], {
+          icon: L.icon({
+            iconUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%231e40af" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>',
+            iconSize: [24, 24],
+            iconAnchor: [12, 24],
+            popupAnchor: [0, -24]
+          })
+        })
+          .addTo(map)
+          .bindPopup(`
+          <strong>${station.name}</strong><br>
+          Distance: ${station.distance} km<br>
+          <a href="tel:${station.phone}">Call: ${station.phone}</a>
+        `);
+      });
+    }
+
+    // Call a phone number
+    function callNumber(phone) {
+      if (confirm(`Call ${phone}?`)) {
+        window.location.href = 'tel:' + phone;
+      }
+    }
+
+    // Open directions in Google Maps
+    function openDirections(lat, lng) {
+      if (userLocation) {
+        window.open(`https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${lat},${lng}&travelmode=driving`);
+      } else {
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`);
+      }
+    }
+
+    // Show error message
+    function showError(message) {
+      document.getElementById('locationStatus').textContent = message;
+      document.getElementById('locationStatus').style.color = '#e53e3e';
+    }
+
+    // Show toast notification
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, duration);
+    }
+  </script>
+</body>
+
+</html>

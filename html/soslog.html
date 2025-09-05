@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Registration</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background:#e53935;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+    }
+    .logo-top {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin: 30px auto 10px auto;
+      display: block;
+      animation: fadeLogo 1.2s;
+    }
+    @keyframes fadeLogo {
+      from { opacity: 0; transform: scale(0.8);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .form-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #000;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeInLeft 1.2s;
+    }
+    @keyframes fadeInLeft {
+      from { transform: translateX(-40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background:#fff;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.25); 
+      animation: popIn .6s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    form { display:flex; flex-direction:column; gap:18px; width: 100%; }
+    .field input, .field select, .field textarea {
+      width:100%;
+      padding:14px 16px;
+      border:1px solid #dcdcdc;
+      border-radius:12px;
+      font-size:16px;
+      transition: border .25s, box-shadow .25s, transform .1s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color:#e53935;
+      box-shadow:0 0 0 4px rgba(229,57,53,.15);
+      outline:0;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .btn {
+      background:#e53935;
+      color:#fff;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      font-size:18px;
+      border-radius:14px;
+      box-shadow: 0 10px 25px rgba(229,57,53,.35);
+      transition: transform .15s ease, box-shadow .25s ease;
+      animation: bounceIn 1s;
+      width: 90%;
+      align-self: center;
+      padding: 16px 0;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow:0 14px 28px rgba(229,57,53,.45); }
+    .btn:active { transform: translateY(0); box-shadow:0 8px 18px rgba(229,57,53,.25); }
+
+    @keyframes popIn { 
+      from{opacity:0; transform:scale(.9) translateY(20px);} 
+      to{opacity:1; transform:scale(1) translateY(0);} 
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 600px){
+      .logo-top { width: 70px; height: 70px; margin-top: 15px;}
+      .form-title { font-size: 1.4rem; }
+      .card{ padding:20px 15px; }
+      .btn{ font-size:16px; padding:14px; width: 100%; }
+      .field input, .field select, .field textarea { font-size:15px; padding:12px; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <img src="/images/s1.png" alt="Logo" class="logo-top" />
+  <div class="card">
+    <div class="form-title">Patient Registration</div>
+    <form id="patientForm" onsubmit="handleSubmit(event)">
+      <div class="field">
+        <input type="text" id="fullname" placeholder="Full Name" required />
+      </div>
+      <div class="field">
+        <input type="number" id="age" placeholder="Age" required min="0"/>
+      </div>
+      <div class="field">
+        <input type="text" id="location" placeholder="Location" required />
+      </div>
+      <div class="field">
+        <textarea id="condition" placeholder="Condition (e.g. pregnancy, stroke, allergy)" required></textarea>
+      </div>
+      <button class="btn" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    // Simple alert function
+    function showAlert(message, type="success"){
+      const alertBox=document.createElement("div");
+      alertBox.textContent=message;
+      alertBox.style.position="fixed";
+      alertBox.style.top="20px";
+      alertBox.style.right="20px";
+      alertBox.style.padding="14px 18px";
+      alertBox.style.fontFamily="Poppins,sans-serif";
+      alertBox.style.fontSize="14px";
+      alertBox.style.background="#fff";
+      alertBox.style.borderLeft="5px solid "+(type==="error"?"#f44336":"#4CAF50");
+      alertBox.style.borderRadius="8px";
+      alertBox.style.boxShadow="0 4px 12px rgba(0,0,0,0.15)";
+      alertBox.style.zIndex="9999";
+      alertBox.style.opacity="0";
+      alertBox.style.transform="translateX(100%)";
+      alertBox.style.transition="all 0.4s ease";
+      document.body.appendChild(alertBox);
+      requestAnimationFrame(()=>{alertBox.style.opacity="1";alertBox.style.transform="translateX(0)";});
+      setTimeout(()=>{
+        alertBox.style.opacity="0";
+        alertBox.style.transform="translateX(100%)";
+        setTimeout(()=>alertBox.remove(),400);
+      },3000);
+    }
+
+    async function handleSubmit(e) {
+    e.preventDefault();
+
+    const fullname = document.getElementById("fullname").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const locationVal = document.getElementById("location").value.trim();
+    const condition = document.getElementById("condition").value.trim();
+
+    if (!fullname || !age || !locationVal || !condition) {
+      showAlert(" Please fill in all fields", "error");
+      return;
+    }
+
+    // Use explicit origin so it works even if page served from non-root
+    const apiUrl = `${location.origin}/api/patient`;
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullname,
+          age: Number(age),
+          location: locationVal,
+          condition
+        })
+      });
+
+      // If server returned a non-2xx status, capture body for debugging
+      if (!res.ok) {
+        const bodyText = await res.text().catch(() => "");
+        console.error("Server error:", res.status, bodyText);
+        showAlert(`Server error (${res.status}). See console.`, "error");
+        return;
+      }
+
+      // Parse JSON response
+      const data = await res.json();
+      console.log("API response:", data);
+
+      if (data.success) {
+        showAlert(" Registration successful!");
+        document.getElementById("patientForm").reset();
+
+        // redirect to order.html after a short pause
+        setTimeout(() => {
+          window.location.href = "order.html";
+        }, 900);
+      } else {
+        showAlert(data.message || " Something went wrong", "error");
+      }
+    } catch (err) {
+      // This is the "Network error" fallback
+      console.error("Fetch/network error:", err);
+      showAlert(" Network error. Try again. (" + (err.message || "") + ")", "error");
+    }
+  }
+
+  </script>
+</body>
+</html>

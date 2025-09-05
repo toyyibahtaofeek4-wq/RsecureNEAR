@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RescueNEAR - Accident Assistance</title>
+  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --brand: #d32f2f;
+      --ink: #222;
+      --muted: #666;
+      --bg: #fff;
+      --card: #fafafa;
+      --safe: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+    }
+
+    * {
+      margin: 0;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------- HEADER ---------- */
+   header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      /* height: 80px; */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+
+        @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+
+    header .right #closeBtn {
+  font-size: 20px;
+  margin-left: 12px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+header .right #closeBtn:hover {
+  transform: rotate(180deg) scale(1.2);
+  color: #d32f2f;
+}
+    /* ---------- CONTENT ---------- */
+    .wrap {
+      padding: 18px 14px 80px;
+      flex: 1;
+    }
+
+    .wrap h2 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #2c3e50;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .status-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .status-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .status-safe {
+      background-color: rgba(76, 175, 80, 0.15);
+      color: var(--safe);
+    }
+
+    .status-warning {
+      background-color: rgba(255, 152, 0, 0.15);
+      color: var(--warning);
+    }
+
+    .status-danger {
+      background-color: rgba(244, 67, 54, 0.15);
+      color: var(--danger);
+    }
+
+    .status-info h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .status-info p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .cta {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .cta button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 1rem;
+      box-shadow: 0 6px 14px rgba(211, 47, 47, 0.3);
+      cursor: pointer;
+      animation: pulseBtn 2s infinite;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .cta button:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+    }
+
+    .cta button:active {
+      transform: scale(.96);
+    }
+
+    .cta button i {
+      font-size: 1.1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-weight: 600;
+      margin: 18px 0 14px;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      animation: fadeIn 1s ease;
+    }
+
+    /* ---------- MAP ---------- */
+    .map-card {
+      background: linear-gradient(180deg, #f9f9f9, #ececec);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+      animation: fadeInUp 0.8s ease;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      width: 100%;
+      height: 380px;
+    }
+
+    @media (min-width:700px) {
+      #map {
+        height: 460px;
+      }
+    }
+
+    .eta-badge {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      z-index: 500;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
+      animation: fadeIn 1.2s ease;
+    }
+
+    /* ---------- GRID ---------- */
+    .subcall {
+      text-align: center;
+      font-weight: 500;
+      margin: 16px 0 14px;
+      color: #2c3e50;
+      animation: fadeInUp 1s ease;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 12px;
+    }
+
+    .chip {
+      background: var(--card);
+      padding: 12px 6px 10px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+    }
+
+    .chip i {
+      font-size: 1.3rem;
+      color: var(--brand);
+    }
+
+    .chip span {
+      font-size: .85rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulseBtn {
+      0% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 15px rgba(211, 47, 47, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+      }
+    }
+
+    /* ---------- NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      flex: 1;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav .nav-item:hover {
+      transform: translateY(-2px);
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: var(--brand);
+    }
+
+    .accident-list {
+      margin-top: 20px;
+    }
+
+    .accident-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .accident-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(244, 67, 54, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--danger);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .accident-info {
+      flex: 1;
+    }
+
+    .accident-info h4 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .accident-info p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .accident-distance {
+      font-weight: 600;
+      color: var(--danger);
+      font-size: 14px;
+    }
+
+  
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    .modal-header .close {
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+    }
+
+    .modal-body p {
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .modal-form input,
+    .modal-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .modal-form textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .modal-btn.cancel {
+      background: #f0f0f0;
+      color: var(--muted);
+    }
+
+    .modal-btn.submit {
+      background: var(--brand);
+      color: #fff;
+    }
+
+        .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-btn {
+      color: red;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .back-btn:hover {
+      color: red;
+    }
+
+     .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+     .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      /* hidden by default */
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+ <header>
+  <div class="left">
+    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+    <div>
+      <h1>Accident First Aid</h1>
+      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+  </div>
+</header>
+
+  <div class="wrap">
+    <h2>Accident Assistance</h2>
+
+    <div class="status-card" id="accidentStatus">
+      <div class="status-icon status-safe">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="status-info">
+        <h3>Checking nearby accidents</h3>
+        <p>Scanning your area for reported incidents</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <button id="reportAccidentBtn"><i class="fa-solid fa-triangle-exclamation"></i> Report Accident</button>
+    </div>
+
+    <div class="section-title">Nearby Accidents</div>
+
+    <div class="map-card">
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div id="eta" class="eta-badge" aria-live="polite">Scanning area...</div>
+      </div>
+    </div>
+
+    <div class="accident-list" id="accidentList">
+      <!-- Accident items will be genearted here  here -->
+    </div>
+
+    <p class="subcall">Quick emergency options</p>
+
+    <div class="grid" id="quickGrid">
+      <div class="chip" data-type="contact"><i class="fa-solid fa-phone"></i><span>Contact Help</span></div>
+      <div class="chip" data-type="firstaid"><i class="fa-solid fa-kit-medical"></i><span>First Aid Guide</span></div>
+      <div class="chip" data-type="safety"><i class="fa-solid fa-person-shelter"></i><span>Safety Tips</span></div>
+      <div class="chip" data-type="share"><i class="fa-solid fa-share-nodes"></i><span>Share Location</span></div>
+    </div>
+  </div>
+
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Contact Emergency Services</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Please provide details about the accident to help us dispatch the right assistance.</p>
+        <form class="modal-form">
+          <input type="text" placeholder="Your Name" required>
+          <input type="tel" placeholder="Phone Number" required>
+          <textarea placeholder="Describe the accident and location" required></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn cancel">Cancel</button>
+        <button class="modal-btn submit">Whassapp</button>
+      </div>
+    </div>
+  </div>
+
+<nav>
+    <div class="nav-item active">
+            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>SOS</a></div>
+
+
+    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+      <i class="fas fa-bell"></i> Alerts
+    </div>
+
+    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+      <i class="fas fa-user"></i> Profile
+    </div>
+
+  </nav>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+  <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+
+
+  <script>
+
+
+const bell = document.querySelector('.right i');
+    const popup = document.getElementById('alertPopup');
+
+    bell.addEventListener('click', () => {
+
+      popup.style.display = 'block';
+
+      bell.classList.add('bell-active');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        bell.classList.remove('bell-active');
+      }, 3000);
+    });
+
+    document.getElementById("closeBtn").addEventListener("click", function () {
+  window.location.href = "map.html";
+});
+
+
+ document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+     document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+                document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+    let userLocation = null;
+    let userMarker = null;
+    let accidentMarkers = [];
+    let map;
+
+
+    const sampleAccidents = [
+      {
+        id: 1,
+        position: [6.4541, 3.3942],
+        type: "Car Collision",
+        severity: "Moderate",
+        time: "5 mins ago",
+        distance: "0.8 km"
+      },
+      {
+        id: 2,
+        position: [6.4580, 3.4000],
+        type: "Motorcycle Accident",
+        severity: "Minor",
+        time: "12 mins ago",
+        distance: "1.2 km"
+      },
+      {
+        id: 3,
+        position: [6.4500, 3.3900],
+        type: "Vehicle Breakdown",
+        severity: "Low",
+        time: "20 mins ago",
+        distance: "0.5 km"
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initMap();
+      getUserLocation();
+      setupEventListeners();
+    });
+
+
+    function initMap() {
+    
+      map = L.map('map').setView([6.4541, 3.3942], 13);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+    }
+
+
+    function getUserLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            userLocation = [position.coords.latitude, position.coords.longitude];
+            
+           
+            map.setView(userLocation, 15);
+            
+           
+            userMarker = L.marker(userLocation)
+              .addTo(map)
+              .bindPopup('Your Location')
+              .openPopup();
+            
+            
+            document.getElementById('userLocation').textContent = 'Located';
+            
+            
+            checkNearbyAccidents();
+          },
+          error => {
+            console.error('Error getting location:', error);
+            document.getElementById('userLocation').textContent = 'Location access denied';
+            
+            showSampleAccidents();
+          }
+        );
+      } else {
+        alert('Geolocation is not supported by this browser.');
+        document.getElementById('userLocation').textContent = 'Not supported';
+        
+        showSampleAccidents();
+      }
+    }
+
+    
+    function checkNearbyAccidents() {
+      
+      document.getElementById('eta').textContent = 'Scanning for accidents...';
+      
+      setTimeout(() => {
+        if (Math.random() > 0.3) { 
+          showSampleAccidents();
+          updateStatus('warning', 'Accidents detected nearby', 'Be cautious and avoid affected areas');
+        } else {
+          updateStatus('safe', 'No accidents detected', 'No recent accidents reported in your area');
+          document.getElementById('eta').textContent = 'No accidents nearby';
+          document.getElementById('accidentList').innerHTML = 
+            '<div class="accident-item"><div class="accident-icon"><i class="fas fa-check"></i></div><div class="accident-info"><h4>No accidents reported</h4><p>No recent accidents in your vicinity</p></div></div>';
+        }
+      }, 2000);
+    }
+
+    
+    function showSampleAccidents() {
+      
+      accidentMarkers.forEach(marker => map.removeLayer(marker));
+      accidentMarkers = [];
+      
+      
+      sampleAccidents.forEach(accident => {
+        const accidentIcon = L.icon({
+          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        });
+        
+        const marker = L.marker(accident.position, {icon: accidentIcon})
+          .addTo(map)
+          .bindPopup(`<b>${accident.type}</b><br>Severity: ${accident.severity}<br>Reported: ${accident.time}`);
+        
+        accidentMarkers.push(marker);
+      });
+      
+    
+      document.getElementById('eta').textContent = `${sampleAccidents.length} accidents nearby`;
+      
+      
+      updateStatus('danger', 'Accidents detected nearby', 'Exercise caution and follow safety guidelines');
+      
+      
+      const accidentList = document.getElementById('accidentList');
+      accidentList.innerHTML = '';
+      
+      sampleAccidents.forEach(accident => {
+        const accidentItem = document.createElement('div');
+        accidentItem.className = 'accident-item';
+        accidentItem.innerHTML = `
+          <div class="accident-icon">
+            <i class="fas fa-car-crash"></i>
+          </div>
+          <div class="accident-info">
+            <h4>${accident.type}</h4>
+            <p>${accident.severity} • ${accident.time}</p>
+          </div>
+          <div class="accident-distance">${accident.distance}</div>
+        `;
+        accidentList.appendChild(accidentItem);
+      });
+    }
+
+    
+    function updateStatus(status, title, message) {
+      const statusCard = document.getElementById('accidentStatus');
+      const statusIcon = statusCard.querySelector('.status-icon');
+      const statusInfo = statusCard.querySelector('.status-info');
+      
+      
+      statusIcon.classList.remove('status-safe', 'status-warning', 'status-danger');
+      
+      
+      statusIcon.classList.add(`status-${status}`);
+      
+      
+      statusInfo.querySelector('h3').textContent = title;
+      statusInfo.querySelector('p').textContent = message;
+      
+      
+      const icon = statusIcon.querySelector('i');
+      icon.className = 
+        status === 'safe' ? 'fas fa-check-circle' :
+        status === 'warning' ? 'fas fa-exclamation-triangle' :
+        'fas fa-exclamation-circle';
+    }
+
+    
+    function setupEventListeners() {
+     
+      document.getElementById('reportAccidentBtn').addEventListener('click', () => {
+        
+        alert('Redirecting to accident reporting form...');
+        
+        document.getElementById('contactModal').style.display = 'flex';
+      });
+
+      
+      document.querySelectorAll('.chip[data-type]').forEach(el => {
+        el.addEventListener('click', () => {
+          const type = el.dataset.type;
+          switch(type) {
+            case 'contact':
+              document.getElementById('contactModal').style.display = 'flex';
+              break;
+            case 'firstaid':
+              alert('Opening First Aid Guide...');
+              break;
+            case 'safety':
+              alert('Displaying Safety Tips...');
+              break;
+            case 'share':
+              alert('Sharing your location with emergency contacts...');
+              break;
+          }
+        });
+      });
+
+      // Modal close button
+      document.querySelector('.close').addEventListener('click', () => {
+        document.getElementById('contactModal').style.display = 'none';
+      });
+
+      // Modal cancel button
+      document.querySelector('.modal-btn.cancel').addEventListener('click', () => {
+        document.getElementById('contactModal').style.display = 'none';
+      });
+
+    document.querySelector('.modal-btn.submit').addEventListener('click', () => {
+  document.getElementById('contactModal').style.display = 'none';
+
+  const phoneNumber = "2348119825334"
+  const message = " Emergency! I need urgent medical help. Please respond quickly.";
+
+
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  window.location.href = whatsappUrl;
+});
+
+      window.addEventListener('click', (event) => {
+        if (event.target === document.getElementById('contactModal')) {
+          document.getElementById('contactModal').style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

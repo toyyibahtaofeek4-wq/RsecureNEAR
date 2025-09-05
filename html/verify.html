@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify OTP</title>
+  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      min-height:100vh;
+      background:#e53935;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .card {
+      width:100%;
+      max-width:400px;
+      background:#fff;
+      border-radius:20px;
+      padding:40px 30px;
+      box-shadow:0 15px 40px rgba(0,0,0,.25);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    .form-title { font-size:2rem; font-weight:700; margin-bottom:20px; }
+    .otp-input {
+      width:50px;
+      padding:15px;
+      font-size:20px;
+      text-align:center;
+      margin:0 5px;
+      border-radius:10px;
+      border:1px solid #ccc;
+    }
+    .btn {
+      background:#e53935;
+      color:#fff;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      font-size:18px;
+      border-radius:14px;
+      width:100%;
+      padding:16px 0;
+      margin-top:20px;
+      transition: background .3s;
+    }
+    .btn:hover { background:#d32f2f; }
+    #otpMessage {
+      color:#fff;
+      padding:10px;
+      border-radius:8px;
+      margin-bottom:20px;
+      display:none;
+      text-align:center;
+      width:100%;
+    }
+    #otpMessage.success { background:#4caf50; }
+    #otpMessage.error { background:#f44336; }
+  </style>
+</head>
+<body>
+  <div id="otpMessage"></div>
+  <div class="card">
+    <div class="form-title">Enter OTP</div>
+    <div style="display:flex; justify-content:center; gap:10px;">
+      <input type="password" maxlength="1" class="otp-input" />
+      <input type="password" maxlength="1" class="otp-input" />
+      <input type="password" maxlength="1" class="otp-input" />
+      <input type="password" maxlength="1" class="otp-input" />
+    </div>
+    <button class="btn" onclick="verifyOTP()">Verify</button>
+  </div>
+
+  <script>
+   const inputs = document.querySelectorAll(".otp-input");
+const otpMessage = document.getElementById("otpMessage");
+
+// Auto-focus first input
+inputs[0].focus();
+
+// Auto-focus next input and submit on Enter
+inputs.forEach((input, index) => {
+  input.addEventListener("input", () => {
+    if(input.value.length === 1 && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") verifyOTP();
+  });
+});
+
+async function verifyOTP() {
+  const userOTP = Array.from(inputs).map(i => i.value).join("");
+  const phone = localStorage.getItem("login_phone");
+
+  if(!phone) {
+    showMessage("No phone number found. Please login again.", "error");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone, otp: userOTP })
+    });
+    const data = await res.json();
+
+    if(data.success){
+      showMessage("✅ OTP Verified! Redirecting...", "success");
+      localStorage.removeItem("login_phone");
+      setTimeout(() => { window.location.href = "index.html"; }, 1500);
+    } else {
+      showMessage("❌ " + data.message, "error");
+      inputs.forEach(i => i.value = "");
+      inputs[0].focus();
+    }
+  } catch(err) {
+    console.error(err);
+    showMessage("⚠️ Something went wrong. Try again.", "error");
+  }
+}
+
+function showMessage(msg, type){
+  otpMessage.innerText = msg;
+  otpMessage.className = type;
+  otpMessage.style.display = "block";
+  setTimeout(() => { otpMessage.style.display = "none"; }, 5000);
+}
+
+  </script>
+</body>
+</html>

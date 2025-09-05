@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RescureNEAR - Map </title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+
+  <!-- Leaflet (map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --brand: #ff3b30;
+      /* iOS red */
+      --ink: #111;
+      --muted: #666;
+      --bg: #fff;
+      --card: #fafafa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .wrap {
+      width: 100%;
+      /* max-width:900px; */
+      margin: 0 auto;
+      padding: 16px 14px 80px
+    }
+
+    .wrap h2 {
+
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 8px 0 10px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: .2px;
+    }
+
+    .cta {
+      display: flex;
+      justify-content: center;
+      margin: 8px 0 6px;
+    }
+
+    .cta button {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background-color: #d32f2f;
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: 0 10px 18px rgba(255, 59, 48, .25);
+      cursor: pointer;
+      transform: translateZ(0);
+      transition: transform .08s ease;
+    }
+
+    .cta button:active {
+      transform: scale(.98)
+    }
+
+    .cta button i {
+      font-size: 1.1rem
+    }
+
+    .section-title {
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      /* font-weight:700; */
+      margin: 12px 0 18px;
+    }
+
+    /* Map card */
+    .map-card {
+      background: linear-gradient(180deg, #f2f2f2, #eaeaea);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+    }
+
+    #map {
+      width: 100%;
+      height: 380px;
+    }
+
+    @media (min-width:700px) {
+      #map {
+        height: 460px;
+      }
+    }
+
+    /* ETA badge over map */
+    .eta-badge {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      z-index: 500;
+      background: #fff;
+      border-radius: 14px;
+      padding: 8px 14px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .15);
+    }
+
+    .map-wrap {
+      position: relative
+    }
+
+    /* Pulsing dot for user */
+    .pulse {
+      width: 18px;
+      height: 18px;
+      background: #2dd36f;
+      /* green */
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 0 0 rgba(45, 211, 111, .6);
+      animation: pulse 2s infinite;
+      border: 2px solid #fff;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(45, 211, 111, .6)
+      }
+
+      70% {
+        box-shadow: 0 0 0 15px rgba(45, 211, 111, 0)
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(45, 211, 111, 0)
+      }
+    }
+
+    /* Animated route dash */
+    .route-dash {
+      stroke-dasharray: 8 12;
+      animation: dash 1.2s linear infinite;
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -200;
+      }
+    }
+
+    /* Below map text */
+    .subcall {
+      text-align: center;
+      font-weight: 400;
+      margin: 12px 0 16px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Emergency icons */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width:520px) {
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .chip {
+      background: var(--card);
+      border: 1px solid #eee;
+      padding: 12px 6px 10px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform .08s ease, box-shadow .2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .04);
+    }
+
+    .chip:active {
+      transform: scale(.98)
+    }
+
+    .chip i {
+      font-size: 1.3rem
+    }
+
+    .chip a {
+      text-decoration: none;
+    }
+
+    .chip span {
+      font-size: .80rem;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Bottom sheet for “More” */
+    .sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: -70%;
+      background: #fff;
+      border-radius: 22px 22px 0 0;
+      box-shadow: 0 -12px 30px rgba(0, 0, 0, .18);
+      padding: 16px 14px 26px;
+      transition: bottom .28s ease;
+      z-index: 9999;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .sheet.open {
+      bottom: 0
+    }
+
+    .sheet .grab {
+      width: 54px;
+      height: 5px;
+      background: #ddd;
+      border-radius: 99px;
+      margin: 6px auto 12px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .sheet h3 {
+      text-align: center;
+      margin: 4px 0 10px
+    }
+
+    .sheet .grid {
+      grid-template-columns: repeat(4, 1fr)
+    }
+
+    /* Small helper text */
+    .muted {
+      /* color: var(--muted); */
+      font-size: .9rem;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 10000;
+    }
+
+    .toast.show {
+      opacity: 1
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      /* height: 80px; */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d32f2f;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: #d32f2f;
+    }
+
+    /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: #d32f2f;
+    }
+
+    nav .nav-item.sos {
+      background: #d32f2f;
+      color: #fff;
+      border-radius: 50%;
+      /* width: 10px; */
+      /* padding: 10px; */
+      width: 20px;
+      /* height: 10px; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* margin-top: -30px; */
+      font-size: 14px;
+      /* font-weight: 600; */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      /* hidden by default */
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+
+    /* Pulse animation for the Call button */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.6);
+      }
+
+      70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 15px rgba(211, 47, 47, 0);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+      }
+    }
+
+    #callBtn {
+      animation: pulse 1.8s infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style=" border-radius: 50%;" />
+      <div>
+        <h1>Rescue Near</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
+    </div>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+    </div>
+  </header>
+  <div class="wrap">
+    <h2>Call Ambulance Now</h2>
+
+    <div class="cta">
+      <button id="callBtn"><i class="fa-solid fa-phone"></i> Call Ambulance Now</button>
+    </div>
+
+    <div class="section-title">Nearest Paramedic Assigned</div>
+
+    <div class="map-card">
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div id="eta" class="eta-badge" aria-live="polite">Finding nearest…</div>
+      </div>
+    </div>
+
+    <p class="subcall">Send details of emergency</p>
+
+    <div class="grid" id="quickGrid">
+      <div class="chip" data-type="stroke" id="strokeLink">
+        <i class="fa-solid fa-brain"></i>
+        <a href="stroke.html"><span>Stroke</span></a>
+      </div>
+      <div class="chip" data-type="accident" id="accidentLink">
+        <i class="fa-solid fa-car-burst"></i>
+        <a href="accident.html"><span>Accident</span></a>
+      </div>
+
+      <div class="chip" data-type="pregnancy" id="pregnancyLink">
+        <i class="fa-solid fa-person-pregnant"></i>
+        <a href="preg.html"><span>Pregnancy</span></a>
+      </div>
+
+
+     <div class="chip" data-type="sickness" id="sicknessLink">
+  <i class="fa-solid fa-user-nurse"></i>
+  <a href="sick.html"><span>Sickness</span></a>
+</div>
+
+      <div class="chip" id="moreBtn"><i class="fa-solid fa-ellipsis"></i><span>Others</span></div>
+    </div>
+  </div>
+
+  <!-- Bottom sheet: more icons -->
+  <div class="sheet" id="sheet">
+    <div class="grab"></div>
+    <h3>More emergencies</h3>
+    <div class="grid">
+
+      <div class="chip" data-type="burns" id="burnsLink">
+  <i class="fa-solid fa-fire"></i>
+  <a href="burns.html"><span>Burns</span></a>
+      </div>
+
+     <div class="chip" data-type="allergy" id="allergyLink">
+  <i class="fa-solid fa-pills"></i>
+  <a href="allergy.html"><span>Allergy</span></a>
+</div>
+      <div class="chip" data-type="heart" id="heartLink">
+  <i class="fa-solid fa-heart-pulse"></i>
+  <a href="heart.html"><span>Heart</span></a>
+</div>
+      <div class="chip" data-type="diabetic" id="diabeticLink">
+  <i class="fa-solid fa-syringe"></i>
+  <a href="diabetic.html"><span>Diabetic</span></a>
+</div>
+
+     <div class="chip" data-type="poison" id="poisonLink">
+  <i class="fa-solid fa-skull-crossbones"></i>
+  <a href="poi.html"><span>Poison</span></a>
+</div>
+
+      <div class="chip" data-type="violence" id="violenceLink">
+  <i class="fa-solid fa-person-harassing"></i>
+  <a href="violence.html"><span>Violence</span></a>
+</div>
+
+      <div class="chip" data-type="fall" id="fallLink">
+  <i class="fa-solid fa-person-falling-burst"></i>
+  <a href="fall.html"><span>Fall</span></a>
+</div>
+
+      <div class="chip" data-type="other" id="otherLink">
+  <i class="fa-solid fa-circle-question"></i>
+  <a href="contact.html"><span>Other</span></a>
+</div>
+    </div>
+    <p class="muted" style="text-align:center;margin-top:10px">Tap an option to prefill details.</p>
+  </div>
+
+  <div id="toast" class="toast">Details sent</div>
+
+
+  <nav>
+    <div class="nav-item active">
+      <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="map.html" id="mapLink" style="color: #d32f2f; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+    <div class="nav-item" id="sosBtn" style="cursor: pointer;">
+      <i class="fas fa-circle-exclamation"></i> SOS
+    </div>
+
+
+    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+      <i class="fas fa-bell"></i> Alerts
+    </div>
+
+    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+      <i class="fas fa-user"></i> Profile
+    </div>
+
+  </nav>
+
+  <div id="fallLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+<div id="otherLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+  <div id="diabeticLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+<div id="poisonLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+  <div id="heartLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="brainloaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+
+  <div id="accidentLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <div id="pregnancyLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sicknessLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+<div id="violenceLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+<div id="burnsLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+<div id="allergyLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+  <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+  <script>
+
+
+    document.getElementById("callBtn").addEventListener("click", function () {
+      window.location.href = "tel:112";
+    });
+
+    const bell = document.querySelector('.right i');
+    const popup = document.getElementById('alertPopup');
+
+    bell.addEventListener('click', () => {
+
+      popup.style.display = 'block';
+
+      bell.classList.add('bell-active');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        bell.classList.remove('bell-active');
+      }, 3000);
+    });
+
+    document.getElementById("strokeLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("brainloaderOverlay").style.display = "flex";
+
+      setTimeout(function () {
+        window.location.href = "stoke.html";
+      }, 3000);
+    });
+
+
+
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
+
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
+
+
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
+
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
+
+    document.getElementById("accidentLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("accidentLoaderOverlay").style.display = "flex";
+
+      setTimeout(function () {
+        window.location.href = "accident.html";
+      }, 3000);
+    });
+
+    document.getElementById("pregnancyLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("pregnancyLoaderOverlay").style.display = "flex";
+
+      setTimeout(function () {
+        window.location.href = "preg.html";
+      }, 3000);
+    });
+
+    document.getElementById("sicknessLink").addEventListener("click", function (e) {
+  e.preventDefault();
+  document.getElementById("sicknessLoaderOverlay").style.display = "flex";
+
+  setTimeout(function () {
+    window.location.href = "sick.html";
+  }, 3000);
+});
+
+
+document.getElementById("burnsLink").addEventListener("click", function (e) {
+  e.preventDefault();
+  document.getElementById("burnsLoaderOverlay").style.display = "flex";
+
+  setTimeout(function () {
+    window.location.href = "burns.html";
+  }, 3000);
+});
+
+document.getElementById("allergyLink").addEventListener("click", function (e) {
+  e.preventDefault();
+  document.getElementById("allergyLoaderOverlay").style.display = "flex";
+
+  setTimeout(function () {
+    window.location.href = "allergy.html";
+  }, 3000);
+});
+
+ 
+  function setupChipLoader(chipId, overlayId, targetUrl) {
+    const chip = document.getElementById(chipId);
+    const overlay = document.getElementById(overlayId);
+
+    if (chip && overlay) {
+      chip.addEventListener("click", function (e) {
+        e.preventDefault();
+        overlay.style.display = "flex"; 
+
+        setTimeout(function () {
+          window.location.href = targetUrl; 
+        }, 3000);
+      });
+    }
+  }
+
+  // Call function for each chip
+  setupChipLoader("heartLink", "heartLoaderOverlay", "heart.html");
+  setupChipLoader("diabeticLink", "diabeticLoaderOverlay", "diabetic.html");
+  setupChipLoader("poisonLink", "poisonLoaderOverlay", "poi.html");
+  setupChipLoader("violenceLink", "violenceLoaderOverlay", "violence.html");
+  setupChipLoader("fallLink", "fallLoaderOverlay", "fall.html");
+  setupChipLoader("otherLink", "otherLoaderOverlay", "contact.html");
+
+    // ---------- UI actions ----------
+    const callBtn = document.getElementById('callBtn');
+    callBtn.addEventListener('click', () => {
+
+      window.location.href = 'tel://112';
+    });
+
+    const sheet = document.getElementById('sheet');
+    document.getElementById('moreBtn').addEventListener('click', () => sheet.classList.add('open'));
+    sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.classList.remove('open') });
+
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1800);
+    }
+
+
+    // ---------- Map + live data ----------
+    let map, userMarker, routeLayer, ambulancesLayer;
+    let userLatLng = null;
+
+    // Simple SVG ambulance icon as Leaflet icon
+    const ambulanceIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+          <g>
+            <circle cx="22" cy="22" r="21" fill="white" stroke="#ff3b30" stroke-width="2"/>
+            <rect x="9" y="16" width="26" height="12" rx="3" ry="3" fill="#ff3b30"/>
+            <rect x="11" y="18" width="8" height="8" rx="1.5" fill="white"/>
+            <rect x="27" y="18" width="6" height="5" rx="1" fill="white"/>
+            <circle cx="16" cy="29" r="3" fill="#333"/>
+            <circle cx="29" cy="29" r="3" fill="#333"/>
+            <rect x="15.7" y="7" width="4" height="8" fill="#ff3b30"/>
+            <rect x="13" y="10" width="10" height="4" fill="#ff3b30"/>
+          </g>
+        </svg>
+      `),
+      iconSize: [44, 44],
+      iconAnchor: [22, 30],
+      popupAnchor: [0, -26]
+    });
+
+    const youIcon = L.divIcon({
+      className: '', iconSize: [18, 18],
+      html: '<div class="pulse" title="You"></div>'
+    });
+
+    initMap();
+
+    function initMap() {
+      map = L.map('map', { zoomControl: false });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(map);
+
+      L.control.zoom({ position: 'topright' }).addTo(map);
+
+      ambulancesLayer = L.layerGroup().addTo(map);
+
+      // watch position for live tracking
+      if ("geolocation" in navigator) {
+        navigator.geolocation.watchPosition(
+          pos => {
+            userLatLng = [pos.coords.latitude, pos.coords.longitude];
+            if (!userMarker) {
+              userMarker = L.marker(userLatLng, { icon: youIcon }).addTo(map);
+              map.setView(userLatLng, 15);
+            } else {
+              userMarker.setLatLng(userLatLng);
+            }
+            // refresh ambulances + route each time we get a fresh position
+            refreshAmbulances();
+          },
+          err => {
+            console.warn(err);
+            fallbackLocation();
+          },
+          { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+        );
+      } else {
+        fallbackLocation();
+      }
+
+
+      setInterval(refreshAmbulances, 12000);
+    }
+
+    function fallbackLocation() {
+
+      const fallback = [6.4541, 3.3942];
+      userLatLng = userLatLng || fallback;
+      if (!map) return;
+      if (!userMarker) {
+        userMarker = L.marker(userLatLng, { icon: youIcon }).addTo(map);
+        map.setView(userLatLng, 13);
+      }
+      document.getElementById('eta').textContent = 'Location permission needed';
+    }
+
+    async function refreshAmbulances() {
+      if (!userLatLng) return;
+
+      try {
+
+        const geo = simulateAmbulances(userLatLng, 5);
+
+        ambulancesLayer.clearLayers();
+        const markers = [];
+        geo.features.forEach(f => {
+          const [lng, lat] = f.geometry.coordinates;
+          const m = L.marker([lat, lng], { icon: ambulanceIcon })
+            .bindPopup(`<b>Ambulance ${f.properties.id}</b><br>${f.properties.name || 'On duty'}`);
+          m.addTo(ambulancesLayer);
+          markers.push({ id: f.properties.id, lat, lng });
+        });
+
+
+        const nearest = await getNearestByETA(markers, userLatLng);
+        if (nearest) {
+
+          await drawRoute([nearest.lat, nearest.lng], userLatLng);
+          const minutes = Math.max(1, Math.round(nearest.etaSec / 60));
+          document.getElementById('eta').textContent = `${minutes} min`;
+        } else {
+          clearRoute();
+          document.getElementById('eta').textContent = 'No units nearby';
+        }
+      } catch (e) {
+        console.error(e);
+        document.getElementById('eta').textContent = 'Network error';
+      }
+    }
+
+    function clearRoute() {
+      if (routeLayer) { routeLayer.remove(); routeLayer = null; }
+    }
+
+    async function drawRoute(fromLatLng, toLatLng) {
+      clearRoute();
+
+      const url = `https://router.project-osrm.org/route/v1/driving/${fromLatLng[1]},${fromLatLng[0]};${toLatLng[1]},${toLatLng[0]}?overview=full&geometries=geojson`;
+      const r = await fetch(url);
+      const j = await r.json();
+      if (!j.routes || !j.routes[0]) return;
+
+      const line = L.geoJSON(j.routes[0].geometry, {
+        style: {
+          color: '#ff3b30',
+          weight: 5,
+          opacity: 0.9,
+          className: 'route-dash'
+        }
+      });
+      routeLayer = line.addTo(map);
+
+
+      const b = line.getBounds();
+      b.extend(userMarker.getLatLng());
+      map.fitBounds(b, { padding: [20, 20] });
+    }
+
+    async function getNearestByETA(markers, toLatLng) {
+      if (!markers.length) return null;
+
+      const results = await Promise.all(markers.map(async m => {
+        const url = `https://router.project-osrm.org/route/v1/driving/${m.lng},${m.lat};${toLatLng[1]},${toLatLng[0]}?overview=false`;
+        try {
+          const r = await fetch(url);
+          const j = await r.json();
+          const sec = j.routes && j.routes[0] ? j.routes[0].duration : Infinity;
+          return { ...m, etaSec: sec };
+        } catch { return { ...m, etaSec: Infinity }; }
+      }));
+
+      results.sort((a, b) => a.etaSec - b.etaSec);
+      return Number.isFinite(results[0].etaSec) ? results[0] : null;
+    }
+
+
+    function simulateAmbulances([lat, lng], n = 5) {
+      const feats = [];
+      for (let i = 0; i < n; i++) {
+        const dx = (Math.random() - .5) * 0.02;
+        const dy = (Math.random() - .5) * 0.02;
+        feats.push({
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: [lng + dx, lat + dy] },
+          properties: { id: 100 + i, name: 'Available' }
+        });
+      }
+      return { type: 'FeatureCollection', features: feats };
+    }
+  </script>
+
+
+</body>
+
+</html>

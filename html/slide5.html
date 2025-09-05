@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESCURE - NEAR </title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .image-container {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #e53935;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: pulseBorder 2s infinite;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: zoomIn 2s ease-in-out;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #2c3e50;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 1.5;
+      animation: fadeInUp 2s ease;
+    }
+
+    .btn-container {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 10px 35px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      animation: bounceIn 1s ease forwards, pulseBtn 2.5s infinite 1.2s;
+    }
+
+    .btn-trier {
+      background: #e53935;
+      color: #fff;
+    }
+
+    .btn-trier:hover {
+      background: #c62828;
+      transform: scale(1.1) rotate(-2deg);
+      box-shadow: 0 10px 25px rgba(229, 57, 53, 0.4);
+    }
+
+    .btn-pay {
+      background: #000;
+      color: #fff;
+    }
+
+    .btn-pay:hover {
+      background: #333;
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+
+
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    /* Animations */
+    @keyframes pulseBorder {
+      0% {
+        box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 20px rgba(229, 57, 53, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(229, 57, 53, 0);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+
+      70% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes pulseBtn {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .image-container {
+        width: 220px;
+        height: 220px;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      .btn-container {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="loader-overlay" id="loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+
+  <div class="image-container">
+    <img src="/images/s1.png" alt="Emergency Rescue">
+  </div>
+
+  <p>“Try FREE for <br> seven days.”</p>
+
+  <div class="btn-container">
+    <button class="btn btn-trier" onclick="showLoader()">Trier</button>
+
+    <button class="btn btn-pay" onclick="window.top.location.href='payment.html'">Pay Now</button>
+  </div>
+
+  <script>
+    function showLoader() {
+      const loader = document.getElementById('loader');
+      loader.style.display = 'flex';
+      setTimeout(() => {
+        window.top.location.href = 'home.html';
+      }, 3000);
+    }
+  </script>
+
+</body>
+
+</html>

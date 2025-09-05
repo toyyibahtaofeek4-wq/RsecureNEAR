@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Profile - RescureNEAR</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --brand: #e53935;
+      --brand-light: #ffcdd2;
+      --ink: #111;
+      --bg: #fff;
+      --card: #fafafa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      animation: slideDown .6s ease;
+    }
+    
+    header .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header img.logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    header .locate {
+      font-size: 13px;
+      color: #2c3e50;
+    }
+
+    header .right i {
+      font-size: 20px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    header .right i:hover {
+      transform: scale(1.2);
+      color: var(--brand);
+    }
+
+    header .right #closeBtn {
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: var(--brand);
+    }
+
+    /* ---------- CONTENT ---------- */
+    .wrap {
+      padding: 20px 16px 80px;
+      flex: 1;
+      animation: fadeInUp .8s ease;
+    }
+
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 25px;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .welcome-section h2 {
+      color: var(--brand);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .welcome-section p {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .info-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+      animation: fadeInUp .8s ease;
+    }
+
+    .info-card h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card h3 i {
+      font-size: 1.1rem;
+    }
+
+    .patient-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .info-value {
+      color: #333;
+      text-align: right;
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .action-btn {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .action-btn.primary {
+      background: var(--brand);
+      color: white;
+    }
+
+    .action-btn.secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .health-tips {
+      margin-top: 10px;
+    }
+
+    .tip-item {
+      padding: 10px;
+      margin: 8px 0;
+      background: var(--brand-light);
+      border-left: 4px solid var(--brand);
+      border-radius: 4px;
+    }
+
+    /* ---------- BOTTOM NAV ---------- */
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #2c3e50;
+      flex: 1;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    nav .nav-item:hover {
+      transform: translateY(-4px);
+    }
+
+    nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .nav-item.active {
+      color: var(--brand);
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    /* Loader */
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px dashed var(--brand);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Alert Popup */
+    .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--brand);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      z-index: 10000;
+      animation: fadeInOut 3s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; transform: translateY(-20px); }
+      20%, 80% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .action-buttons {
+        grid-template-columns: 1fr;
+      }
+      
+      .welcome-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" />
+      <div>
+        <h1>Patient Profile</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <i class="fas fa-bell" id="bellBtn"></i>
+      <i class="fas fa-times" id="closeBtn"></i>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="welcome-section">
+      <h2>Welcome, <span id="patientName">Patient</span>!</h2>
+      <p>We're here to help you manage your health effectively.</p>
+    </div>
+
+    <div class="info-card">
+      <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+      <div class="patient-info">
+        <div class="info-item">
+          <span class="info-label">Full Name:</span>
+          <span class="info-value" id="infoFullname">Not provided</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Age:</span>
+          <span class="info-value" id="infoAge">Not provided</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Location:</span>
+          <span class="info-value" id="infoLocation">Not provided</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Condition:</span>
+          <span class="info-value" id="infoCondition">Not provided</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3><i class="fas fa-first-aid"></i> Health Actions</h3>
+      <div class="action-buttons">
+        <button class="action-btn primary" onclick="messageDoctor()">
+          <i class="fab fa-whatsapp"></i> Message Doctor
+        </button>
+        <button class="action-btn secondary" onclick="showHealthTips()">
+          <i class="fas fa-lightbulb"></i> Health Tips
+        </button>
+        <button class="action-btn secondary" onclick="setMedicationReminder()">
+          <i class="fas fa-bell"></i> Set Reminder
+        </button>
+        <button class="action-btn primary" onclick="emergencySOS()">
+          <i class="fas fa-plus-circle"></i> Emergency SOS
+        </button>
+      </div>
+    </div>
+
+    <div class="info-card" id="healthTipsSection" style="display: none;">
+      <h3><i class="fas fa-heart"></i> Health Tips</h3>
+      <div class="health-tips">
+        <div class="tip-item">
+          <p>Stay hydrated by drinking at least 8 glasses of water daily.</p>
+        </div>
+        <div class="tip-item">
+          <p>Take regular breaks if you sit for long periods.</p>
+        </div>
+        <div class="tip-item">
+          <p>Remember to take your medication as prescribed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-item active">
+            <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    <div class="nav-item active"> <a href="map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+     <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-map-marker-alt"></i>SOS</a></div>
+
+
+ <div class="nav-item">
+  <a href="alert.html" id="alertsBtn" style="color: #2c3e50; text-decoration: none;">
+    <i class="fas fa-bell"></i> Alerts
+  </a>
+</div>
+
+   <div class="nav-item">
+  <a href="profile.html" id="profileBtn" style="color: #d32f2f; text-decoration: none;">
+    <i class="fas fa-user"></i> Profile
+  </a>
+</div>
+
+  </nav>
+
+  <div id="profileLoaderOverlay" class="loader-overlay">
+  <div class="loader-spinner"></div>
+</div>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+   <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+
+  <div id="alertPopup" class="alert-popup">
+    Alert set successfully
+  </div>
+
+  <script>
+
+ document.getElementById("closeBtn").addEventListener("click", function () {
+  window.location.href = "map.html";
+});
+
+ document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+     document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+                document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+
+    document.getElementById("profileBtn").addEventListener("click", function() {
+  const overlay = document.getElementById("profileLoaderOverlay");
+  overlay.style.display = "flex"; // show overlay
+
+  setTimeout(() => {
+    window.location.href = "profile.html"; // redirect after delay
+  }, 1500);
+});
+
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const res = await fetch('/api/patient/latest');
+    const data = await res.json();
+
+    if (data.success && data.patient) {
+      const p = data.patient;
+      document.getElementById('infoFullname').textContent = p.fullname;
+      document.getElementById('infoAge').textContent = p.age;
+      document.getElementById('infoLocation').textContent = p.location;
+      document.getElementById('infoCondition').textContent = p.condition;
+    } else {
+      console.warn("No patient data found");
+    }
+  } catch (err) {
+    console.error("Error fetching patient:", err);
+  }
+});
+    document.getElementById('bellBtn').addEventListener('click', function() {
+      const popup = document.getElementById('alertPopup');
+      popup.textContent = "You have no new notifications";
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    });
+
+    // Close button functionality
+    document.getElementById('closeBtn').addEventListener('click', function() {
+      window.location.href = "home.html";
+    });
+
+    // Navigation handlers
+    document.querySelectorAll('nav .nav-item:not(.active)').forEach(item => {
+      item.addEventListener('click', function() {
+        document.getElementById('loaderOverlay').style.display = 'flex';
+        const target = this.querySelector('a')?.getAttribute('href') || 
+                      (this.id === 'alertsBtn' ? 'alert.html' : 'home.html');
+        setTimeout(() => {
+          window.location.href = target;
+        }, 1000);
+      });
+    });
+
+    // Health tips toggle
+    function showHealthTips() {
+      const tipsSection = document.getElementById('healthTipsSection');
+      tipsSection.style.display = tipsSection.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Message doctor function
+    function messageDoctor() {
+      const phoneNumber = "2348119825334"; 
+      const message = encodeURIComponent("Hello Doctor, I need medical assistance.");
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    }
+
+    // Set medication reminder
+    function setMedicationReminder() {
+      const popup = document.getElementById('alertPopup');
+      popup.textContent = "Medication reminder set for 8:00 AM daily";
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    }
+
+    // Emergency SOS
+    function emergencySOS() {
+      document.getElementById('loaderOverlay').style.display = 'flex';
+      setTimeout(() => {
+        window.location.href = "soslog.html";
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rescue Near</title>
+    <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #222;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #efefef, #ffffff, #f8f8f8, #e6e6e6);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+        }
+
+        /* Hospital image overlay */
+        .hospital-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50 10L15 40V90H85V40L50 10Z" fill="none" stroke="rgba(200,200,200,0.15)" stroke-width="2"/><path d="M40 45H35V50H40V55H45V50H50V45H45V40H40V45Z" fill="rgba(200,200,200,0.2)"/><path d="M60 45H55V50H60V55H65V50H70V45H65V40H60V45Z" fill="rgba(200,200,200,0.2)"/><path d="M40 65H35V70H40V75H45V70H50V65H45V60H40V65Z" fill="rgba(200,200,200,0.2)"/><path d="M60 65H55V70H60V75H65V70H70V65H65V60H60V65Z" fill="rgba(200,200,200,0.2)"/></svg>');
+            background-size: 200px;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ---------- HEADER ---------- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown .6s ease;
+        }
+
+        @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+        header .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header img.logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #d32f2f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header .location {
+            font-size: 13px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header .right i {
+            font-size: 20px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        header .right i:hover {
+            transform: scale(1.2);
+            color: #d32f2f;
+        }
+
+        /* ---------- MAIN ---------- */
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sos-btn {
+            width: 230px;
+            height: 230px;
+            background: #d32f2f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .sos-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .sos-btn i {
+            font-size: 60px;
+            color: #fff;
+        }
+
+        .sos-text {
+            margin-top: 15px;
+            font-weight: 700;
+            font-size: 20px;
+            color: #d32f2f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 25px rgba(211, 47, 47, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+            }
+        }
+
+        /* ---------- FAMILY PROFILE ---------- */
+        .family-profile {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .family-profile h2 {
+            background: #d32f2f;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .family-profile .item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            font-size: 15px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .family-profile .item:hover {
+            background: rgba(211, 47, 47, 0.1);
+            border-radius: 6px;
+        }
+
+        .family-profile i {
+            font-size: 18px;
+            color: #d32f2f;
+        }
+
+        /* ---------- BOTTOM NAV ---------- */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        nav .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        nav .nav-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        nav .nav-item.active {
+            color: #d32f2f;
+        }
+
+        nav .nav-item.sos {
+            background: #d32f2f;
+            color: #fff;
+            border-radius: 50%;
+            /* width: 10px; */
+            /* padding: 10px; */
+            width: 20px;
+            /* height: 10px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-top: -30px; */
+            font-size: 14px;
+            /* font-weight: 600; */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+            /* hidden by default */
+        }
+
+        .loader-spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px dashed #e53935;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .alert-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #d32f2f;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            display: none;
+            /* hidden by default */
+            z-index: 10000;
+            animation: fadeInOut 3s ease forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            10% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            90% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+        }
+
+        .bell-active {
+            color: #d32f2f;
+            transition: color 0.3s ease;
+        }
+
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background-animation"></div>
+    <div class="hospital-image"></div>
+    <!-- HEADER -->
+    <header>
+        <div class="left">
+            <img src="/images/s1.png" alt="Logo" class="logo" style=" border-radius: 50%;" />
+            <div>
+                <h1>Rescue Near</h1>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Ikeja, Lagos</p>
+            </div>
+        </div>
+        <div class="right">
+            <i class="fas fa-bell"></i>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <div class="sos-btn">
+            <a href="tel:911" style="color: inherit; text-decoration: none;">
+                <i class="fas fa-phone"></i>
+            </a>
+        </div>
+        <p class="sos-text">
+            <a href="tel:112" style="text-decoration:none; color:inherit;">CALL AMBULANCE NOW (112)</a>
+        </p>
+
+        <div class="family-profile">
+            <h2 id="typingText"></h2>
+
+
+            <div class="item">
+                <i class="fas fa-shield-alt"></i>
+                <a href="police.html" id="policeLink" style="text-decoration: none; color: #2c3e50;">
+                    Call Police
+                </a>
+            </div>
+
+            <div class="item">
+                <i class="fas fa-fire"></i>
+                <a href="fire.html" id="fireLink" style="text-decoration: none; color: #2c3e50;">
+                    Fire Service
+                </a>
+            </div>
+
+            <div class="item">
+                <i class="fas fa-hospital"></i>
+                <a href="hospital.html" id="hospitalLink" style="text-decoration: none; color: #2c3e50;">
+                    Nearest Hospital
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-item active">
+            <a href="home.html" id="homeLink" style="color: #d32f2f; text-decoration: none;">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+
+
+        <div class="nav-item">
+            <a href="map.html" id="mapLink" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-map-marker-alt"></i> Map
+            </a>
+        </div>
+
+
+        <div class="nav-item" id="sosBtn" style="cursor: pointer;">
+            <i class="fas fa-circle-exclamation"></i> SOS
+        </div>
+
+
+        <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+            <i class="fas fa-bell"></i> Alerts
+        </div>
+
+        <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+            <i class="fas fa-user"></i> Profile
+        </div>
+
+    </nav>
+
+
+
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="policeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="fireLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="hospitalLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+
+    <div id="homeLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="sosLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="alertsLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div id="profileLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+
+    <div id="alertPopup" class="alert-popup">
+        Alert set successfully
+    </div>
+
+    <script>
+        document.getElementById('sosBtn').addEventListener('click', function () {
+            // Show overlay loader
+            document.getElementById('loaderOverlay').style.display = 'flex';
+
+            // Delay for 3 seconds then redirect
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('policeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('policeLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "police.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('fireLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('fireLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "fire.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('hospitalLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('hospitalLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "hospital.html";
+            }, 3000);
+        });
+
+        // NEED TO COPY
+        const bell = document.querySelector('.right i');
+        const popup = document.getElementById('alertPopup');
+
+        bell.addEventListener('click', () => {
+
+            popup.style.display = 'block';
+
+            bell.classList.add('bell-active');
+
+            setTimeout(() => {
+                popup.style.display = 'none';
+                bell.classList.remove('bell-active');
+            }, 3000);
+        });
+
+
+        document.getElementById('mapLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "map.html";
+            }, 3000);
+        });
+
+        document.getElementById('homeLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 3000);
+        });
+
+        document.getElementById('sosBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+            setTimeout(function () {
+                window.location.href = "soslog.html";
+            }, 3000);
+        });
+
+        document.getElementById('alertsBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "alert.html";
+            }, 3000);
+        });
+
+
+        document.getElementById('profileBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+
+
+            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 3000);
+        });
+
+
+
+        const text = "Rescue Near is designed to connect people with urgent medical support when every second matters. Through the platform, anyone can quickly request an ambulance, find the nearest hospital, or reach a doctor without delay. The goal is to make emergency care easier, faster, and more reliable";
+        const typingElement = document.getElementById("typingText");
+
+        let i = 0;
+        let typingForward = true;
+
+        function typeWriter() {
+            if (typingForward) {
+                if (i < text.length) {
+                    typingElement.textContent = text.substring(0, i + 1);
+                    i++;
+                    setTimeout(typeWriter, 60);
+                } else {
+                    typingForward = false;
+                    setTimeout(typeWriter, 1500);
+                }
+            } else {
+                if (i > 0) {
+                    typingElement.textContent = text.substring(0, i - 1);
+                    i--;
+                    setTimeout(typeWriter, 40);
+                } else {
+                    typingForward = true;
+                    setTimeout(typeWriter, 500);
+                }
+            }
+        }
+
+        typeWriter();
+
+
+    </script>
+</body>
+
+</html>
