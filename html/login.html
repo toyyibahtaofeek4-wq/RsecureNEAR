@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
-  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <title>RescureNear - Login</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
 
@@ -136,7 +136,7 @@
   </style>
 </head>
 <body>
-  <img src="images/s1.png" alt="Logo" class="logo-top" />
+  <img src="/images/s1.png" alt="Logo" class="logo-top" />
   <div class="card">
     <div class="form-title">Login</div>
     <form id="signupForm" onsubmit="handleLogin(event)">
@@ -170,12 +170,48 @@
   });
 
   
+  // Custom professional alert
+function showAlert(message, type = "success") {
+  const alertBox = document.createElement("div");
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.right = "20px";
+  alertBox.style.padding = "15px 20px";
+  alertBox.style.fontFamily = "Poppins, sans-serif";
+  alertBox.style.fontSize = "14px";
+  alertBox.style.fontWeight = "500";
+  alertBox.style.color = "#333";
+  alertBox.style.background = "#fff";
+  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
+  alertBox.style.borderRadius = "8px";
+  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transform = "translateX(100%)";
+  alertBox.style.transition = "all 0.4s ease";
+
+  document.body.appendChild(alertBox);
+
+  requestAnimationFrame(() => {
+    alertBox.style.opacity = "1";
+    alertBox.style.transform = "translateX(0)";
+  });
+
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+    alertBox.style.transform = "translateX(100%)";
+    setTimeout(() => alertBox.remove(), 400);
+  }, 3000);
+}
+
+
 async function handleLogin(e) {
   e.preventDefault();
 
   const isValid = iti.isValidNumber();
   if (!isValid) {
-    alert("Please enter a valid phone number.");
+    showAlertt("Please enter a valid phone number.");
     phoneInput.focus();
     return;
   }
@@ -192,14 +228,14 @@ async function handleLogin(e) {
 
     if(data.success){
       localStorage.setItem("login_phone", phone); 
-      alert(" OTP sent to your email!");
+      showAlert(" OTP sent to your email!");
       window.location.href = "verify.html";
     } else {
-      alert(data.message);
+      showAlert(data.message);
     }
   } catch(err) {
     console.error("Login error:", err);
-    alert(" Something went wrong. Please try again.");
+    showAlert(" Something went wrong. Please try again.");
   }
 }
 

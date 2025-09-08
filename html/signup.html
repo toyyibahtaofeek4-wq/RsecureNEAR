@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signup</title>
-  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <title>RescureNear - Signup</title>
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
 
@@ -168,7 +168,7 @@
   </style>
 </head>
 <body>
-  <img src="images/s1.png" alt="Logo" class="logo-top" />
+  <img src="/images/s1.png" alt="Logo" class="logo-top" />
   <div class="card">
     <div class="form-title">Signup</div>
     <form id="signupForm" onsubmit="handleSignup(event)">
@@ -176,7 +176,7 @@
         <input type="email" id="email" placeholder="Email address" required />
       </div>
       <div class="field">
-        <input id="phone" type="tel" placeholder="Phone number" />
+        <input id="phone" type="tel" placeholder="Phone number +234" />
       </div>
       <input type="hidden" id="phone_e164" name="phone_e164"/>
       <button class="btn" type="submit">Sign Up</button>
@@ -258,14 +258,14 @@ async function handleSignup(e) {
     const data = await res.json();
 
     if (data.success) {
-      showAlert("✅ Signup successful!");
+      showAlert(" Signup successful!");
       window.location.href = "login.html"; 
     } else {
       showAlert(data.message, "error");
     }
   } catch (err) {
     console.error("Signup error:", err);
-    showAlert("⚠️ Something went wrong. Please try again.", "error");
+    showAlert(" Something went wrong. Please try again.", "error");
   }
 }
 

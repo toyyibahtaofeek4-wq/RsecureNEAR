@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verify OTP</title>
-  <link rel="shortcut icon" href="images/s1.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
@@ -118,27 +118,56 @@ async function verifyOTP() {
     const data = await res.json();
 
     if(data.success){
-      showMessage("✅ OTP Verified! Redirecting...", "success");
+      showMessage(" OTP Verified! Redirecting...", "success");
       localStorage.removeItem("login_phone");
-      setTimeout(() => { window.location.href = "index.html"; }, 1500);
+      setTimeout(() => { window.location.href = "home.html"; }, 1500);
     } else {
-      showMessage("❌ " + data.message, "error");
+      showMessage(" " + data.message, "error");
       inputs.forEach(i => i.value = "");
       inputs[0].focus();
     }
   } catch(err) {
     console.error(err);
-    showMessage("⚠️ Something went wrong. Try again.", "error");
+    showMessage(" Something went wrong. Try again.", "error");
   }
 }
 
-function showMessage(msg, type){
-  otpMessage.innerText = msg;
-  otpMessage.className = type;
-  otpMessage.style.display = "block";
-  setTimeout(() => { otpMessage.style.display = "none"; }, 5000);
-}
 
+// Custom professional alert
+function showMessage(message, type = "success") {
+  const alertBox = document.createElement("div");
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.right = "20px";
+  alertBox.style.padding = "15px 20px";
+  alertBox.style.fontFamily = "Poppins, sans-serif";
+  alertBox.style.fontSize = "14px";
+  alertBox.style.fontWeight = "500";
+  alertBox.style.color = "#333";
+  alertBox.style.background = "#fff";
+  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
+  alertBox.style.borderRadius = "8px";
+  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transform = "translateX(100%)";
+  alertBox.style.transition = "all 0.4s ease";
+
+  document.body.appendChild(alertBox);
+
+  requestAnimationFrame(() => {
+    alertBox.style.opacity = "1";
+    alertBox.style.transform = "translateX(0)";
+  });
+
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+    alertBox.style.transform = "translateX(100%)";
+    setTimeout(() => alertBox.remove(), 400);
+  }, 3000);
+}
   </script>
 </body>
 </html>
+
