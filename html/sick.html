@@ -42,7 +42,7 @@
       position: relative;
       overflow-x: hidden;
     }
-    
+
     /* Animated background */
     .background-animation {
       position: fixed;
@@ -55,16 +55,24 @@
       animation: gradientBG 15s ease infinite;
       z-index: -2;
     }
-    
+
     @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
-    
-   
+
+
     /* ---------- HEADER ---------- */
-   header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -78,7 +86,7 @@
       animation: slideDown .6s ease;
     }
 
-        @keyframes fadeInUp {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -89,7 +97,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -129,17 +137,17 @@
 
 
     header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
 
     /* ---------- CONTENT ---------- */
@@ -447,6 +455,7 @@ header .right #closeBtn:hover {
         opacity: 0;
         transform: translateY(-20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -458,6 +467,7 @@ header .right #closeBtn:hover {
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -468,6 +478,7 @@ header .right #closeBtn:hover {
       from {
         opacity: 0;
       }
+
       to {
         opacity: 1;
       }
@@ -478,6 +489,7 @@ header .right #closeBtn:hover {
         opacity: 0;
         transform: translateX(-40px);
       }
+
       to {
         opacity: 1;
         transform: translateX(0);
@@ -488,9 +500,11 @@ header .right #closeBtn:hover {
       0% {
         box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4);
       }
+
       70% {
         box-shadow: 0 0 0 15px rgba(211, 47, 47, 0);
       }
+
       100% {
         box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
       }
@@ -639,7 +653,7 @@ header .right #closeBtn:hover {
     .back-btn:hover {
       color: red;
     }
-    
+
     .loader-overlay {
       position: fixed;
       top: 0;
@@ -672,20 +686,20 @@ header .right #closeBtn:hover {
       }
     }
 
-    
+
     .symptom-level {
       display: flex;
       justify-content: space-between;
       margin-bottom: 12px;
     }
-    
+
     .symptom-level label {
       font-size: 13px;
       color: var(--muted);
     }
 
-    
-       .alert-popup {
+
+    .alert-popup {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -700,30 +714,29 @@ header .right #closeBtn:hover {
       z-index: 10000;
       animation: fadeInOut 3s ease forwards;
     }
-
   </style>
 </head>
 
 <body>
 
-    <div id="alertPopup" class="alert-popup">
+  <div id="alertPopup" class="alert-popup">
     Alert set successfully
   </div>
   <div class="background-animation"></div>
-     <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Sick Aid</h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <div>
+        <h1>Sick Aid</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
     </div>
-  </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
+  </header>
 
   <div class="wrap">
     <h2>Medical Assistance</h2>
@@ -796,7 +809,7 @@ header .right #closeBtn:hover {
           <input type="text" placeholder="Your Name" required id="patientName">
           <input type="tel" placeholder="Phone Number" required id="patientPhone">
           <input type="number" placeholder="Age" required id="patientAge">
-          
+
           <select id="symptomType" required>
             <option value="">Select Symptom Type</option>
             <option value="fever">Fever</option>
@@ -805,21 +818,21 @@ header .right #closeBtn:hover {
             <option value="digestive">Digestive Issues</option>
             <option value="other">Other</option>
           </select>
-          
+
           <div id="symptomDetails">
             <textarea placeholder="Describe your symptoms in detail" required id="symptomDescription"></textarea>
-            
+
             <label>Symptom Severity (1-10):</label>
             <input type="range" min="1" max="10" value="5" id="symptomSeverity">
             <div class="symptom-level">
               <label>1 (Mild)</label>
               <label>10 (Severe)</label>
             </div>
-            
+
             <label>When did symptoms start?</label>
             <input type="datetime-local" id="symptomStart">
           </div>
-          
+
           <textarea placeholder="Any other relevant medical information" id="additionalInfo"></textarea>
         </form>
       </div>
@@ -832,16 +845,16 @@ header .right #closeBtn:hover {
 
   <nav>
     <div class="nav-item active">
-            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
+      <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"
+        style="color: #2c3e50; text-decoration: none;"><i class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i>SOS</a></div>
 
 
     <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
@@ -858,25 +871,25 @@ header .right #closeBtn:hover {
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
   <script>
 
@@ -896,62 +909,97 @@ header .right #closeBtn:hover {
     });
 
     document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
+      window.location.href = "map.html";
+    });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
 
 
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
+
+    // Custom professional alert
+function showAlert(message, type = "success") {
+  const alertBox = document.createElement("div");
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.right = "20px";
+  alertBox.style.padding = "15px 20px";
+  alertBox.style.fontFamily = "Poppins, sans-serif";
+  alertBox.style.fontSize = "14px";
+  alertBox.style.fontWeight = "500";
+  alertBox.style.color = "#333";
+  alertBox.style.background = "#fff";
+  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
+  alertBox.style.borderRadius = "8px";
+  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transform = "translateX(100%)";
+  alertBox.style.transition = "all 0.4s ease";
+
+  document.body.appendChild(alertBox);
+
+  requestAnimationFrame(() => {
+    alertBox.style.opacity = "1";
+    alertBox.style.transform = "translateX(0)";
+  });
+
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+    alertBox.style.transform = "translateX(100%)";
+    setTimeout(() => alertBox.remove(), 400);
+  }, 3000);
+}
 
     // User location and map variables
     let userLocation = null;
@@ -1009,7 +1057,7 @@ header .right #closeBtn:hover {
     ];
 
     // Initialize the application
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       initMap();
       getUserLocation();
       setupEventListeners();
@@ -1018,7 +1066,7 @@ header .right #closeBtn:hover {
     // Initialize the map
     function initMap() {
       map = L.map('map').setView([6.4541, 3.3942], 13);
-      
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap'
@@ -1031,10 +1079,10 @@ header .right #closeBtn:hover {
         navigator.geolocation.getCurrentPosition(
           position => {
             userLocation = [position.coords.latitude, position.coords.longitude];
-            
+
             // Update the map view
             map.setView(userLocation, 14);
-            
+
             // Add user marker
             userMarker = L.marker(userLocation, {
               icon: L.icon({
@@ -1049,14 +1097,14 @@ header .right #closeBtn:hover {
               .addTo(map)
               .bindPopup('Your Location')
               .openPopup();
-            
+
             // Update location text with actual coordinates
-            document.getElementById('userLocation').textContent = 
+            document.getElementById('userLocation').textContent =
               `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
-            
+
             // Generate hospitals near user location
             generateHospitalsNearUser();
-            
+
             // Show nearby hospitals
             showNearbyHospitals();
           },
@@ -1077,13 +1125,13 @@ header .right #closeBtn:hover {
     function generateHospitalsNearUser() {
       // Clear previous hospitals
       sampleHospitals.length = 0;
-      
+
       // Generate 4 hospitals near the user with random offsets
       for (let i = 0; i < 4; i++) {
         // Add small random offsets to user location (0.01-0.03 degrees approx 1-3km)
         const latOffset = (Math.random() * 0.02 - 0.01);
         const lngOffset = (Math.random() * 0.02 - 0.01);
-        
+
         sampleHospitals.push({
           id: i + 1,
           position: [userLocation[0] + latOffset, userLocation[1] + lngOffset],
@@ -1091,7 +1139,7 @@ header .right #closeBtn:hover {
           specialty: "General Medicine & Emergency",
           distance: `${(Math.random() * 2 + 0.5).toFixed(1)} km`,
           phone: "+23412345678" + i,
-          email: `hospital${i+1}@medical.com`,
+          email: `hospital${i + 1}@medical.com`,
           whatsapp: "+23412345678" + i,
           availability: "24/7"
         });
@@ -1103,7 +1151,7 @@ header .right #closeBtn:hover {
       // Clear existing hospital markers
       hospitalMarkers.forEach(marker => map.removeLayer(marker));
       hospitalMarkers = [];
-      
+
       // Add sample hospitals to map
       sampleHospitals.forEach(hospital => {
         const hospitalIcon = L.icon({
@@ -1114,8 +1162,8 @@ header .right #closeBtn:hover {
           popupAnchor: [1, -34],
           shadowSize: [41, 41]
         });
-        
-        const marker = L.marker(hospital.position, {icon: hospitalIcon})
+
+        const marker = L.marker(hospital.position, { icon: hospitalIcon })
           .addTo(map)
           .bindPopup(`
             <b>${hospital.name}</b><br>
@@ -1125,17 +1173,17 @@ header .right #closeBtn:hover {
               Select This Hospital
             </button>
           `);
-        
+
         hospitalMarkers.push(marker);
       });
-      
+
       // Update ETA badge
       document.getElementById('eta').textContent = `${sampleHospitals.length} hospitals nearby`;
-      
+
       // Populate hospital list
       const hospitalList = document.getElementById('hospitalList');
       hospitalList.innerHTML = '';
-      
+
       sampleHospitals.forEach(hospital => {
         const hospitalItem = document.createElement('div');
         hospitalItem.className = 'hospital-item';
@@ -1161,17 +1209,17 @@ header .right #closeBtn:hover {
       document.querySelectorAll('.hospital-item').forEach(item => {
         item.classList.remove('selected');
       });
-      
+
       // Add selected class to the clicked hospital
       const hospitalItem = document.getElementById(`hospital-${hospitalId}`);
       hospitalItem.classList.add('selected');
-      
+
       // Store the selected hospital
       selectedHospital = sampleHospitals.find(h => h.id === hospitalId);
-      
+
       // Show contact options
       document.getElementById('contactOptions').style.display = 'block';
-      
+
       // Scroll to contact options
       document.getElementById('contactOptions').scrollIntoView({ behavior: 'smooth' });
     }
@@ -1188,7 +1236,7 @@ header .right #closeBtn:hover {
         if (selectedHospital) {
           window.location.href = `tel:${selectedHospital.phone}`;
         } else {
-          alert('Please select a hospital first');
+          showAlert('Please select a hospital first');
         }
       });
 
@@ -1198,7 +1246,7 @@ header .right #closeBtn:hover {
           const message = "Hello, I need medical assistance. Can you help me?";
           window.open(`https://wa.me/${selectedHospital.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
         } else {
-          alert('Please select a hospital first');
+          showAlert('Please select a hospital first');
         }
       });
 
@@ -1208,7 +1256,7 @@ header .right #closeBtn:hover {
           document.getElementById('hospitalName').textContent = selectedHospital.name;
           document.getElementById('medicalFormModal').style.display = 'flex';
         } else {
-          alert('Please select a hospital first');
+          showAlert('Please select a hospital first');
         }
       });
 
@@ -1224,7 +1272,7 @@ header .right #closeBtn:hover {
           const symptomSeverity = document.getElementById('symptomSeverity').value;
           const symptomStart = document.getElementById('symptomStart').value;
           const additionalInfo = document.getElementById('additionalInfo').value;
-          
+
           // Prepare message for WhatsApp/email
           const message = `Medical Assistance Request:
 Name: ${patientName}
@@ -1235,14 +1283,14 @@ Symptom Description: ${symptomDescription}
 Symptom Severity: ${symptomSeverity}/10
 Symptoms Started: ${symptomStart || 'Not specified'}
 Additional Info: ${additionalInfo || 'None'}`;
-          
+
           // For demo purposes, we'll just show an alert
-          alert(`Your medical information has been prepared to send to ${selectedHospital.name}:\n\n${message}`);
-          
+          showAlert(`Your medical information has been prepared to send to ${selectedHospital.name}:\n\n${message}`);
+
           // In a real implementation, you would send this via WhatsApp or email
           document.getElementById('medicalFormModal').style.display = 'none';
         } else {
-          alert('Please fill in all required fields');
+          showAlert('Please fill in all required fields');
         }
       });
 
@@ -1250,18 +1298,18 @@ Additional Info: ${additionalInfo || 'None'}`;
       document.querySelectorAll('.chip').forEach(el => {
         el.addEventListener('click', () => {
           const type = el.dataset.type;
-          switch(type) {
+          switch (type) {
             case 'symptoms':
-              alert('Opening Symptoms Checker...');
+              showAlert('Opening Symptoms Checker...');
               break;
             case 'firstaid':
-              alert('Opening First Aid Tips...');
+              showAlert('Opening First Aid Tips...');
               break;
             case 'medication':
-              alert('Opening Medication Reminder...');
+              showAlert('Opening Medication Reminder...');
               break;
             case 'records':
-              alert('Opening Health Records...');
+              showAlert('Opening Health Records...');
               break;
           }
         });

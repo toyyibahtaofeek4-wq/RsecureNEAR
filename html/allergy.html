@@ -33,7 +33,7 @@
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-         .alert-popup {
+    .alert-popup {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -50,9 +50,9 @@
     }
 
 
-   
+
     /* ---------- HEADER ---------- */
-   header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -66,7 +66,7 @@
       animation: slideDown .6s ease;
     }
 
-        @keyframes fadeInUp {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -77,7 +77,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -117,17 +117,17 @@
 
 
     header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
 
 
@@ -324,7 +324,9 @@ header .right #closeBtn:hover {
     }
 
     @keyframes pulseBtnGreen {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
       }
 
@@ -334,7 +336,9 @@ header .right #closeBtn:hover {
     }
 
     @keyframes pulseBtnRed {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.6);
       }
 
@@ -368,7 +372,7 @@ header .right #closeBtn:hover {
       border-radius: 4px;
     }
 
-     .loader-overlay {
+    .loader-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -399,30 +403,29 @@ header .right #closeBtn:hover {
         transform: rotate(360deg);
       }
     }
-    
   </style>
 </head>
 
 <body>
 
-    <div id="alertPopup" class="alert-popup">
+  <div id="alertPopup" class="alert-popup">
     Alert set successfully
   </div>
 
-   <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Allergic First Aid</h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <div>
+        <h1>Allergic First Aid</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
     </div>
-  </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
+  </header>
 
 
   <div class="wrap">
@@ -453,14 +456,14 @@ header .right #closeBtn:hover {
         <li>If breathing is difficult, allow them to sit up but not stand</li>
         <li>Do not give anything to drink if having trouble breathing</li>
       </ul>
-      
+
       <div class="epipen-guide">
         <h4>How to use an EpiPen:</h4>
         <p>1. Remove safety cap<br>
-           2. Hold against outer thigh<br>
-           3. Push firmly until you hear a click<br>
-           4. Hold in place for 3 seconds<br>
-           5. Massage injection area for 10 seconds
+          2. Hold against outer thigh<br>
+          3. Push firmly until you hear a click<br>
+          4. Hold in place for 3 seconds<br>
+          5. Massage injection area for 10 seconds
         </p>
       </div>
     </div>
@@ -490,16 +493,16 @@ header .right #closeBtn:hover {
 
   <nav>
     <div class="nav-item active">
-            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
+      <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"
+        style="color: #2c3e50; text-decoration: none;"><i class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i>SOS</a></div>
 
 
     <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
@@ -516,25 +519,25 @@ header .right #closeBtn:hover {
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
 
   <script>
@@ -555,72 +558,72 @@ header .right #closeBtn:hover {
     });
 
     document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
+      window.location.href = "map.html";
+    });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
 
 
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
 
     function messageDoctor() {
-      const phoneNumber = "2348119825334"; 
+      const phoneNumber = "2348119825334";
       const message = encodeURIComponent("Hello Doctor, I need help with an allergic emergency.");
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
     }
-    
+
     function callAmbulance() {
       if (confirm("Call emergency services now?")) {
-        window.location.href = "tel:112"; 
+        window.location.href = "tel:112";
       }
     }
   </script>

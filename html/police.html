@@ -18,7 +18,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
@@ -82,7 +82,7 @@
       position: sticky;
       top: 0;
       z-index: 10000;
-       animation: slideDown .6s ease;
+      animation: slideDown .6s ease;
     }
 
     header .left {
@@ -99,21 +99,21 @@
       padding: 5px;
     }
 
-        header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+    header .right #closeBtn {
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
 
-        header .logo {
+    header .logo {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -251,7 +251,7 @@ header .right #closeBtn:hover {
       border-radius: 50%;
       width: 40px;
       height: 40px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -596,7 +596,7 @@ header .right #closeBtn:hover {
       animation: fadeInOut 3s ease forwards;
     }
 
-        @keyframes slideDown {
+    @keyframes slideDown {
       from {
         transform: translateY(-100%);
       }
@@ -605,8 +605,6 @@ header .right #closeBtn:hover {
         transform: translateY(0);
       }
     }
-
-
   </style>
 </head>
 
@@ -623,7 +621,7 @@ header .right #closeBtn:hover {
   <header>
     <div class="left">
       <div class="logo">
-        <img src="/images/s1.png" alt="" style="border-radius: 50%; width: 100%;" >
+        <img src="/images/s1.png" alt="" style="border-radius: 50%; width: 100%;">
       </div>
       <div>
         <h1>Police Assistance</h1>
@@ -632,10 +630,10 @@ header .right #closeBtn:hover {
         </p>
       </div>
     </div>
-      <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
   </header>
 
   <!-- MAIN -->
@@ -691,16 +689,16 @@ header .right #closeBtn:hover {
   <!-- NAVIGATION -->
   <nav>
     <div class="nav-item active">
-            <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+      <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="/map.html" id="mapLink" style="color: #2c3e50; text-decoration: none;"><i
           class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i>SOS</a></div>
 
 
     <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
@@ -717,25 +715,25 @@ header .right #closeBtn:hover {
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
   <div id="alertPopup" class="alert-popup">
     Police alert set successfully
@@ -762,62 +760,62 @@ header .right #closeBtn:hover {
     });
 
     document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "home.html";
-});
+      window.location.href = "home.html";
+    });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
 
 
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
 
     // Global variables
     let userLocation = null;
@@ -838,9 +836,9 @@ header .right #closeBtn:hover {
 
       // Add locate me button functionality
       document.getElementById('locateMeBtn').addEventListener('click', centerMapOnUser);
-      
+
       // Add refresh police stations button functionality
-      document.getElementById('refreshStationsBtn').addEventListener('click', function() {
+      document.getElementById('refreshStationsBtn').addEventListener('click', function () {
         if (userLocation) {
           findNearbyPoliceStations(userLocation.lat, userLocation.lng, true);
         } else {
@@ -855,7 +853,7 @@ header .right #closeBtn:hover {
           locationError,
           { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
-        
+
         // Start watching position for live updates
         watchId = navigator.geolocation.watchPosition(
           locationUpdate,
@@ -920,7 +918,7 @@ header .right #closeBtn:hover {
       if (locationCircle) {
         map.removeLayer(locationCircle);
       }
-      
+
       locationCircle = L.circle([userLat, userLng], {
         color: '#d32f2f',
         fillColor: '#ffcdd2',
@@ -1054,9 +1052,9 @@ header .right #closeBtn:hover {
           node["amenity"="police"](around:${radius},${lat},${lng});
           out body;
         `;
-        
+
         const overpassUrl = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
-        
+
         fetch(overpassUrl)
           .then(response => response.json())
           .then(data => {
@@ -1065,21 +1063,21 @@ header .right #closeBtn:hover {
                 const stationLat = element.lat;
                 const stationLng = element.lon;
                 const distance = calculateDistance(lat, lng, stationLat, stationLng);
-                
+
                 return {
                   id: element.id || index,
                   name: element.tags.name || 'Police Station',
                   lat: stationLat,
                   lng: stationLng,
                   distance: distance.toFixed(1),
-                  phone: '+2348119825334' 
+                  phone: '+2348119825334'
                 };
               });
-              
+
               // Sort by distance
               resolve(stations.sort((a, b) => a.distance - b.distance));
             } else {
-              resolve([]); 
+              resolve([]);
             }
           })
           .catch(error => {
@@ -1117,7 +1115,7 @@ header .right #closeBtn:hover {
           lat: stationLat,
           lng: stationLng,
           distance: distance.toFixed(1),
-          phone: '+23481234567' + i
+          phone: '+2348119825334' + i
         });
       }
 
@@ -1252,7 +1250,7 @@ header .right #closeBtn:hover {
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.classList.add('show');
-      
+
       setTimeout(() => {
         toast.classList.remove('show');
       }, duration);

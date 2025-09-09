@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RescueNEAR - Ambulance Booking</title>
     <link rel="shortcut icon" href="../images/s1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,113 +17,113 @@
             box-sizing: border-box;
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: #f8f9fa;
             color: #333;
         }
 
         /* ---------- HEADER ---------- */
-   header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      /* height: 80px; */
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 2000;
-      animation: slideDown .6s ease;
-    }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            /* height: 80px; */
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            animation: slideDown .6s ease;
+        }
 
         @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    header .left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    header img.logo {
-      width: 40px;
-      height: 40px;
-    }
+        header .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #d32f2f;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        header img.logo {
+            width: 40px;
+            height: 40px;
+        }
 
-    header .locate {
-      font-size: 13px;
-      color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #d32f2f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    header .right i {
-      font-size: 20px;
-      color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+        header .locate {
+            font-size: 13px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    header .right i:hover {
-      transform: scale(1.2);
-      color: #d32f2f;
-    }
+        header .right i {
+            font-size: 20px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        header .right i:hover {
+            transform: scale(1.2);
+            color: #d32f2f;
+        }
 
 
-    header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+        header .right #closeBtn {
+            font-size: 20px;
+            margin-left: 12px;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
-        
+        header .right #closeBtn:hover {
+            transform: rotate(180deg) scale(1.2);
+            color: #d32f2f;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-       
-        
+
+
         /* Ambulance Grid */
         .section-title {
             text-align: center;
             margin: 50px 0 30px;
             font-size: 32px;
             color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .ambulance-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 50px;
         }
-        
+
         .ambulance-card {
             background: white;
             border-radius: 12px;
@@ -128,28 +131,28 @@ header .right #closeBtn:hover {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
-        
+
         .ambulance-card:hover {
             transform: translateY(-10px);
         }
-        
+
         .ambulance-image {
             height: 180px;
             overflow: hidden;
             position: relative;
         }
-        
+
         .ambulance-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
         }
-        
+
         .ambulance-card:hover .ambulance-image img {
             transform: scale(1.1);
         }
-        
+
         .ambulance-type {
             position: absolute;
             top: 15px;
@@ -161,32 +164,32 @@ header .right #closeBtn:hover {
             font-size: 12px;
             font-weight: 600;
         }
-        
+
         .ambulance-details {
             padding: 20px;
             color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .ambulance-name {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 10px;
             color: #d32f2f;
         }
-        
+
         .ambulance-info {
             display: flex;
             align-items: center;
             margin-bottom: 8px;
         }
-        
+
         .ambulance-info i {
             color: #d32f2f;
             margin-right: 10px;
             width: 20px;
         }
-        
+
         .select-btn {
             display: block;
             width: 100%;
@@ -201,11 +204,11 @@ header .right #closeBtn:hover {
             transition: background 0.3s;
             margin-top: 15px;
         }
-        
+
         .select-btn:hover {
             background: #f44336;
         }
-        
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -220,7 +223,7 @@ header .right #closeBtn:hover {
             justify-content: center;
             padding: 20px;
         }
-        
+
         .modal-content {
             background: white;
             border-radius: 12px;
@@ -232,7 +235,7 @@ header .right #closeBtn:hover {
             max-height: 90vh;
             overflow-y: auto;
         }
-        
+
         .close-modal {
             position: absolute;
             top: 20px;
@@ -242,17 +245,17 @@ header .right #closeBtn:hover {
             color: #888;
             transition: color 0.3s;
         }
-        
+
         .close-modal:hover {
             color: #333;
         }
-        
+
         .modal-header {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
         }
-        
+
         .driver-avatar {
             width: 80px;
             height: 80px;
@@ -260,44 +263,44 @@ header .right #closeBtn:hover {
             overflow: hidden;
             margin-right: 20px;
         }
-        
+
         .driver-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         .driver-info h3 {
             font-size: 24px;
             margin-bottom: 5px;
         }
-        
+
         .driver-info p {
             color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .modal-details {
             margin: 20px 0;
         }
-        
+
         .detail-item {
             display: flex;
             margin-bottom: 12px;
         }
-        
+
         .detail-item i {
             color: #d32f2f;
             margin-right: 15px;
             width: 20px;
         }
-        
+
         .contact-options {
             display: flex;
             justify-content: space-between;
             margin-top: 25px;
         }
-        
+
         .contact-btn {
             display: flex;
             align-items: center;
@@ -309,27 +312,27 @@ header .right #closeBtn:hover {
             transition: all 0.3s;
             width: 48%;
         }
-        
+
         .call-btn {
             background: #25D366;
             color: white;
             border: none;
         }
-        
+
         .call-btn:hover {
             background: #1da851;
         }
-        
+
         .message-btn {
             background: #128C7E;
             color: white;
             border: none;
         }
-        
+
         .message-btn:hover {
             background: #0e6e62;
         }
-        
+
         /* Footer */
         footer {
             background: #d32f2f;
@@ -337,75 +340,75 @@ header .right #closeBtn:hover {
             padding: 40px 0;
             text-align: center;
         }
-        
+
         .footer-content {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        
+
         .footer-logo {
             font-size: 28px;
             margin-bottom: 20px;
         }
-        
+
         .footer-links {
             display: flex;
             list-style: none;
             margin-bottom: 20px;
         }
-        
+
         .footer-links li {
             margin: 0 15px;
         }
-        
+
         .footer-links a {
             color: white;
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .footer-links a:hover {
             color: #ffcb05;
         }
-        
+
         .copyright {
             margin-top: 20px;
             color: rgba(255, 255, 255, 0.7);
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
             }
-            
+
             nav ul {
                 margin-top: 15px;
             }
-            
+
             nav ul li {
                 margin: 0 10px;
             }
-            
+
             .hero h2 {
                 font-size: 32px;
             }
-            
+
             .contact-options {
                 flex-direction: column;
             }
-            
+
             .contact-btn {
                 width: 100%;
                 margin-bottom: 10px;
             }
-            
+
             .ambulance-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
-        
+
         /* Loading Animation */
         .loading {
             display: flex;
@@ -413,7 +416,7 @@ header .right #closeBtn:hover {
             align-items: center;
             height: 100px;
         }
-        
+
         .loading-dot {
             width: 12px;
             height: 12px;
@@ -422,123 +425,134 @@ header .right #closeBtn:hover {
             border-radius: 50%;
             animation: loading 1.4s infinite ease-in-out both;
         }
-        
-        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes loading {
-            0%, 80%, 100% { transform: scale(0); }
-          
-            40% { transform: scale(1); }
+
+        .loading-dot:nth-child(1) {
+            animation-delay: -0.32s;
         }
 
-         /* ---------- BOTTOM NAV ---------- */
-    nav {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px 0;
-      background: #fff;
-      border-top: 1px solid #ddd;
-      position: sticky;
-      bottom: 0;
-      z-index: 1000;
-      animation: fadeInUp .6s ease;
-    }
+        .loading-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
 
-    nav .nav-item {
-      text-align: center;
-      font-size: 12px;
-      color: #2c3e50;
-      flex: 1;
-      cursor: pointer;
-      transition: transform .2s;
-    }
+        @keyframes loading {
 
-    nav .nav-item:hover {
-      transform: translateY(-4px);
-    }
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
 
-    nav .nav-item i {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 3px;
-    }
+            40% {
+                transform: scale(1);
+            }
+        }
 
-    nav .nav-item.active {
-      color: var(--brand);
-    }
+        /* ---------- BOTTOM NAV ---------- */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+            animation: fadeInUp .6s ease;
+        }
 
-     .loader-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      display: none;
-    }
+        nav .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #2c3e50;
+            flex: 1;
+            cursor: pointer;
+            transition: transform .2s;
+        }
 
-    .loader-spinner {
-      width: 80px;
-      height: 80px;
-      border: 8px dashed #e53935;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+        nav .nav-item:hover {
+            transform: translateY(-4px);
+        }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
+        nav .nav-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
 
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+        nav .nav-item.active {
+            color: var(--brand);
+        }
 
-           .alert-popup {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #d32f2f;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      font-size: 14px;
-      display: none;
-      /* hidden by default */
-      z-index: 10000;
-      animation: fadeInOut 3s ease forwards;
-    }
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+        }
 
+        .loader-spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px dashed #e53935;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .alert-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #d32f2f;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            display: none;
+            /* hidden by default */
+            z-index: 10000;
+            animation: fadeInOut 3s ease forwards;
+        }
     </style>
 </head>
+
 <body>
 
-       <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Available Drivers</h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
-    </div>
-  </div>
+    <header>
+        <div class="left">
+            <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+            <div>
+                <h1>Available Drivers</h1>
+                <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+            </div>
+        </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
-   <div id="alertPopup" class="alert-popup">
-    Alert set successfully
-  </div>
+        <div class="right">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+        </div>
+    </header>
+    <div id="alertPopup" class="alert-popup">
+        Alert set successfully
+    </div>
 
     <!-- Ambulance Listing -->
     <section id="ambulances">
@@ -603,36 +617,36 @@ header .right #closeBtn:hover {
 
 
     <nav>
-    <div class="nav-item active">
+        <div class="nav-item active">
             <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
                 <i class="fas fa-home"></i> Home
             </a>
         </div>
-    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
+        <div class="nav-item active"> <a href="/html/map.html" id="mapLink"
+                style="color: #2c3e50; text-decoration: none;"><i class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item active" > <a href="/html/soslog.html" id="sosBtn" style="color: #d32f2f; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+        <div class="nav-item active"> <a href="/html/soslog.html" id="sosBtn"
+                style="color: #d32f2f; text-decoration: none;"><i class="fas fa-circle-exclamation"></i>SOS</a></div>
 
 
- <div class="nav-item">
-  <a href="alerts.html" id="alertsBtn" style="color: #2c3e50; text-decoration: none;">
-    <i class="fas fa-bell"></i> Alerts
-  </a>
-</div>
+        <div class="nav-item">
+            <a href="alerts.html" id="alertsBtn" style="color: #2c3e50; text-decoration: none;">
+                <i class="fas fa-bell"></i> Alerts
+            </a>
+        </div>
 
-    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
-      <i class="fas fa-user"></i> Profile
+        <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+            <i class="fas fa-user"></i> Profile
+        </div>
+
+    </nav>
+
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
     </div>
 
-  </nav>
-
-  <div id="loaderOverlay" class="loader-overlay">
-    <div class="loader-spinner"></div>
-  </div>
-
-   <div id="sosLoaderOverlay" class="loader-overlay">
+    <div id="sosLoaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
     </div>
 
@@ -655,25 +669,25 @@ header .right #closeBtn:hover {
     <script>
 
         const bell = document.querySelector('.right i');
-    const popup = document.getElementById('alertPopup');
+        const popup = document.getElementById('alertPopup');
 
-    bell.addEventListener('click', () => {
+        bell.addEventListener('click', () => {
 
-      popup.style.display = 'block';
+            popup.style.display = 'block';
 
-      bell.classList.add('bell-active');
+            bell.classList.add('bell-active');
 
-      setTimeout(() => {
-        popup.style.display = 'none';
-        bell.classList.remove('bell-active');
-      }, 3000);
-    });
+            setTimeout(() => {
+                popup.style.display = 'none';
+                bell.classList.remove('bell-active');
+            }, 3000);
+        });
 
-    document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "home.html";
-});
+        document.getElementById("closeBtn").addEventListener("click", function () {
+            window.location.href = "home.html";
+        });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
+        document.getElementById('homeLink').addEventListener('click', function (event) {
             event.preventDefault();
 
             document.getElementById('homeLoaderOverlay').style.display = 'flex';
@@ -683,7 +697,7 @@ header .right #closeBtn:hover {
             }, 3000);
         });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
+        document.getElementById('sosBtn').addEventListener('click', function (event) {
             event.preventDefault();
 
 
@@ -717,7 +731,7 @@ header .right #closeBtn:hover {
             }, 3000);
         });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
+        document.getElementById('mapLink').addEventListener('click', function (event) {
             event.preventDefault();
 
             document.getElementById('mapLoaderOverlay').style.display = 'flex';
@@ -726,7 +740,7 @@ header .right #closeBtn:hover {
                 window.location.href = "map.html";
             }, 3000);
         });
-        
+
         // Ambulance data
         const ambulances = [
             {
@@ -999,11 +1013,11 @@ header .right #closeBtn:hover {
         // Generate ambulance cards
         function generateAmbulanceCards(filter = 'all') {
             ambulanceGrid.innerHTML = '';
-            
-            const filteredAmbulances = filter === 'all' 
-                ? ambulances 
+
+            const filteredAmbulances = filter === 'all'
+                ? ambulances
                 : ambulances.filter(ambulance => ambulance.type === filter);
-            
+
             filteredAmbulances.forEach(ambulance => {
                 const card = document.createElement('div');
                 card.className = 'ambulance-card';
@@ -1050,17 +1064,17 @@ header .right #closeBtn:hover {
                 document.getElementById('modalEta').textContent = `Estimated arrival: ${ambulance.eta}`;
                 document.getElementById('modalRating').textContent = ambulance.rating;
                 document.getElementById('modalPhone').textContent = ambulance.phone;
-                
+
                 // Set up call button
-                document.getElementById('modalCallBtn').onclick = function() {
+                document.getElementById('modalCallBtn').onclick = function () {
                     alert(`Calling ${ambulance.driver} at ${ambulance.phone}`);
                 };
-                
+
                 // Set up message button
-                document.getElementById('modalMessageBtn').onclick = function() {
+                document.getElementById('modalMessageBtn').onclick = function () {
                     alert(`Opening WhatsApp to message ${ambulance.driver}`);
                 };
-                
+
                 modal.style.display = 'flex';
             }
         }
@@ -1071,7 +1085,7 @@ header .right #closeBtn:hover {
         }
 
         // Close modal when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target === modal) {
                 closeModal();
             }
@@ -1079,22 +1093,23 @@ header .right #closeBtn:hover {
 
         // Set up filter buttons
         filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 // Remove active class from all buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                
+
                 // Add active class to clicked button
                 this.classList.add('active');
-                
+
                 // Filter ambulances
                 generateAmbulanceCards(this.dataset.filter);
             });
         });
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             generateAmbulanceCards();
         });
     </script>
 </body>
+
 </html>

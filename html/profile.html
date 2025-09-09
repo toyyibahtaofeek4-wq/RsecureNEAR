@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Patient Profile - RescureNEAR</title>
   <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  
+
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -48,7 +49,7 @@
       z-index: 2000;
       animation: slideDown .6s ease;
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -205,7 +206,7 @@
 
     .action-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .health-tips {
@@ -262,6 +263,7 @@
         transform: translateY(20px);
         opacity: 0;
       }
+
       100% {
         transform: translateY(0);
         opacity: 1;
@@ -272,6 +274,7 @@
       from {
         transform: translateY(-100%);
       }
+
       to {
         transform: translateY(0);
       }
@@ -301,8 +304,13 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     /* Alert Popup */
@@ -322,15 +330,25 @@
     }
 
     @keyframes fadeInOut {
-      0%, 100% { opacity: 0; transform: translateY(-20px); }
-      20%, 80% { opacity: 1; transform: translateY(0); }
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      20%,
+      80% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 600px) {
       .action-buttons {
         grid-template-columns: 1fr;
       }
-      
+
       .welcome-section h2 {
         font-size: 1.5rem;
       }
@@ -418,59 +436,59 @@
 
   <nav>
     <div class="nav-item active">
-            <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+      <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="map.html" id="mapLink" style="color: #2c3e50; text-decoration: none;"><i
           class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i>SOS</a></div>
 
 
- <div class="nav-item">
-  <a href="alert.html" id="alertsBtn" style="color: #2c3e50; text-decoration: none;">
-    <i class="fas fa-bell"></i> Alerts
-  </a>
-</div>
+    <div class="nav-item">
+      <a href="alert.html" id="alertsBtn" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-bell"></i> Alerts
+      </a>
+    </div>
 
-   <div class="nav-item">
-  <a href="profile.html" id="profileBtn" style="color: #d32f2f; text-decoration: none;">
-    <i class="fas fa-user"></i> Profile
-  </a>
-</div>
+    <div class="nav-item">
+      <a href="profile.html" id="profileBtn" style="color: #d32f2f; text-decoration: none;">
+        <i class="fas fa-user"></i> Profile
+      </a>
+    </div>
 
   </nav>
 
   <div id="profileLoaderOverlay" class="loader-overlay">
-  <div class="loader-spinner"></div>
-</div>
+    <div class="loader-spinner"></div>
+  </div>
 
   <div id="loaderOverlay" class="loader-overlay">
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
   <div id="loaderOverlay" class="loader-overlay">
     <div class="loader-spinner"></div>
@@ -483,92 +501,92 @@
 
   <script>
 
- document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
+    document.getElementById("closeBtn").addEventListener("click", function () {
+      window.location.href = "map.html";
+    });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
 
 
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-    document.getElementById("profileBtn").addEventListener("click", function() {
-  const overlay = document.getElementById("profileLoaderOverlay");
-  overlay.style.display = "flex"; // show overlay
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
 
-  setTimeout(() => {
-    window.location.href = "profile.html"; // redirect after delay
-  }, 1500);
-});
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
 
-document.addEventListener('DOMContentLoaded', async function() {
-  try {
-    const res = await fetch('/api/patient/latest');
-    const data = await res.json();
+    document.getElementById("profileBtn").addEventListener("click", function () {
+      const overlay = document.getElementById("profileLoaderOverlay");
+      overlay.style.display = "flex"; // show overlay
 
-    if (data.success && data.patient) {
-      const p = data.patient;
-      document.getElementById('infoFullname').textContent = p.fullname;
-      document.getElementById('infoAge').textContent = p.age;
-      document.getElementById('infoLocation').textContent = p.location;
-      document.getElementById('infoCondition').textContent = p.condition;
-    } else {
-      console.warn("No patient data found");
-    }
-  } catch (err) {
-    console.error("Error fetching patient:", err);
-  }
-});
-    document.getElementById('bellBtn').addEventListener('click', function() {
+      setTimeout(() => {
+        window.location.href = "profile.html"; // redirect after delay
+      }, 1500);
+    });
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        const res = await fetch('/api/patient/latest');
+        const data = await res.json();
+
+        if (data.success && data.patient) {
+          const p = data.patient;
+          document.getElementById('infoFullname').textContent = p.fullname;
+          document.getElementById('infoAge').textContent = p.age;
+          document.getElementById('infoLocation').textContent = p.location;
+          document.getElementById('infoCondition').textContent = p.condition;
+        } else {
+          console.warn("No patient data found");
+        }
+      } catch (err) {
+        console.error("Error fetching patient:", err);
+      }
+    });
+    document.getElementById('bellBtn').addEventListener('click', function () {
       const popup = document.getElementById('alertPopup');
       popup.textContent = "You have no new notifications";
       popup.style.display = 'block';
@@ -578,16 +596,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     // Close button functionality
-    document.getElementById('closeBtn').addEventListener('click', function() {
+    document.getElementById('closeBtn').addEventListener('click', function () {
       window.location.href = "home.html";
     });
 
     // Navigation handlers
     document.querySelectorAll('nav .nav-item:not(.active)').forEach(item => {
-      item.addEventListener('click', function() {
+      item.addEventListener('click', function () {
         document.getElementById('loaderOverlay').style.display = 'flex';
-        const target = this.querySelector('a')?.getAttribute('href') || 
-                      (this.id === 'alertsBtn' ? 'alert.html' : 'home.html');
+        const target = this.querySelector('a')?.getAttribute('href') ||
+          (this.id === 'alertsBtn' ? 'alert.html' : 'home.html');
         setTimeout(() => {
           window.location.href = target;
         }, 1000);
@@ -602,7 +620,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Message doctor function
     function messageDoctor() {
-      const phoneNumber = "2348119825334"; 
+      const phoneNumber = "2348119825334";
       const message = encodeURIComponent("Hello Doctor, I need medical assistance.");
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
     }
@@ -626,4 +644,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
   </script>
 </body>
+
 </html>

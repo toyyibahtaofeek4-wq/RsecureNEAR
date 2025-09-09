@@ -43,8 +43,9 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
- /* ---------- HEADER ---------- */
-   header {
+
+    /* ---------- HEADER ---------- */
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -58,7 +59,7 @@
       animation: slideDown .6s ease;
     }
 
-        @keyframes fadeInUp {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -69,7 +70,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -109,17 +110,17 @@
 
 
     header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
     /* ---------- CONTENT ---------- */
     .wrap {
@@ -564,7 +565,7 @@ header .right #closeBtn:hover {
       color: red;
     }
 
-           .alert-popup {
+    .alert-popup {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -611,30 +612,29 @@ header .right #closeBtn:hover {
         transform: rotate(360deg);
       }
     }
-
   </style>
 </head>
 
 <body>
 
-    <div id="alertPopup" class="alert-popup">
+  <div id="alertPopup" class="alert-popup">
     Alert set successfully
   </div>
 
-   <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Violence Aid </h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <div>
+        <h1>Violence Aid </h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
     </div>
-  </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
+  </header>
   <div class="wrap">
     <h2>Violence Assistance</h2>
 
@@ -665,283 +665,308 @@ header .right #closeBtn:hover {
       <!-- Police station items will be dynamically added here -->
     </div>
 
-    <!-- <p class="subcall">Quick emergency options</p>
-
-    <div class="grid" id="quickGrid">
-      <div class="chip" data-type="contact"><i class="fa-solid fa-phone"></i><span>Emergency Call</span></div>
-      <div class="chip" data-type="safety"><i class="fa-solid fa-person-running"></i><span>Safety Guide</span></div>
-      <div class="chip" data-type="share"><i class="fa-solid fa-share-nodes"></i><span>Share Location</span></div>
-      <div class="chip" data-type="route"><i class="fa-solid fa-route"></i><span>Get Directions</span></div>
-    </div>
-  </div> -->
-
-  <!-- Contact Modal -->
-  <div class="modal" id="contactModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Emergency Call</h3>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <p>Call emergency services immediately if you're in danger.</p>
-        <div style="text-align: center; margin: 20px 0;">
-          <a href="tel:911" class="modal-btn submit" style="display: inline-block; text-decoration: none;">Call 911</a>
+    <div class="modal" id="contactModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Emergency Call</h3>
+          <span class="close">&times;</span>
         </div>
-        <p>Or contact local police:</p>
-        <form class="modal-form">
-          <input type="text" placeholder="Your Name" required>
-          <input type="tel" placeholder="Phone Number" required>
-          <textarea placeholder="Describe your situation and location" required></textarea>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="modal-btn cancel">Cancel</button>
-        <button class="modal-btn submit">Request Help</button>
-      </div>
-    </div>
-  </div>
-
- <nav>
-    <div class="nav-item active">
-            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
+        <div class="modal-body">
+          <p>Call emergency services immediately if you're in danger.</p>
+          <div style="text-align: center; margin: 20px 0;">
+            <a href="tel:911" class="modal-btn submit" style="display: inline-block; text-decoration: none;">Call
+              911</a>
+          </div>
+          <p>Or contact local police:</p>
+          <form class="modal-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <textarea placeholder="Describe your situation and location" required></textarea>
+          </form>
         </div>
-    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
-
-
-     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
-
-
-    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
-      <i class="fas fa-bell"></i> Alerts
+        <div class="modal-footer">
+          <button class="modal-btn cancel">Cancel</button>
+          <button class="modal-btn submit">Request Help</button>
+        </div>
+      </div>
     </div>
 
-    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
-      <i class="fas fa-user"></i> Profile
+    <nav>
+      <div class="nav-item active">
+        <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </div>
+      <div class="nav-item active"> <a href="/html/map.html" id="mapLink"
+          style="color: #2c3e50; text-decoration: none;"><i class="fas fa-map-marker-alt"></i>Map</a></div>
+
+
+      <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+            class="fas fa-circle-exclamation"></i>SOS</a></div>
+
+
+      <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+        <i class="fas fa-bell"></i> Alerts
+      </div>
+
+      <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+        <i class="fas fa-user"></i> Profile
+      </div>
+
+    </nav>
+
+    <div id="loaderOverlay" class="loader-overlay">
+      <div class="loader-spinner"></div>
     </div>
 
-  </nav>
-
-  <div id="loaderOverlay" class="loader-overlay">
-    <div class="loader-spinner"></div>
-  </div>
-
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
+    <div id="sosLoaderOverlay" class="loader-overlay">
+      <div class="loader-spinner"></div>
     </div>
 
     <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
+      <div class="loader-spinner"></div>
     </div>
 
     <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
+      <div class="loader-spinner"></div>
     </div>
 
     <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
+      <div class="loader-spinner"></div>
     </div>
 
     <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
+      <div class="loader-spinner"></div>
     </div>
 
-  <script>
+    <script>
 
-    const bell = document.querySelector('.right i');
-    const popup = document.getElementById('alertPopup');
+      const bell = document.querySelector('.right i');
+      const popup = document.getElementById('alertPopup');
 
-    bell.addEventListener('click', () => {
+      bell.addEventListener('click', () => {
 
-      popup.style.display = 'block';
+        popup.style.display = 'block';
 
-      bell.classList.add('bell-active');
+        bell.classList.add('bell-active');
 
-      setTimeout(() => {
-        popup.style.display = 'none';
-        bell.classList.remove('bell-active');
-      }, 3000);
-    });
-
-    document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
-
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
-
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
-
-
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
-
-
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
-
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
-    // User location and map variables
-    let userLocation = null;
-    let userMarker = null;
-    let policeStationMarkers = [];
-    let map;
-
-
-    // Initialize the application
-    document.addEventListener('DOMContentLoaded', function() {
-      initMap();
-      getUserLocation();
-      setupEventListeners();
-    });
-
-    // Initialize the map
-    function initMap() {
-      // Set a default location (Ikeja, Lagos)
-      map = L.map('map').setView([6.4541, 3.3942], 13);
-      
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-      }).addTo(map);
-    }
-
-    // Get user's current location
-    function getUserLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            userLocation = [position.coords.latitude, position.coords.longitude];
-            
-            // Update the map view
-            map.setView(userLocation, 15);
-            
-            // Add user marker
-            userMarker = L.marker(userLocation)
-              .addTo(map)
-              .bindPopup('Your Location')
-              .openPopup();
-            
-            // Update location text
-            document.getElementById('userLocation').textContent = 'Located';
-            
-            // Find nearby police stations
-            findNearbyPoliceStations();
-          },
-          error => {
-            console.error('Error getting location:', error);
-            document.getElementById('userLocation').textContent = 'Location access denied';
-            // Use default location and show sample police stations
-            showSamplePoliceStations();
-          }
-        );
-      } else {
-        alert('Geolocation is not supported by this browser.');
-        document.getElementById('userLocation').textContent = 'Not supported';
-        // Use default location and show sample police stations
-        showSamplePoliceStations();
-      }
-    }
-
-    // Find nearby police stations (simulated)
-    function findNearbyPoliceStations() {
-      // In a real app, this would be an API call to get real police station data
-      // For demo purposes, we'll use sample data with a delay to simulate loading
-      document.getElementById('eta').textContent = 'Finding police stations...';
-      
-      setTimeout(() => {
-        if (Math.random() > 0.3) { // 70% chance of finding police stations
-          showSamplePoliceStations();
-          updateStatus('safe', 'Police stations found', 'Emergency assistance is available nearby');
-        } else {
-          updateStatus('warning', 'No police stations detected', 'Try moving to a more populated area');
-          document.getElementById('eta').textContent = 'No stations nearby';
-          document.getElementById('stationList').innerHTML = 
-            '<div class="station-item"><div class="station-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="station-info"><h4>No police stations found</h4><p>Try moving to a more populated area</p></div></div>';
-        }
-      }, 2000);
-    }
-
-    // Display sample police stations on the map and list
-    function showSamplePoliceStations() {
-      // Clear existing police station markers
-      policeStationMarkers.forEach(marker => map.removeLayer(marker));
-      policeStationMarkers = [];
-      
-      // Add sample police stations to map
-      samplePoliceStations.forEach(station => {
-        const policeIcon = L.icon({
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        });
-        
-        const marker = L.marker(station.position, {icon: policeIcon})
-          .addTo(map)
-          .bindPopup(`<b>${station.name}</b><br>${station.type}`);
-        
-        policeStationMarkers.push(marker);
+        setTimeout(() => {
+          popup.style.display = 'none';
+          bell.classList.remove('bell-active');
+        }, 3000);
       });
-      
-      // Update ETA badge
-      document.getElementById('eta').textContent = `${samplePoliceStations.length} police stations nearby`;
-      
-      // Update status card
-      updateStatus('safe', 'Police stations found', 'Emergency assistance is available nearby');
-      
-      // Populate police station list
-      const stationList = document.getElementById('stationList');
-      stationList.innerHTML = '';
-      
-      samplePoliceStations.forEach(station => {
-        const stationItem = document.createElement('div');
-        stationItem.className = 'station-item';
-        stationItem.innerHTML = `
+
+      document.getElementById("closeBtn").addEventListener("click", function () {
+        window.location.href = "map.html";
+      });
+
+      document.getElementById('homeLink').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+        setTimeout(function () {
+          window.location.href = "home.html";
+        }, 3000);
+      });
+
+      document.getElementById('sosBtn').addEventListener('click', function (event) {
+        event.preventDefault();
+
+
+        document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+        setTimeout(function () {
+          window.location.href = "soslog.html";
+        }, 3000);
+      });
+
+      document.getElementById('alertsBtn').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+        setTimeout(function () {
+          window.location.href = "alert.html";
+        }, 3000);
+      });
+
+
+      document.getElementById('profileBtn').addEventListener('click', function (event) {
+        event.preventDefault();
+
+
+        document.getElementById('profileLoaderOverlay').style.display = 'flex';
+
+        setTimeout(function () {
+          window.location.href = "profile.html";
+        }, 3000);
+      });
+
+      document.getElementById('mapLink').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+        setTimeout(function () {
+          window.location.href = "map.html";
+        }, 3000);
+      });
+      // User location and map variables
+      let userLocation = null;
+      let userMarker = null;
+      let policeStationMarkers = [];
+      let map;
+
+
+      // Custom professional alert
+function showAlert(message, type = "success") {
+  const alertBox = document.createElement("div");
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.right = "20px";
+  alertBox.style.padding = "15px 20px";
+  alertBox.style.fontFamily = "Poppins, sans-serif";
+  alertBox.style.fontSize = "14px";
+  alertBox.style.fontWeight = "500";
+  alertBox.style.color = "#333";
+  alertBox.style.background = "#fff";
+  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
+  alertBox.style.borderRadius = "8px";
+  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transform = "translateX(100%)";
+  alertBox.style.transition = "all 0.4s ease";
+
+  document.body.appendChild(alertBox);
+
+  requestAnimationFrame(() => {
+    alertBox.style.opacity = "1";
+    alertBox.style.transform = "translateX(0)";
+  });
+
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+    alertBox.style.transform = "translateX(100%)";
+    setTimeout(() => alertBox.remove(), 400);
+  }, 3000);
+}
+
+      // Initialize the application
+      document.addEventListener('DOMContentLoaded', function () {
+        initMap();
+        getUserLocation();
+        setupEventListeners();
+      });
+
+      // Initialize the map
+      function initMap() {
+        // Set a default location (Ikeja, Lagos)
+        map = L.map('map').setView([6.4541, 3.3942], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+      }
+
+      // Get user's current location
+      function getUserLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            position => {
+              userLocation = [position.coords.latitude, position.coords.longitude];
+
+              // Update the map view
+              map.setView(userLocation, 15);
+
+              // Add user marker
+              userMarker = L.marker(userLocation)
+                .addTo(map)
+                .bindPopup('Your Location')
+                .openPopup();
+
+              // Update location text
+              document.getElementById('userLocation').textContent = 'Located';
+
+              // Find nearby police stations
+              findNearbyPoliceStations();
+            },
+            error => {
+              console.error('Error getting location:', error);
+              document.getElementById('userLocation').textContent = 'Location access denied';
+              // Use default location and show sample police stations
+              showSamplePoliceStations();
+            }
+          );
+        } else {
+          showAlert('Geolocation is not supported by this browser.');
+          document.getElementById('userLocation').textContent = 'Not supported';
+          // Use default location and show sample police stations
+          showSamplePoliceStations();
+        }
+      }
+
+      // Find nearby police stations (simulated)
+      function findNearbyPoliceStations() {
+        // In a real app, this would be an API call to get real police station data
+        // For demo purposes, we'll use sample data with a delay to simulate loading
+        document.getElementById('eta').textContent = 'Finding police stations...';
+
+        setTimeout(() => {
+          if (Math.random() > 0.3) { // 70% chance of finding police stations
+            showSamplePoliceStations();
+            updateStatus('safe', 'Police stations found', 'Emergency assistance is available nearby');
+          } else {
+            updateStatus('warning', 'No police stations detected', 'Try moving to a more populated area');
+            document.getElementById('eta').textContent = 'No stations nearby';
+            document.getElementById('stationList').innerHTML =
+              '<div class="station-item"><div class="station-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="station-info"><h4>No police stations found</h4><p>Try moving to a more populated area</p></div></div>';
+          }
+        }, 2000);
+      }
+
+      // Display sample police stations on the map and list
+      function showSamplePoliceStations() {
+        // Clear existing police station markers
+        policeStationMarkers.forEach(marker => map.removeLayer(marker));
+        policeStationMarkers = [];
+
+        // Add sample police stations to map
+        samplePoliceStations.forEach(station => {
+          const policeIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+          });
+
+          const marker = L.marker(station.position, { icon: policeIcon })
+            .addTo(map)
+            .bindPopup(`<b>${station.name}</b><br>${station.type}`);
+
+          policeStationMarkers.push(marker);
+        });
+
+        // Update ETA badge
+        document.getElementById('eta').textContent = `${samplePoliceStations.length} police stations nearby`;
+
+        // Update status card
+        updateStatus('safe', 'Police stations found', 'Emergency assistance is available nearby');
+
+        // Populate police station list
+        const stationList = document.getElementById('stationList');
+        stationList.innerHTML = '';
+
+        samplePoliceStations.forEach(station => {
+          const stationItem = document.createElement('div');
+          stationItem.className = 'station-item';
+          stationItem.innerHTML = `
           <div class="station-icon">
             <i class="fas fa-shield-alt"></i>
           </div>
@@ -951,86 +976,86 @@ header .right #closeBtn:hover {
           </div>
           <div class="station-distance">${station.distance}</div>
         `;
-        stationList.appendChild(stationItem);
-      });
-    }
+          stationList.appendChild(stationItem);
+        });
+      }
 
-    // Update the status card
-    function updateStatus(status, title, message) {
-      const statusCard = document.getElementById('policeStatus');
-      const statusIcon = statusCard.querySelector('.status-icon');
-      const statusInfo = statusCard.querySelector('.status-info');
-      
-      // Remove existing status classes
-      statusIcon.classList.remove('status-safe', 'status-warning', 'status-danger');
-      
-      // Add new status class
-      statusIcon.classList.add(`status-${status}`);
-      
-      // Update content
-      statusInfo.querySelector('h3').textContent = title;
-      statusInfo.querySelector('p').textContent = message;
-      
-      // Update icon based on status
-      const icon = statusIcon.querySelector('i');
-      icon.className = 
-        status === 'safe' ? 'fas fa-check-circle' :
-        status === 'warning' ? 'fas fa-exclamation-triangle' :
-        'fas fa-exclamation-circle';
-    }
+      // Update the status card
+      function updateStatus(status, title, message) {
+        const statusCard = document.getElementById('policeStatus');
+        const statusIcon = statusCard.querySelector('.status-icon');
+        const statusInfo = statusCard.querySelector('.status-info');
 
-    // Setup event listeners
-    function setupEventListeners() {
-      // Emergency call button
-      document.getElementById('emergencyBtn').addEventListener('click', () => {
-        document.getElementById('contactModal').style.display = 'flex';
-      });
+        // Remove existing status classes
+        statusIcon.classList.remove('status-safe', 'status-warning', 'status-danger');
 
-      // Quick action chips
-      document.querySelectorAll('.chip[data-type]').forEach(el => {
-        el.addEventListener('click', () => {
-          const type = el.dataset.type;
-          switch(type) {
-            case 'contact':
-              document.getElementById('contactModal').style.display = 'flex';
-              break;
-            case 'safety':
-              alert('Displaying Safety Guide for violent situations...');
-              break;
-            case 'share':
-              alert('Sharing your location with emergency contacts...');
-              break;
-            case 'route':
-              alert('Getting directions to the nearest police station...');
-              break;
+        // Add new status class
+        statusIcon.classList.add(`status-${status}`);
+
+        // Update content
+        statusInfo.querySelector('h3').textContent = title;
+        statusInfo.querySelector('p').textContent = message;
+
+        // Update icon based on status
+        const icon = statusIcon.querySelector('i');
+        icon.className =
+          status === 'safe' ? 'fas fa-check-circle' :
+            status === 'warning' ? 'fas fa-exclamation-triangle' :
+              'fas fa-exclamation-circle';
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Emergency call button
+        document.getElementById('emergencyBtn').addEventListener('click', () => {
+          document.getElementById('contactModal').style.display = 'flex';
+        });
+
+        // Quick action chips
+        document.querySelectorAll('.chip[data-type]').forEach(el => {
+          el.addEventListener('click', () => {
+            const type = el.dataset.type;
+            switch (type) {
+              case 'contact':
+                document.getElementById('contactModal').style.display = 'flex';
+                break;
+              case 'safety':
+                showAlert('Displaying Safety Guide for violent situations...');
+                break;
+              case 'share':
+                showAlert('Sharing your location with emergency contacts...');
+                break;
+              case 'route':
+                showAlert('Getting directions to the nearest police station...');
+                break;
+            }
+          });
+        });
+
+        // Modal close button
+        document.querySelector('.close').addEventListener('click', () => {
+          document.getElementById('contactModal').style.display = 'none';
+        });
+
+        // Modal cancel button
+        document.querySelector('.modal-btn.cancel').addEventListener('click', () => {
+          document.getElementById('contactModal').style.display = 'none';
+        });
+
+        // Modal submit button
+        document.querySelector('.modal-btn.submit').addEventListener('click', () => {
+          showAlert('Help has been requested. Police are being notified of your situation!');
+          document.getElementById('contactModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+          if (event.target === document.getElementById('contactModal')) {
+            document.getElementById('contactModal').style.display = 'none';
           }
         });
-      });
-
-      // Modal close button
-      document.querySelector('.close').addEventListener('click', () => {
-        document.getElementById('contactModal').style.display = 'none';
-      });
-
-      // Modal cancel button
-      document.querySelector('.modal-btn.cancel').addEventListener('click', () => {
-        document.getElementById('contactModal').style.display = 'none';
-      });
-
-      // Modal submit button
-      document.querySelector('.modal-btn.submit').addEventListener('click', () => {
-        alert('Help has been requested. Police are being notified of your situation!');
-        document.getElementById('contactModal').style.display = 'none';
-      });
-
-      // Close modal when clicking outside
-      window.addEventListener('click', (event) => {
-        if (event.target === document.getElementById('contactModal')) {
-          document.getElementById('contactModal').style.display = 'none';
-        }
-      });
-    }
-  </script>
+      }
+    </script>
 </body>
 
 </html>

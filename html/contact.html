@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,7 @@
     }
 
     /* ---------- HEADER ---------- */
-   header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -49,7 +50,7 @@
       animation: slideDown .6s ease;
     }
 
-        @keyframes fadeInUp {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -60,7 +61,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -100,17 +101,17 @@
 
 
     header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
 
     /* ---------- CONTENT ---------- */
@@ -177,6 +178,7 @@ header .right #closeBtn:hover {
       color: #2c3e50;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     ::placeholder {
       color: #2c3e50;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -244,6 +246,7 @@ header .right #closeBtn:hover {
         opacity: 0;
         transform: translateY(-20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -255,6 +258,7 @@ header .right #closeBtn:hover {
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -262,8 +266,13 @@ header .right #closeBtn:hover {
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     @keyframes slideInLeft {
@@ -271,6 +280,7 @@ header .right #closeBtn:hover {
         opacity: 0;
         transform: translateX(-40px);
       }
+
       to {
         opacity: 1;
         transform: translateX(0);
@@ -278,11 +288,30 @@ header .right #closeBtn:hover {
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
+            @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    
     /* ---------- NAV ---------- */
     nav {
       display: flex;
@@ -341,22 +370,22 @@ header .right #closeBtn:hover {
       .wrap {
         padding: 18px 24px 80px;
       }
-      
+
       .contact-form {
         padding: 32px;
       }
-      
+
       .form-row {
         display: flex;
         gap: 16px;
       }
-      
+
       .form-row .form-group {
         flex: 1;
       }
     }
 
-           .alert-popup {
+    .alert-popup {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -405,30 +434,31 @@ header .right #closeBtn:hover {
     }
   </style>
 </head>
+
 <body>
 
-    <div id="alertPopup" class="alert-popup">
+  <div id="alertPopup" class="alert-popup">
     Alert set successfully
   </div>
 
-     <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Conatct US</h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <div>
+        <h1>Conatct US</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
     </div>
-  </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
+  </header>
 
   <div class="wrap">
     <h2>Contact Us</h2>
-    
+
     <div class="success-message" id="successMessage">
       <p><i class="fas fa-check-circle"></i> Form submitted successfully! Redirecting to WhatsApp...</p>
     </div>
@@ -439,46 +469,47 @@ header .right #closeBtn:hover {
           <label for="name">Full Name</label>
           <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
         </div>
-        
+
         <div class="form-group">
           <label for="phone">Phone Number</label>
           <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
         </div>
       </div>
-      
+
       <div class="form-group">
         <label for="email">Email Address</label>
         <input type="email" id="email" class="form-control" placeholder="Enter your email address">
       </div>
-      
+
       <div class="form-group">
         <label for="subject">Subject</label>
         <input type="text" id="subject" class="form-control" placeholder="What is this regarding?" required>
       </div>
-      
+
       <div class="form-group">
         <label for="message">Message</label>
-        <textarea id="message" class="form-control" placeholder="Please describe your issue or inquiry in detail" required></textarea>
+        <textarea id="message" class="form-control" placeholder="Please describe your issue or inquiry in detail"
+          required></textarea>
       </div>
-      
+
       <button type="submit" class="btn btn-whatsapp">
         <i class="fab fa-whatsapp"></i> Send via WhatsApp
       </button>
     </form>
   </div>
 
-<nav>
+  <nav>
     <div class="nav-item active">
-            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
+      <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"
+        style="color: #2c3e50; text-decoration: none;"><i class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i>SOS</a></div>
 
 
     <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
@@ -495,25 +526,25 @@ header .right #closeBtn:hover {
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
 
   <script>
@@ -534,90 +565,90 @@ header .right #closeBtn:hover {
     });
 
     document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
+      window.location.href = "map.html";
+    });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
 
 
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
       const contactForm = document.getElementById('contactForm');
       const successMessage = document.getElementById('successMessage');
-      
-      contactForm.addEventListener('submit', function(e) {
+
+      contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Get form values
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
         const email = document.getElementById('email').value || 'Not provided';
         const subject = document.getElementById('subject').value;
         const message = document.getElementById('message').value;
-        
+
         // Create WhatsApp message
         const whatsappMessage = `*New Contact Form Submission*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Subject:* ${subject}%0A%0A*Message:*%0A${message}`;
-        
+
         successMessage.style.display = 'block';
         successMessage.style.animation = 'pulse 1s ease';
-        
-  
-        setTimeout(function() {
+
+
+        setTimeout(function () {
           window.open(`https://wa.me/2348119825334?text=${whatsappMessage}`, '_blank');
         }, 1500);
-        
 
-        setTimeout(function() {
+
+        setTimeout(function () {
           contactForm.reset();
           successMessage.style.display = 'none';
         }, 3000);
@@ -625,4 +656,5 @@ header .right #closeBtn:hover {
     });
   </script>
 </body>
+
 </html>

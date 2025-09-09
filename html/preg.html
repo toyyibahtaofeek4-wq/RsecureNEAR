@@ -36,7 +36,7 @@
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-     body {
+    body {
       color: #2c3e50;
       display: flex;
       flex-direction: column;
@@ -44,9 +44,9 @@
       position: relative;
       overflow-x: hidden;
     }
-    
+
     /* Animated background */
-     .background-animation {
+    .background-animation {
       position: fixed;
       top: 0;
       left: 0;
@@ -57,8 +57,9 @@
       animation: gradientBG 15s ease infinite;
       z-index: -2;
     }
+
     /* ---------- HEADER ---------- */
-   header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -82,7 +83,7 @@
       }
     }
 
-        @keyframes fadeInUp {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -93,7 +94,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -133,17 +134,17 @@
 
 
     header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
     /* ---------- CONTENT ---------- */
     .wrap {
@@ -277,7 +278,7 @@ header .right #closeBtn:hover {
       font-weight: 700;
       box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
       animation: fadeIn 1.2s ease;
-     color: #2c3e50;
+      color: #2c3e50;
     }
 
     /* ---------- HOSPITAL LIST ---------- */
@@ -305,7 +306,7 @@ header .right #closeBtn:hover {
     }
 
     .hospital-item.selected {
-      border: 2px solid  #2c3e50;
+      border: 2px solid #2c3e50;
       background-color: #fce4ec;
     }
 
@@ -329,7 +330,7 @@ header .right #closeBtn:hover {
     .hospital-info h4 {
       font-size: 15px;
       margin-bottom: 4px;
-     color: #2c3e50;
+      color: #2c3e50;
     }
 
     .hospital-info p {
@@ -441,7 +442,7 @@ header .right #closeBtn:hover {
       font-size: .85rem;
       font-weight: 600;
       text-align: center;
-     color: white;
+      color: white;
     }
 
     /* ---------- ANIMATIONS ---------- */
@@ -632,7 +633,7 @@ header .right #closeBtn:hover {
       color: #fff;
     }
 
-      .location {
+    .location {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -649,23 +650,24 @@ header .right #closeBtn:hover {
       color: red;
     }
 
-    
-      .alert-popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #d32f2f;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  font-size: 14px;
-  display: none;
-  z-index: 99999; /* way above header */
-  animation: fadeInOut 3s ease forwards;
-}
 
-.loader-overlay {
+    .alert-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #d32f2f;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      z-index: 99999;
+      /* way above header */
+      animation: fadeInOut 3s ease forwards;
+    }
+
+    .loader-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -696,7 +698,6 @@ header .right #closeBtn:hover {
         transform: rotate(360deg);
       }
     }
-
   </style>
 </head>
 
@@ -706,20 +707,20 @@ header .right #closeBtn:hover {
     Alert set successfully
   </div>
 
-    <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Pregnancy Aid</h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <div>
+        <h1>Pregnancy Aid</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
     </div>
-  </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
+  </header>
 
   <div class="wrap">
     <h2>Pregnancy Assistance</h2>
@@ -771,319 +772,355 @@ header .right #closeBtn:hover {
 
     <p class="subcall">Pregnancy support resources</p>
 
-  <!-- Contact Modal -->
-  <div class="modal" id="contactModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Contact Hospital</h3>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <p>Send a message to <span id="hospitalName">the hospital</span></p>
-        <form class="modal-form">
-          <input type="text" placeholder="Your Name" required>
-          <input type="tel" placeholder="Phone Number" required>
-          <textarea placeholder="Type your message here" required>I would like to make an appointment for a prenatal check-up.</textarea>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="modal-btn cancel">Cancel</button>
-        <button class="modal-btn submit">Send Message</button>
-      </div>
-    </div>
-  </div>
-
-   <nav>
-    <div class="nav-item active">
-            <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Contact Hospital</h3>
+          <span class="close">&times;</span>
         </div>
-    <div class="nav-item active"> <a href="map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
-
-
-     <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
-
-
-    <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
-      <i class="fas fa-bell"></i> Alerts
+        <div class="modal-body">
+          <p>Send a message to <span id="hospitalName">the hospital</span></p>
+          <form class="modal-form">
+            <input type="text" placeholder="Your Name" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <textarea placeholder="Type your message here"
+              required>I would like to make an appointment for a prenatal check-up.</textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-btn cancel">Cancel</button>
+          <button class="modal-btn submit">Send Message</button>
+        </div>
+      </div>
     </div>
 
-    <div class="nav-item" id="profileBtn" style="cursor: pointer;">
-      <i class="fas fa-user"></i> Profile
-    </div>
+    <nav>
+      <div class="nav-item active">
+        <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </div>
+      <div class="nav-item active"> <a href="map.html" id="mapLink" style="color: #2c3e50; text-decoration: none;"><i
+            class="fas fa-map-marker-alt"></i>Map</a></div>
 
-    <div id="loaderOverlay" class="loader-overlay">
-    <div class="loader-spinner"></div>
-  </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
+      <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+            class="fas fa-circle-exclamation"></i>
+          SOS</a></div>
+
+
+      <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
+        <i class="fas fa-bell"></i> Alerts
+      </div>
+
+      <div class="nav-item" id="profileBtn" style="cursor: pointer;">
+        <i class="fas fa-user"></i> Profile
+      </div>
+
+      <div id="loaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-    </div>
+      </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
+      <div id="sosLoaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-    </div>
+      </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
+      <div id="alertsLoaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-    </div>
+      </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
+      <div id="profileLoaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-    </div>
+      </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
+      <div id="homeLoaderOverlay" class="loader-overlay">
         <div class="loader-spinner"></div>
-    </div>
+      </div>
 
-  
-
-  <script>
-
-    const bell = document.querySelector('.right i');
-    const popup = document.getElementById('alertPopup');
-
-    bell.addEventListener('click', () => {
-
-      popup.style.display = 'block';
-
-      bell.classList.add('bell-active');
-
-      setTimeout(() => {
-        popup.style.display = 'none';
-        bell.classList.remove('bell-active');
-      }, 3000);
-    });
-
-    document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
+      <div id="mapLoaderOverlay" class="loader-overlay">
+        <div class="loader-spinner"></div>
+      </div>
 
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      <script>
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
+        const bell = document.querySelector('.right i');
+        const popup = document.getElementById('alertPopup');
+
+        bell.addEventListener('click', () => {
+
+          popup.style.display = 'block';
+
+          bell.classList.add('bell-active');
+
+          setTimeout(() => {
+            popup.style.display = 'none';
+            bell.classList.remove('bell-active');
+          }, 3000);
         });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+        document.getElementById("closeBtn").addEventListener("click", function () {
+          window.location.href = "map.html";
+        });
 
 
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+        document.getElementById('homeLink').addEventListener('click', function (event) {
+          event.preventDefault();
+
+          document.getElementById('homeLoaderOverlay').style.display = 'flex';
+
+          setTimeout(function () {
+            window.location.href = "home.html";
+          }, 3000);
+        });
+
+        document.getElementById('sosBtn').addEventListener('click', function (event) {
+          event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
+          document.getElementById('sosLoaderOverlay').style.display = 'flex';
+
+
+          setTimeout(function () {
+            window.location.href = "soslog.html";
+          }, 3000);
         });
 
         document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+          event.preventDefault();
 
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+          document.getElementById('alertsLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
+          setTimeout(function () {
+            window.location.href = "alert.html";
+          }, 3000);
         });
 
 
         document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+          event.preventDefault();
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+          document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
+          setTimeout(function () {
+            window.location.href = "profile.html";
+          }, 3000);
         });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+        document.getElementById('mapLink').addEventListener('click', function (event) {
+          event.preventDefault();
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+          document.getElementById('mapLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
+          setTimeout(function () {
+            window.location.href = "map.html";
+          }, 3000);
         });
 
+        // Custom professional alert
+function showAlert(message, type = "success") {
+  const alertBox = document.createElement("div");
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.right = "20px";
+  alertBox.style.padding = "15px 20px";
+  alertBox.style.fontFamily = "Poppins, sans-serif";
+  alertBox.style.fontSize = "14px";
+  alertBox.style.fontWeight = "500";
+  alertBox.style.color = "#333";
+  alertBox.style.background = "#fff";
+  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
+  alertBox.style.borderRadius = "8px";
+  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transform = "translateX(100%)";
+  alertBox.style.transition = "all 0.4s ease";
 
-    // User location and map variables
-    let userLocation = null;
-    let userMarker = null;
-    let hospitalMarkers = [];
-    let map;
-    let selectedHospital = null;
+  document.body.appendChild(alertBox);
 
-    // Sample hospital data with maternity services
-    const sampleHospitals = [
-      {
-        id: 1,
-        position: [6.4541, 3.3942],
-        name: "Ikeja Maternal Center",
-        specialty: "Obstetrics & Gynecology",
-        distance: "0.8 km",
-        phone: "+234123456789",
-        email: "appointments@ikejamaternal.com",
-        whatsapp: "+234123456789",
-        availability: "24/7"
-      },
-      {
-        id: 2,
-        position: [6.4580, 3.4000],
-        name: "Lagos Women Hospital",
-        specialty: "Women's Health",
-        distance: "1.2 km",
-        phone: "+234987654321",
-        email: "info@lagoswomenhospital.com",
-        whatsapp: "+234987654321",
-        availability: "24/7"
-      },
-      {
-        id: 3,
-        position: [6.4500, 3.3900],
-        name: "Mother & Child Clinic",
-        specialty: "Pediatrics & Obstetrics",
-        distance: "0.5 km",
-        phone: "+234567891234",
-        email: "care@motherchildclinic.com",
-        whatsapp: "+234567891234",
-        availability: "6am - 10pm"
-      },
-      {
-        id: 4,
-        position: [6.4600, 3.4100],
-        name: "St. Mary's Maternity Home",
-        specialty: "Midwifery Services",
-        distance: "1.8 km",
-        phone: "+234678912345",
-        email: "contact@stmarysmaternity.com",
-        whatsapp: "+234678912345",
-        availability: "24/7"
-      }
-    ];
+  requestAnimationFrame(() => {
+    alertBox.style.opacity = "1";
+    alertBox.style.transform = "translateX(0)";
+  });
 
-    // Initialize the application
-    document.addEventListener('DOMContentLoaded', function() {
-      initMap();
-      getUserLocation();
-      setupEventListeners();
-    });
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+    alertBox.style.transform = "translateX(100%)";
+    setTimeout(() => alertBox.remove(), 400);
+  }, 3000);
+}
 
-    // Initialize the map
-    function initMap() {
-      // Set a default location (Ikeja, Lagos)
-      map = L.map('map').setView([6.4541, 3.3942], 13);
-      
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-      }).addTo(map);
-    }
+        // User location and map variables
+        let userLocation = null;
+        let userMarker = null;
+        let hospitalMarkers = [];
+        let map;
+        let selectedHospital = null;
 
-   // Get user's current location
-function getUserLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        userLocation = [position.coords.latitude, position.coords.longitude];
-        
-        // Update the map view
-        map.setView(userLocation, 14);
-        
-        // Add user marker
-        userMarker = L.marker(userLocation, {
-          icon: L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-          })
-        })
-          .addTo(map)
-          .bindPopup('Your Location')
-          .openPopup();
-        
-        // Update location text with actual coordinates
-        document.getElementById('userLocation').textContent = 
-          `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
-        
+        // Sample hospital data with maternity services
+        const sampleHospitals = [
+          {
+            id: 1,
+            position: [6.4541, 3.3942],
+            name: "Ikeja Maternal Center",
+            specialty: "Obstetrics & Gynecology",
+            distance: "0.8 km",
+            phone: "+234123456789",
+            email: "appointments@ikejamaternal.com",
+            whatsapp: "+234123456789",
+            availability: "24/7"
+          },
+          {
+            id: 2,
+            position: [6.4580, 3.4000],
+            name: "Lagos Women Hospital",
+            specialty: "Women's Health",
+            distance: "1.2 km",
+            phone: "+234987654321",
+            email: "info@lagoswomenhospital.com",
+            whatsapp: "+234987654321",
+            availability: "24/7"
+          },
+          {
+            id: 3,
+            position: [6.4500, 3.3900],
+            name: "Mother & Child Clinic",
+            specialty: "Pediatrics & Obstetrics",
+            distance: "0.5 km",
+            phone: "+234567891234",
+            email: "care@motherchildclinic.com",
+            whatsapp: "+234567891234",
+            availability: "6am - 10pm"
+          },
+          {
+            id: 4,
+            position: [6.4600, 3.4100],
+            name: "St. Mary's Maternity Home",
+            specialty: "Midwifery Services",
+            distance: "1.8 km",
+            phone: "+234678912345",
+            email: "contact@stmarysmaternity.com",
+            whatsapp: "+234678912345",
+            availability: "24/7"
+          }
+        ];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function () {
+          initMap();
+          getUserLocation();
+          setupEventListeners();
+        });
+
+        // Initialize the map
+        function initMap() {
+          // Set a default location (Ikeja, Lagos)
+          map = L.map('map').setView([6.4541, 3.3942], 13);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+          }).addTo(map);
+        }
+
+        // Get user's current location
+        function getUserLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              position => {
+                userLocation = [position.coords.latitude, position.coords.longitude];
+
+                // Update the map view
+                map.setView(userLocation, 14);
+
+                // Add user marker
+                userMarker = L.marker(userLocation, {
+                  icon: L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                  })
+                })
+                  .addTo(map)
+                  .bindPopup('Your Location')
+                  .openPopup();
+
+                // Update location text with actual coordinates
+                document.getElementById('userLocation').textContent =
+                  `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
+
+                // Generate hospitals near user location
+                generateHospitalsNearUser();
+
+                // Show nearby hospitals
+                showNearbyHospitals();
+              },
+              error => {
+                console.error('Error getting location:', error);
+                document.getElementById('userLocation').textContent = 'Location access denied';
+                document.getElementById('eta').textContent = 'Enable location to see hospitals';
+                showAlert('Please enable location services to use this feature.');
+              }
+            );
+          } else {
+            showAlert('Geolocation is not supported by this browser.');
+            document.getElementById('userLocation').textContent = 'Not supported';
+          }
+        }
+
         // Generate hospitals near user location
-        generateHospitalsNearUser();
-        
-        // Show nearby hospitals
-        showNearbyHospitals();
-      },
-      error => {
-        console.error('Error getting location:', error);
-        document.getElementById('userLocation').textContent = 'Location access denied';
-        document.getElementById('eta').textContent = 'Enable location to see hospitals';
-        alert('Please enable location services to use this feature.');
-      }
-    );
-  } else {
-    alert('Geolocation is not supported by this browser.');
-    document.getElementById('userLocation').textContent = 'Not supported';
-  }
-}
+        function generateHospitalsNearUser() {
+          // Clear previous hospitals
+          sampleHospitals.length = 0;
 
-// Generate hospitals near user location
-function generateHospitalsNearUser() {
-  // Clear previous hospitals
-  sampleHospitals.length = 0;
-  
-  // Generate 4 hospitals near the user with random offsets
-  for (let i = 0; i < 4; i++) {
-    // Add small random offsets to user location (0.01-0.03 degrees approx 1-3km)
-    const latOffset = (Math.random() * 0.02 - 0.01);
-    const lngOffset = (Math.random() * 0.02 - 0.01);
-    
-    sampleHospitals.push({
-      id: i + 1,
-      position: [userLocation[0] + latOffset, userLocation[1] + lngOffset],
-      name: `Maternity Hospital ${i + 1}`,
-      specialty: "Obstetrics & Gynecology",
-      distance: `${(Math.random() * 2 + 0.5).toFixed(1)} km`,
-      phone: "+23412345678" + i,
-      email: `hospital${i+1}@maternity.com`,
-      whatsapp: "+23412345678" + i,
-      availability: "24/7"
-    });
-  }
-}
+          // Generate 4 hospitals near the user with random offsets
+          for (let i = 0; i < 4; i++) {
+            // Add small random offsets to user location (0.01-0.03 degrees approx 1-3km)
+            const latOffset = (Math.random() * 0.02 - 0.01);
+            const lngOffset = (Math.random() * 0.02 - 0.01);
 
-    // Display hospitals on the map and list
-    function showNearbyHospitals() {
-      // Clear existing hospital markers
-      hospitalMarkers.forEach(marker => map.removeLayer(marker));
-      hospitalMarkers = [];
-      
-      // Add sample hospitals to map
-      sampleHospitals.forEach(hospital => {
-        const hospitalIcon = L.icon({
-          iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        });
-        
-        const marker = L.marker(hospital.position, {icon: hospitalIcon})
-          .addTo(map)
-          .bindPopup(`
+            sampleHospitals.push({
+              id: i + 1,
+              position: [userLocation[0] + latOffset, userLocation[1] + lngOffset],
+              name: `Maternity Hospital ${i + 1}`,
+              specialty: "Obstetrics & Gynecology",
+              distance: `${(Math.random() * 2 + 0.5).toFixed(1)} km`,
+              phone: "+23412345678" + i,
+              email: `hospital${i + 1}@maternity.com`,
+              whatsapp: "+23412345678" + i,
+              availability: "24/7"
+            });
+          }
+        }
+
+        // Display hospitals on the map and list
+        function showNearbyHospitals() {
+          // Clear existing hospital markers
+          hospitalMarkers.forEach(marker => map.removeLayer(marker));
+          hospitalMarkers = [];
+
+          // Add sample hospitals to map
+          sampleHospitals.forEach(hospital => {
+            const hospitalIcon = L.icon({
+              iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+              shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+              iconSize: [25, 41],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+            });
+
+            const marker = L.marker(hospital.position, { icon: hospitalIcon })
+              .addTo(map)
+              .bindPopup(`
             <b>${hospital.name}</b><br>
             ${hospital.specialty}<br>
             Distance: ${hospital.distance}<br>
@@ -1091,22 +1128,22 @@ function generateHospitalsNearUser() {
               Select This Hospital
             </button>
           `);
-        
-        hospitalMarkers.push(marker);
-      });
-      
-      // Update ETA badge
-      document.getElementById('eta').textContent = `${sampleHospitals.length} hospitals nearby`;
-      
-      // Populate hospital list
-      const hospitalList = document.getElementById('hospitalList');
-      hospitalList.innerHTML = '';
-      
-      sampleHospitals.forEach(hospital => {
-        const hospitalItem = document.createElement('div');
-        hospitalItem.className = 'hospital-item';
-        hospitalItem.id = `hospital-${hospital.id}`;
-        hospitalItem.innerHTML = `
+
+            hospitalMarkers.push(marker);
+          });
+
+          // Update ETA badge
+          document.getElementById('eta').textContent = `${sampleHospitals.length} hospitals nearby`;
+
+          // Populate hospital list
+          const hospitalList = document.getElementById('hospitalList');
+          hospitalList.innerHTML = '';
+
+          sampleHospitals.forEach(hospital => {
+            const hospitalItem = document.createElement('div');
+            hospitalItem.className = 'hospital-item';
+            hospitalItem.id = `hospital-${hospital.id}`;
+            hospitalItem.innerHTML = `
           <div class="hospital-icon">
             <i class="fas fa-hospital"></i>
           </div>
@@ -1116,117 +1153,117 @@ function generateHospitalsNearUser() {
           </div>
           <div class="hospital-distance">${hospital.distance}</div>
         `;
-        hospitalItem.addEventListener('click', () => selectHospital(hospital.id));
-        hospitalList.appendChild(hospitalItem);
-      });
-    }
-
-    // Select a hospital
-    function selectHospital(hospitalId) {
-      // Remove selected class from all hospitals
-      document.querySelectorAll('.hospital-item').forEach(item => {
-        item.classList.remove('selected');
-      });
-      
-      // Add selected class to the clicked hospital
-      const hospitalItem = document.getElementById(`hospital-${hospitalId}`);
-      hospitalItem.classList.add('selected');
-      
-      // Store the selected hospital
-      selectedHospital = sampleHospitals.find(h => h.id === hospitalId);
-      
-      // Show contact options
-      document.getElementById('contactOptions').style.display = 'block';
-      
-      // Scroll to contact options
-      document.getElementById('contactOptions').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Setup event listeners
-    function setupEventListeners() {
-      // Emergency button
-      document.getElementById('emergencyBtn').addEventListener('click', () => {
-        window.location.href = 'tel://112';
-      });
-
-      // Call button
-      document.getElementById('callBtn').addEventListener('click', () => {
-        if (selectedHospital) {
-          window.location.href = `tel:${selectedHospital.phone}`;
-        } else {
-          alert('Please select a hospital first');
+            hospitalItem.addEventListener('click', () => selectHospital(hospital.id));
+            hospitalList.appendChild(hospitalItem);
+          });
         }
-      });
 
-      // WhatsApp button
-      document.getElementById('whatsappBtn').addEventListener('click', () => {
-        if (selectedHospital) {
-          const message = "Hello, I would like to make an appointment for a prenatal check-up.";
-          window.open(`https://wa.me/${selectedHospital.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
-        } else {
-          alert('Please select a hospital first');
+        // Select a hospital
+        function selectHospital(hospitalId) {
+          // Remove selected class from all hospitals
+          document.querySelectorAll('.hospital-item').forEach(item => {
+            item.classList.remove('selected');
+          });
+
+          // Add selected class to the clicked hospital
+          const hospitalItem = document.getElementById(`hospital-${hospitalId}`);
+          hospitalItem.classList.add('selected');
+
+          // Store the selected hospital
+          selectedHospital = sampleHospitals.find(h => h.id === hospitalId);
+
+          // Show contact options
+          document.getElementById('contactOptions').style.display = 'block';
+
+          // Scroll to contact options
+          document.getElementById('contactOptions').scrollIntoView({ behavior: 'smooth' });
         }
-      });
 
-      // Email button
-      document.getElementById('emailBtn').addEventListener('click', () => {
-        if (selectedHospital) {
-          const subject = "Appointment Request";
-          const body = "Hello, I would like to make an appointment for a prenatal check-up.";
-          window.location.href = `mailto:${selectedHospital.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        } else {
-          alert('Please select a hospital first');
+        // Setup event listeners
+        function setupEventListeners() {
+          // Emergency button
+          document.getElementById('emergencyBtn').addEventListener('click', () => {
+            window.location.href = 'tel://112';
+          });
+
+          // Call button
+          document.getElementById('callBtn').addEventListener('click', () => {
+            if (selectedHospital) {
+              window.location.href = `tel:${selectedHospital.phone}`;
+            } else {
+              showAlert('Please select a hospital first');
+            }
+          });
+
+          // WhatsApp button
+          document.getElementById('whatsappBtn').addEventListener('click', () => {
+            if (selectedHospital) {
+              const message = "Hello, I would like to make an appointment for a prenatal check-up.";
+              window.open(`https://wa.me/${selectedHospital.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+            } else {
+              showAlert('Please select a hospital first');
+            }
+          });
+
+          // Email button
+          document.getElementById('emailBtn').addEventListener('click', () => {
+            if (selectedHospital) {
+              const subject = "Appointment Request";
+              const body = "Hello, I would like to make an appointment for a prenatal check-up.";
+              window.location.href = `mailto:${selectedHospital.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            } else {
+              showAlert('Please select a hospital first');
+            }
+          });
+
+          // Quick action chips
+          document.querySelectorAll('.chip').forEach(el => {
+            el.addEventListener('click', () => {
+              const type = el.dataset.type;
+              switch (type) {
+                case 'contractions':
+                  showAlert('Opening Contraction Timer...');
+                  break;
+                case 'checklist':
+                  showAlert('Opening Hospital Bag Checklist...');
+                  break;
+                case 'tips':
+                  showAlert('Displaying Pregnancy Tips...');
+                  break;
+                case 'community':
+                  showAlert('Opening Community Forum...');
+                  break;
+              }
+            });
+          });
+
+          // Modal close button
+          document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('contactModal').style.display = 'none';
+          });
+
+          // Modal cancel button
+          document.querySelector('.modal-btn.cancel').addEventListener('click', () => {
+            document.getElementById('contactModal').style.display = 'none';
+          });
+
+          // Modal submit button
+          document.querySelector('.modal-btn.submit').addEventListener('click', () => {
+            showAlert('Your message has been sent to the hospital!');
+            document.getElementById('contactModal').style.display = 'none';
+          });
+
+          // Close modal when clicking outside
+          window.addEventListener('click', (event) => {
+            if (event.target === document.getElementById('contactModal')) {
+              document.getElementById('contactModal').style.display = 'none';
+            }
+          });
         }
-      });
 
-      // Quick action chips
-      document.querySelectorAll('.chip').forEach(el => {
-        el.addEventListener('click', () => {
-          const type = el.dataset.type;
-          switch(type) {
-            case 'contractions':
-              alert('Opening Contraction Timer...');
-              break;
-            case 'checklist':
-              alert('Opening Hospital Bag Checklist...');
-              break;
-            case 'tips':
-              alert('Displaying Pregnancy Tips...');
-              break;
-            case 'community':
-              alert('Opening Community Forum...');
-              break;
-          }
-        });
-      });
-
-      // Modal close button
-      document.querySelector('.close').addEventListener('click', () => {
-        document.getElementById('contactModal').style.display = 'none';
-      });
-
-      // Modal cancel button
-      document.querySelector('.modal-btn.cancel').addEventListener('click', () => {
-        document.getElementById('contactModal').style.display = 'none';
-      });
-
-      // Modal submit button
-      document.querySelector('.modal-btn.submit').addEventListener('click', () => {
-        alert('Your message has been sent to the hospital!');
-        document.getElementById('contactModal').style.display = 'none';
-      });
-
-      // Close modal when clicking outside
-      window.addEventListener('click', (event) => {
-        if (event.target === document.getElementById('contactModal')) {
-          document.getElementById('contactModal').style.display = 'none';
-        }
-      });
-    }
-
-    // Make selectHospital function available globally for map popups
-    window.selectHospital = selectHospital;
-  </script>
+        // Make selectHospital function available globally for map popups
+        window.selectHospital = selectHospital;
+      </script>
 </body>
 
 </html>

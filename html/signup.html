@@ -61,19 +61,19 @@
       from { transform: translateX(-40px); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
-    .card {
-      width: 100%;
-      max-width: 520px;
-      background:#fff;
-      border-radius: 20px;
-      padding: 40px 30px 30px 30px;
-      box-shadow: 0 15px 40px rgba(0,0,0,.25); 
-      animation: popIn .6s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 24px;
-    }
+     .card {
+    width: 90%;
+    max-width: 520px; /* same as first code */
+    background:#fff;
+    border-radius: 20px;
+    padding: 40px 30px 30px 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25); 
+    animation: popIn .6s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+  }
     form { display:flex; flex-direction:column; gap:20px; width: 100%; }
     .field input, .field button {
       width:100%;
@@ -164,6 +164,16 @@
     padding:14px; 
   }
 }
+
+  @media (max-width: 600px){
+    .card { 
+      padding:20px 15px;
+      max-width: 100%;
+      margin: 0 10px; /* same breathing space like first code */
+    }
+    .btn { width: 100%; }
+    .field input { font-size:15px; padding:12px; }
+  }
 
   </style>
 </head>

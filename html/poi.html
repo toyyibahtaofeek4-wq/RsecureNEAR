@@ -79,7 +79,7 @@
     }
 
     /* ---------- HEADER ---------- */
-   header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -93,7 +93,7 @@
       animation: slideDown .6s ease;
     }
 
-        @keyframes fadeInUp {
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
@@ -104,7 +104,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -144,17 +144,17 @@
 
 
     header .right #closeBtn {
-  font-size: 20px;
-  margin-left: 12px;
-  color: #2c3e50;
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+      font-size: 20px;
+      margin-left: 12px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
 
-header .right #closeBtn:hover {
-  transform: rotate(180deg) scale(1.2);
-  color: #d32f2f;
-}
+    header .right #closeBtn:hover {
+      transform: rotate(180deg) scale(1.2);
+      color: #d32f2f;
+    }
 
 
     /* ---------- CONTENT ---------- */
@@ -676,10 +676,12 @@ header .right #closeBtn:hover {
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
-           .alert-popup {
+    .alert-popup {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -703,27 +705,27 @@ header .right #closeBtn:hover {
     Alert set successfully
   </div>
 
- <header>
-  <div class="left">
-    <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
-    <div>
-      <h1>Poison First Aid</h1>
-      <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+  <header>
+    <div class="left">
+      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <div>
+        <h1>Poison First Aid</h1>
+        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+      </div>
     </div>
-  </div>
 
-  <div class="right">
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
-  </div>
-</header>
+    <div class="right">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
+    </div>
+  </header>
 
   <div class="wrap">
     <h2>Poison Emergency Assistance</h2>
 
     <div class="status-card" id="poisonStatus">
       <div class="status-icon status-hospital">
-        <i class="fas fa-hospital"></i>
+        <i class="fas fa-skull-crossbones"></i>
       </div>
       <div class="status-info">
         <h3>Emergency Poison Response</h3>
@@ -805,24 +807,24 @@ header .right #closeBtn:hover {
           <li>Call poison control immediately</li>
           <li>Have the container with you when you call</li>
         </ul>
-        
+
         <h4>Inhaled Poison:</h4>
         <ul>
           <li>Get to fresh air immediately</li>
           <li>Open doors and windows if safe to do so</li>
           <li>Call for emergency help</li>
         </ul>
-        
+
         <h4>Skin Exposure:</h4>
         <ul>
           <li>Remove contaminated clothing</li>
           <li>Rinse skin with running water for 15-20 minutes</li>
           <li>Call poison control for further instructions</li>
         </ul>
-        
+
         <p><strong>Emergency Numbers:</strong><br>
-        Poison Control: 1-800-222-1222<br>
-        Emergency: 911</p>
+          Poison Control: 1-800-222-1222<br>
+          Emergency: 911</p>
       </div>
       <div class="modal-footer">
         <button class="modal-btn cancel">Close</button>
@@ -830,18 +832,18 @@ header .right #closeBtn:hover {
     </div>
   </div>
 
-<nav>
+  <nav>
     <div class="nav-item active">
-            <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>Map</a></div>
+      <a href="/home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="/html/map.html" id="mapLink"
+        style="color: #2c3e50; text-decoration: none;"><i class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="/html/soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i></i>SOS</a></div>
 
 
     <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
@@ -858,25 +860,25 @@ header .right #closeBtn:hover {
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
 
   <script>
@@ -897,62 +899,98 @@ header .right #closeBtn:hover {
     });
 
     document.getElementById("closeBtn").addEventListener("click", function () {
-  window.location.href = "map.html";
-});
+      window.location.href = "map.html";
+    });
 
- document.getElementById('homeLink').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('homeLink').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            document.getElementById('homeLoaderOverlay').style.display = 'flex';
+      document.getElementById('homeLoaderOverlay').style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = "home.html";
-            }, 3000);
-        });
+      setTimeout(function () {
+        window.location.href = "home.html";
+      }, 3000);
+    });
 
-     document.getElementById('sosBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-
-            document.getElementById('sosLoaderOverlay').style.display = 'flex';
+    document.getElementById('sosBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
 
-            setTimeout(function () {
-                window.location.href = "soslog.html";
-            }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-            event.preventDefault();
-
-            document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-            setTimeout(function () {
-                window.location.href = "alert.html";
-            }, 3000);
-        });
+      document.getElementById('sosLoaderOverlay').style.display = 'flex';
 
 
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-            event.preventDefault();
+      setTimeout(function () {
+        window.location.href = "soslog.html";
+      }, 3000);
+    });
+
+    document.getElementById('alertsBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('alertsLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "alert.html";
+      }, 3000);
+    });
 
 
-            document.getElementById('profileLoaderOverlay').style.display = 'flex';
+    document.getElementById('profileBtn').addEventListener('click', function (event) {
+      event.preventDefault();
 
-            setTimeout(function () {
-                window.location.href = "profile.html";
-            }, 3000);
-        });
 
-                document.getElementById('mapLink').addEventListener('click', function (event) {
-            event.preventDefault();
+      document.getElementById('profileLoaderOverlay').style.display = 'flex';
 
-            document.getElementById('mapLoaderOverlay').style.display = 'flex';
+      setTimeout(function () {
+        window.location.href = "profile.html";
+      }, 3000);
+    });
 
-            setTimeout(function () {
-                window.location.href = "map.html";
-            }, 3000);
-        });
+    document.getElementById('mapLink').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      document.getElementById('mapLoaderOverlay').style.display = 'flex';
+
+      setTimeout(function () {
+        window.location.href = "map.html";
+      }, 3000);
+    });
+
+    
+// Custom professional alert
+function showAlert(message, type = "success") {
+  const alertBox = document.createElement("div");
+  alertBox.textContent = message;
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "20px";
+  alertBox.style.right = "20px";
+  alertBox.style.padding = "15px 20px";
+  alertBox.style.fontFamily = "Poppins, sans-serif";
+  alertBox.style.fontSize = "14px";
+  alertBox.style.fontWeight = "500";
+  alertBox.style.color = "#333";
+  alertBox.style.background = "#fff";
+  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
+  alertBox.style.borderRadius = "8px";
+  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transform = "translateX(100%)";
+  alertBox.style.transition = "all 0.4s ease";
+
+  document.body.appendChild(alertBox);
+
+  requestAnimationFrame(() => {
+    alertBox.style.opacity = "1";
+    alertBox.style.transform = "translateX(0)";
+  });
+
+  setTimeout(() => {
+    alertBox.style.opacity = "0";
+    alertBox.style.transform = "translateX(100%)";
+    setTimeout(() => alertBox.remove(), 400);
+  }, 3000);
+}
 
     // User location and map variables
     let userLocation = null;
@@ -963,7 +1001,7 @@ header .right #closeBtn:hover {
     let mapMoved = false;
 
     // Initialize the application
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       initMap();
       getUserLocation();
       setupEventListeners();
@@ -973,14 +1011,14 @@ header .right #closeBtn:hover {
     function initMap() {
       // Set a default location (Ikeja, Lagos)
       map = L.map('map').setView([6.4541, 3.3942], 13);
-      
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap'
       }).addTo(map);
-      
+
       // Add event listener for map movement
-      map.on('moveend', function() {
+      map.on('moveend', function () {
         if (userLocation) {
           mapMoved = true;
           findNearbyHospitals();
@@ -994,19 +1032,19 @@ header .right #closeBtn:hover {
         navigator.geolocation.getCurrentPosition(
           position => {
             userLocation = [position.coords.latitude, position.coords.longitude];
-            
+
             // Update the map view
             map.setView(userLocation, 15);
-            
+
             // Add user marker
             userMarker = L.marker(userLocation)
               .addTo(map)
               .bindPopup('Your Location')
               .openPopup();
-            
+
             // Update location text
             document.getElementById('userLocation').textContent = 'Located';
-            
+
             // Check for nearby hospitals
             findNearbyHospitals();
           },
@@ -1018,27 +1056,27 @@ header .right #closeBtn:hover {
           }
         );
       } else {
-        alert('Geolocation is not supported by this browser.');
+        showAlert('Geolocation is not supported by this browser.');
         document.getElementById('userLocation').textContent = 'Not supported';
-    
+
         findNearbyHospitals();
       }
     }
 
- 
+
     function findNearbyHospitals() {
-      
+
       hospitalMarkers.forEach(marker => map.removeLayer(marker));
       hospitalMarkers = [];
-      
+
       document.getElementById('eta').innerHTML = '<span class="loading"></span> Searching for hospitals...';
-      
+
 
       const bounds = map.getBounds();
       const southWest = bounds.getSouthWest();
       const northEast = bounds.getNorthEast();
-      
-    
+
+
       const query = `
         [out:json][timeout:25];
         (
@@ -1048,10 +1086,10 @@ header .right #closeBtn:hover {
         );
         out center;
       `;
-      
+
       // Encode query for URL
       const encodedQuery = encodeURIComponent(query);
-      
+
       // Make request to Overpass API
       fetch(`https://overpass-api.de/api/interpreter?data=${encodedQuery}`)
         .then(response => response.json())
@@ -1068,29 +1106,29 @@ header .right #closeBtn:hover {
     // Process hospital data from Overpass API
     function processHospitalData(elements) {
       hospitalData = [];
-      
+
       if (!elements || elements.length === 0) {
         document.getElementById('eta').textContent = 'No hospitals found in this area';
         updateStatus('warning', 'No hospitals found', 'No hospitals detected in your current area');
-        document.getElementById('hospitalList').innerHTML = 
+        document.getElementById('hospitalList').innerHTML =
           '<div class="hospital-item"><div class="hospital-icon"><i class="fas fa-exclamation-triangle"></i></div><div class="hospital-info"><h4>No hospitals found</h4><p>Try moving the map or contact emergency services directly</p></div></div>';
         return;
       }
-      
+
       // Process each hospital element
       elements.forEach(element => {
         if (element.tags && element.tags.name) {
           let position;
-          
+
           // Get position based on element type
           if (element.type === 'node') {
             position = [element.lat, element.lon];
           } else if (element.center) {
             position = [element.center.lat, element.center.lon];
           } else {
-            return; 
+            return;
           }
-          
+
           // Calculate distance from user if available
           let distance = 'Unknown';
           if (userLocation) {
@@ -1099,24 +1137,24 @@ header .right #closeBtn:hover {
               position[0], position[1]
             ).toFixed(1) + ' km';
           }
-          
+
           // Create hospital object
           const hospital = {
             id: element.id,
             position: position,
             name: element.tags.name || 'Unknown Hospital',
-            address: element.tags['addr:street'] || 
-                     element.tags['addr:full'] || 
-                     'Address not available',
+            address: element.tags['addr:street'] ||
+              element.tags['addr:full'] ||
+              'Address not available',
             phone: element.tags.phone || 'Not available',
             website: element.tags.website || '',
             distance: distance
           };
-          
+
           hospitalData.push(hospital);
         }
       });
-      
+
       // Sort by distance if user location is available
       if (userLocation) {
         hospitalData.sort((a, b) => {
@@ -1125,7 +1163,7 @@ header .right #closeBtn:hover {
           return distA - distB;
         });
       }
-      
+
       // Display hospitals
       displayHospitals();
     }
@@ -1135,17 +1173,17 @@ header .right #closeBtn:hover {
       const R = 6371; // Earth's radius in km
       const dLat = deg2rad(lat2 - lat1);
       const dLon = deg2rad(lon2 - lon1);
-      const a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c;
       return distance;
     }
 
     function deg2rad(deg) {
-      return deg * (Math.PI/180);
+      return deg * (Math.PI / 180);
     }
 
     // Display hospitals on the map and list
@@ -1160,28 +1198,28 @@ header .right #closeBtn:hover {
           popupAnchor: [1, -34],
           shadowSize: [41, 41]
         });
-        
-        const marker = L.marker(hospital.position, {icon: hospitalIcon})
+
+        const marker = L.marker(hospital.position, { icon: hospitalIcon })
           .addTo(map)
           .bindPopup(`
             <b>${hospital.name}</b><br>
             ${hospital.address}<br>
             ${hospital.phone !== 'Not available' ? 'Phone: ' + hospital.phone : ''}
           `);
-        
+
         hospitalMarkers.push(marker);
       });
-      
+
       // Update ETA badge
       document.getElementById('eta').textContent = `${hospitalData.length} hospitals found`;
-      
+
       // Update status card
       updateStatus('hospital', 'Hospitals located', `Found ${hospitalData.length} hospitals nearby`);
-      
+
       // Populate hospital list
       const hospitalList = document.getElementById('hospitalList');
       hospitalList.innerHTML = '';
-      
+
       hospitalData.forEach(hospital => {
         const hospitalItem = document.createElement('div');
         hospitalItem.className = 'hospital-item';
@@ -1225,24 +1263,24 @@ header .right #closeBtn:hover {
       const statusCard = document.getElementById('poisonStatus');
       const statusIcon = statusCard.querySelector('.status-icon');
       const statusInfo = statusCard.querySelector('.status-info');
-      
+
       // Remove existing status classes
       statusIcon.classList.remove('status-safe', 'status-warning', 'status-danger', 'status-hospital');
-      
+
       // Add new status class
       statusIcon.classList.add(`status-${status}`);
-      
+
       // Update content
       statusInfo.querySelector('h3').textContent = title;
       statusInfo.querySelector('p').textContent = message;
-      
+
       // Update icon based on status
       const icon = statusIcon.querySelector('i');
-      icon.className = 
+      icon.className =
         status === 'safe' ? 'fas fa-check-circle' :
-        status === 'warning' ? 'fas fa-exclamation-triangle' :
-        status === 'hospital' ? 'fas fa-hospital' :
-        'fas fa-exclamation-circle';
+          status === 'warning' ? 'fas fa-exclamation-triangle' :
+            status === 'hospital' ? 'fas fa-hospital' :
+              'fas fa-exclamation-circle';
     }
 
     // Setup event listeners
@@ -1256,7 +1294,7 @@ header .right #closeBtn:hover {
       document.querySelectorAll('.chip[data-type]').forEach(el => {
         el.addEventListener('click', () => {
           const type = el.dataset.type;
-          switch(type) {
+          switch (type) {
             case 'contact':
               window.location.href = 'tel:911';
               break;
@@ -1293,7 +1331,7 @@ header .right #closeBtn:hover {
 
       // Contact modal submit button
       document.querySelector('.modal-btn.submit').addEventListener('click', () => {
-        alert('Emergency services have been notified. Help is on the way!');
+        showAlert('Emergency services have been notified. Help is on the way!');
         document.getElementById('contactModal').style.display = 'none';
       });
 

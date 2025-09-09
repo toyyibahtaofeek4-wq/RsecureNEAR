@@ -34,7 +34,7 @@
     }
 
     /* ---------- HEADER ---------- */
-   header {
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -58,7 +58,7 @@
         transform: translateY(0);
       }
     }
-    
+
     header .left {
       display: flex;
       align-items: center;
@@ -231,11 +231,11 @@
       border-radius: 50%;
     }
 
-    input:checked + .slider {
+    input:checked+.slider {
       background-color: #d32f2f;
     }
 
-    input:checked + .slider:before {
+    input:checked+.slider:before {
       transform: translateX(26px);
     }
 
@@ -270,7 +270,7 @@
       padding: 12px 16px;
       margin-bottom: 12px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .tip-card h4 {
@@ -283,7 +283,8 @@
       color: #7f8c8d;
       margin: 0;
     }
-/* ---------- BOTTOM NAV ---------- */
+
+    /* ---------- BOTTOM NAV ---------- */
     nav {
       display: flex;
       justify-content: space-around;
@@ -320,7 +321,7 @@
       color: var(--brand);
     }
 
-     .loader-overlay {
+    .loader-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -398,7 +399,9 @@
     }
 
     @keyframes pulseBtn {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 0 0 rgba(214, 14, 64, 0.6);
       }
 
@@ -427,14 +430,17 @@
         opacity: 0;
         transform: translateY(-20px);
       }
+
       20% {
         opacity: 1;
         transform: translateY(0);
       }
+
       80% {
         opacity: 1;
         transform: translateY(0);
       }
+
       100% {
         opacity: 0;
         transform: translateY(-20px);
@@ -470,7 +476,8 @@
       color: #d32f2f;
     }
 
-    .modal input, .modal select {
+    .modal input,
+    .modal select {
       width: 100%;
       padding: 12px;
       margin-bottom: 16px;
@@ -526,7 +533,7 @@
 
     <div class="info-card">
       <h3>Medication Reminders</h3>
-      
+
       <div class="alert-setting">
         <div class="alert-info">
           <h4>Blood Pressure Medication</h4>
@@ -538,7 +545,7 @@
           <span class="slider"></span>
         </label>
       </div>
-      
+
       <div class="alert-setting">
         <div class="alert-info">
           <h4>Evening Medication</h4>
@@ -550,7 +557,7 @@
           <span class="slider"></span>
         </label>
       </div>
-      
+
       <button class="add-medication" id="addMedBtn">
         <i class="fas fa-plus"></i> Add Medication
       </button>
@@ -576,7 +583,7 @@
 
     <div class="info-card">
       <h3>Safety Reminders</h3>
-      
+
       <div class="alert-setting">
         <div class="alert-info">
           <h4>Regular Rest Breaks</h4>
@@ -587,7 +594,7 @@
           <span class="slider"></span>
         </label>
       </div>
-      
+
       <div class="alert-setting">
         <div class="alert-info">
           <h4>Emergency Preparedness</h4>
@@ -603,23 +610,22 @@
 
   <nav>
     <div class="nav-item active">
-            <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
-    <div class="nav-item active"> <a href="map.html" id="mapLink"  style="color: #2c3e50; text-decoration: none;"><i
+      <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item active"> <a href="map.html" id="mapLink" style="color: #2c3e50; text-decoration: none;"><i
           class="fas fa-map-marker-alt"></i>Map</a></div>
 
 
-     <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-          class="fas fa-map-marker-alt"></i>SOS</a></div>
+    <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
+          class="fas fa-circle-exclamation"></i>SOS</a></div>
 
-
-<div class="nav-item">
-  <a href="alert.html" id="alertsBtn" style="color: #e53935; text-decoration: none;">
-    <i class="fas fa-bell"></i> Alerts
-  </a>
-</div>
+    <div class="nav-item">
+      <a href="alert.html" id="alertsBtn" style="color: #e53935; text-decoration: none;">
+        <i class="fas fa-bell"></i> Alerts
+      </a>
+    </div>
 
     <div class="nav-item" id="profileBtn" style="cursor: pointer;">
       <i class="fas fa-user"></i> Profile
@@ -628,33 +634,33 @@
   </nav>
 
   <div id="loaderOverlay" class="loader-overlay">
-  <div class="loader-spinner"></div>
-</div>
+    <div class="loader-spinner"></div>
+  </div>
 
 
   <div id="loaderOverlay" class="loader-overlay">
     <div class="loader-spinner"></div>
   </div>
 
-   <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="sosLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="alertsLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="profileLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-    </div>
+  <div id="mapLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
   <div id="alertPopup" class="alert-popup">
     Alert set successfully
@@ -719,16 +725,16 @@
     const saveMed = document.getElementById('saveMed');
 
     // Initialize the page
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // Set up medication reminders
       setupMedicationReminders();
-      
+
       // Start checking for reminders
       checkScheduledReminders();
-      
+
       // Set up event listeners
       setupEventListeners();
-      
+
       // Show a random health tip every hour
       setInterval(showRandomHealthTip, 3600000);
     });
@@ -741,18 +747,18 @@
 
     // Check for scheduled reminders
     function checkScheduledReminders() {
-      setInterval(function() {
+      setInterval(function () {
         const now = new Date();
-        const currentTime = now.getHours().toString().padStart(2, '0') + ':' + 
-                            now.getMinutes().toString().padStart(2, '0');
-        
+        const currentTime = now.getHours().toString().padStart(2, '0') + ':' +
+          now.getMinutes().toString().padStart(2, '0');
+
         // Check if any medication is scheduled for this time
         medications.forEach(med => {
           if (med.enabled && med.time === currentTime) {
             showAlert(`Time to take your ${med.name}: ${med.dosage}`);
           }
         });
-        
+
         // Show random health tip at 9am, 1pm, and 5pm
         if (['09:00', '13:00', '17:00'].includes(currentTime)) {
           showRandomHealthTip();
@@ -770,7 +776,7 @@
     function showAlert(message) {
       alertPopup.textContent = message;
       alertPopup.style.display = 'block';
-      
+
       // Hide after 5 seconds
       setTimeout(() => {
         alertPopup.style.display = 'none';
@@ -799,7 +805,7 @@
         const name = document.getElementById('medName').value;
         const dosage = document.getElementById('medDosage').value;
         const time = document.getElementById('medTime').value;
-        
+
         if (name && dosage && time) {
           // Add to medications array
           medications.push({
@@ -808,60 +814,60 @@
             time: time,
             enabled: true
           });
-          
+
           // Show success message
           showAlert(`Added reminder for ${name} at ${time}`);
-          
+
           // Close modal
           medModal.style.display = 'none';
-          
+
           // Clear form
           document.getElementById('medName').value = '';
           document.getElementById('medDosage').value = '';
           document.getElementById('medTime').value = '';
         } else {
-          alert('Please fill in all fields');
+          showAlert('Please fill in all fields');
         }
       });
 
       // Close button
-      document.getElementById("closeBtn").addEventListener("click", function() {
+      document.getElementById("closeBtn").addEventListener("click", function () {
         window.location.href = "home.html";
       });
 
       // Navigation handlers
-      document.getElementById('homeLink').addEventListener('click', function(event) {
+      document.getElementById('homeLink').addEventListener('click', function (event) {
         event.preventDefault();
         document.getElementById('homeLoaderOverlay').style.display = 'flex';
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "home.html";
         }, 1000);
       });
 
-      document.getElementById('sosBtn').addEventListener('click', function(event) {
+      document.getElementById('sosBtn').addEventListener('click', function (event) {
         event.preventDefault();
         document.getElementById('sosLoaderOverlay').style.display = 'flex';
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "soslog.html";
         }, 1000);
       });
 
-      document.getElementById('alertsBtn').addEventListener('click', function(event) {
+      document.getElementById('alertsBtn').addEventListener('click', function (event) {
         // Already on alerts page
       });
 
-      document.getElementById('profileBtn').addEventListener('click', function(event) {
+      document.getElementById('profileBtn').addEventListener('click', function (event) {
         event.preventDefault();
         document.getElementById('profileLoaderOverlay').style.display = 'flex';
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "profile.html";
         }, 1000);
       });
 
-      document.getElementById('mapLink').addEventListener('click', function(event) {
+      document.getElementById('mapLink').addEventListener('click', function (event) {
         event.preventDefault();
         document.getElementById('mapLoaderOverlay').style.display = 'flex';
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "map.html";
         }, 1000);
       });
@@ -869,8 +875,8 @@
 
     // Function to simulate typing effect
     function typeHtml(element, speed = 20) {
-      const html = element.innerHTML; 
-      element.innerHTML = "";          
+      const html = element.innerHTML;
+      element.innerHTML = "";
       let i = 0;
 
       function type() {
@@ -885,26 +891,27 @@
 
     // Apply typing effect to info cards
     document.querySelectorAll(".info-card p").forEach((p, index) => {
-      setTimeout(() => typeHtml(p, 15), index * 1200); 
+      setTimeout(() => typeHtml(p, 15), index * 1200);
     });
 
     function addLoaderRedirect(id, targetPage) {
-  const btn = document.getElementById(id);
-  if (btn) {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault(); 
-      document.getElementById("loaderOverlay").style.display = "flex";
-      setTimeout(() => {
-        window.location.href = targetPage;
-      }, 3000); // 3s delay
-    });
-  }
-}
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("loaderOverlay").style.display = "flex";
+          setTimeout(() => {
+            window.location.href = targetPage;
+          }, 3000); // 3s delay
+        });
+      }
+    }
 
-// Apply to SOS and Alerts
-addLoaderRedirect("sosBtn", "soslog.html");
-addLoaderRedirect("alertsBtn", "alert.html");
+    // Apply to SOS and Alerts
+    addLoaderRedirect("sosBtn", "soslog.html");
+    addLoaderRedirect("alertsBtn", "alert.html");
 
   </script>
 </body>
+
 </html>
