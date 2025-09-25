@@ -211,7 +211,7 @@ async function handleLogin(e) {
 
   const isValid = iti.isValidNumber();
   if (!isValid) {
-    showAlertt("Please enter a valid phone number.");
+    showAlert("Please enter a valid phone number.");
     phoneInput.focus();
     return;
   }
