@@ -7,6 +7,8 @@ const nodemailer = require('nodemailer');
 const axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
+const cors = require("cors");
+app.use(cors({ origin: "*" }));
 
 // Serve all static files (CSS, JS, images)
 app.use(express.static(__dirname)); 
