@@ -4,35 +4,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RescueNEAR - Pregnancy Assistance</title>
-  <link rel="shortcut icon" href="https://img.icons8.com/color/48/pregnancy.png" type="image/x-icon">
-  <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-
+  <title>Astro Rescue Ventures - CEO Operating System</title>
+  <link rel="shortcut icon" href="https://img.icons8.com/color/48/rocket.png" type="image/x-icon">
+  <link rel="shortcut icon"="/images/astro-logo.png" type="image/x-icon">
+  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     :root {
-      --brand: #d32f2f;
+      --brand: #1a365d;
+      --accent: #ed8936;
       --ink: #222;
       --muted: #666;
       --bg: #fff;
       --card: #fafafa;
-      --safe: #4caf50;
-      --warning: #ff9800;
+      --success: #48bb78;
+      --warning: #ed8936;
       --danger: #f44336;
-      --maternity: #f8bbd0;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      /* color: #2c3e50; */
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
@@ -52,10 +47,16 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(-45deg, #e8f4f8, #d9edf7, #e8f4f8, #d9edf7);
+      background: linear-gradient(-45deg, #f8fafc, #e2e8f0, #f8fafc, #e2e8f0);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       z-index: -2;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* ---------- HEADER ---------- */
@@ -64,7 +65,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 20px;
-      /* height: 80px; */
       background: #fff;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
       position: sticky;
@@ -74,25 +74,8 @@
     }
 
     @keyframes slideDown {
-      from {
-        transform: translateY(-100%);
-      }
-
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
     }
 
     header .left {
@@ -104,46 +87,18 @@
     header img.logo {
       width: 40px;
       height: 40px;
+      border-radius: 8px;
     }
 
     header h1 {
       font-size: 18px;
       font-weight: 700;
-      color: #d32f2f;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      color: #1a365d;
     }
 
-    header .locate {
+    header .tagline {
       font-size: 13px;
-      color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    header .right i {
-      font-size: 20px;
-      color: #2c3e50;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    header .right i:hover {
-      transform: scale(1.2);
-      color: #d32f2f;
-    }
-
-
-    header .right #closeBtn {
-      font-size: 20px;
-      margin-left: 12px;
-      color: #2c3e50;
-      cursor: pointer;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    header .right #closeBtn:hover {
-      transform: rotate(180deg) scale(1.2);
-      color: #d32f2f;
+      color: #4a5568;
     }
 
     /* ---------- CONTENT ---------- */
@@ -157,45 +112,54 @@
       font-size: 1.9rem;
       font-weight: 600;
       margin-bottom: 14px;
-      color: #2c3e50;
+      color: #1a365d;
       animation: fadeInDown 0.8s ease;
     }
 
-    .status-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      animation: fadeInUp 0.8s ease;
-      border-left: 4px solid #e91e63;
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .status-icon {
-      width: 50px;
-      height: 50px;
+    .hero-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+      border-left: 4px solid #1a365d;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-icon {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-      background-color: rgba(233, 30, 99, 0.15);
-      color: var(--brand);
+      font-size: 24px;
+      margin: 0 auto 16px;
+      background-color: rgba(26, 54, 93, 0.15);
+      color: #1a365d;
     }
 
-    .status-info h3 {
-      font-size: 16px;
-      margin-bottom: 4px;
-      color: #2c3e50;
+    .hero-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #1a365d;
     }
 
-    .status-info p {
+    .hero-card p {
       font-size: 14px;
-      color: #2c3e50;
+      color: #4a5568;
+      margin-bottom: 16px;
     }
 
     .cta {
@@ -208,21 +172,27 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      background: var(--brand);
+      background: #1a365d;
       color: #fff;
       font-weight: 700;
       border: none;
       border-radius: 14px;
-      padding: 14px 20px;
-      font-size: 1rem;
-      box-shadow: 0 6px 14px rgba(233, 30, 99, 0.3);
+      padding: 16px 24px;
+      font-size: 1.1rem;
+      box-shadow: 0 6px 14px rgba(26, 54, 93, 0.3);
       cursor: pointer;
       animation: pulseBtn 2s infinite;
       transition: transform 0.2s ease, background 0.3s ease;
     }
 
+    @keyframes pulseBtn {
+      0% { box-shadow: 0 0 0 0 rgba(26, 54, 93, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(26, 54, 93, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(26, 54, 93, 0); }
+    }
+
     .cta button:hover {
-      background: #ad1457;
+      background: #2d3748;
       transform: translateY(-2px);
     }
 
@@ -230,280 +200,104 @@
       transform: scale(.96);
     }
 
-    .cta button i {
-      font-size: 1.1rem;
-      color: white;
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
     }
 
-    .section-title {
-      text-align: center;
-      font-weight: 600;
-      margin: 18px 0 14px;
-      font-size: 1.1rem;
-      color: #2c3e50;
-      animation: fadeIn 1s ease;
-    }
-
-    /* ---------- MAP ---------- */
-    .map-card {
-      background: linear-gradient(180deg, #f9f9f9, #ececec);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
-      animation: fadeInUp 0.8s ease;
-      margin-bottom: 20px;
-    }
-
-    #map {
-      width: 100%;
-      height: 380px;
-    }
-
-    @media (min-width:700px) {
-      #map {
-        height: 460px;
-      }
-    }
-
-    .eta-badge {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 14px;
-      z-index: 500;
-      background: #fff;
-      border-radius: 14px;
-      padding: 8px 14px;
-      font-size: 1rem;
-      font-weight: 700;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
-      animation: fadeIn 1.2s ease;
-      color: #2c3e50;
-    }
-
-    /* ---------- HOSPITAL LIST ---------- */
-    .hospital-list {
-      margin-top: 20px;
-    }
-
-    .hospital-item {
+    .feature-card {
       background: #fff;
       border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
+      padding: 20px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      text-align: center;
       animation: fadeInUp 0.6s ease;
       transition: transform 0.3s ease;
-      cursor: pointer;
     }
 
-    .hospital-item:hover {
+    .feature-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .hospital-item.selected {
-      border: 2px solid #2c3e50;
-      background-color: #fce4ec;
-    }
-
-    .hospital-icon {
-      width: 40px;
-      height: 40px;
+    .feature-icon {
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: rgba(233, 30, 99, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--brand);
-      font-size: 18px;
-      flex-shrink: 0;
+      font-size: 20px;
+      margin: 0 auto 12px;
+      background-color: rgba(26, 54, 93, 0.1);
+      color: #1a365d;
     }
 
-    .hospital-info {
-      flex: 1;
+    .feature-card h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #1a365d;
     }
 
-    .hospital-info h4 {
-      font-size: 15px;
-      margin-bottom: 4px;
-      color: #2c3e50;
-    }
-
-    .hospital-info p {
+    .feature-card p {
       font-size: 13px;
-      color: #2c3e50;
+      color: #4a5568;
     }
 
-    .hospital-distance {
-      font-weight: 600;
-      color: var(--brand);
-      font-size: 14px;
-    }
-
-    /* ---------- CONTACT OPTIONS ---------- */
-    .contact-options {
-      display: none;
-      margin-top: 20px;
-      background: white;
+    .testimonial {
+      background: #f8fafc;
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin: 24px 0;
+      text-align: center;
       animation: fadeInUp 0.8s ease;
+      border-left: 4px solid #ed8936;
     }
 
-    .contact-header {
-      text-align: center;
-      margin-bottom: 16px;
-      color: #2c3e50;
+    .testimonial p {
+      font-style: italic;
+      color: #4a5568;
+      margin-bottom: 12px;
+    }
+
+    .testimonial .author {
       font-weight: 600;
+      color: #1a365d;
     }
 
-    .contact-buttons {
-      display: flex;
-      justify-content: space-around;
-      gap: 10px;
-    }
-
-    .contact-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 12px;
-      border-radius: 12px;
-      background: #f8bbd0;
-      color: #2c3e50;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 80px;
-    }
-
-    .contact-btn:hover {
-      background: #e91e63;
-      color: white;
-      transform: translateY(-3px);
-    }
-
-    .contact-btn i {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .contact-btn span {
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    /* ---------- GRID ---------- */
-    .subcall {
-      text-align: center;
-      font-weight: 500;
-      margin: 16px 0 14px;
-      color: #2c3e50;
-      animation: fadeInUp 1s ease;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 12px;
-    }
-
-    .chip {
-      background: var(--brand);
-      padding: 12px 6px 10px;
+    .pricing {
+      background: #fff;
       border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
-      animation: fadeInUp 0.8s ease;
-      color: white;
-    }
-
-    .chip:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
-    }
-
-    .chip i {
-      font-size: 1.3rem;
-      color: white;
-    }
-
-    .chip span {
-      font-size: .85rem;
-      font-weight: 600;
+      padding: 24px;
+      margin: 24px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       text-align: center;
-      color: white;
+      animation: fadeInUp 0.8s ease;
     }
 
-    /* ---------- ANIMATIONS ---------- */
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a365d;
+      margin: 16px 0;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .price-note {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 20px;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+    .benefits-list {
+      text-align: left;
+      margin: 20px 0;
     }
 
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-40px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes pulseBtn {
-      0% {
-        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.4);
-      }
-
-      70% {
-        box-shadow: 0 0 0 15px rgba(233, 30, 99, 0);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgba(233, 30, 99, 0);
-      }
+    .benefits-list li {
+      margin-bottom: 8px;
+      color: #4a5568;
     }
 
     /* ---------- NAV ---------- */
@@ -522,7 +316,7 @@
     nav .nav-item {
       text-align: center;
       font-size: 12px;
-      color: #2c3e50;
+      color: #4a5568;
       flex: 1;
       cursor: pointer;
       transition: color 0.3s ease, transform 0.3s ease;
@@ -530,7 +324,7 @@
 
     nav .nav-item:hover {
       transform: translateY(-2px);
-      /* color: var(--brand); */
+      color: #1a365d;
     }
 
     nav .nav-item i {
@@ -540,122 +334,14 @@
     }
 
     nav .nav-item.active {
-      color: var(--brand);
+      color: #1a365d;
     }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 3000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: #fff;
-      border-radius: 20px;
-      padding: 24px;
-      width: 85%;
-      max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      animation: fadeInUp 0.4s ease;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .modal-header h3 {
-      font-size: 18px;
-      color: var(--ink);
-    }
-
-    .modal-header .close {
-      font-size: 22px;
-      cursor: pointer;
-      color: var(--muted);
-    }
-
-    .modal-body {
-      margin-bottom: 20px;
-    }
-
-    .modal-body p {
-      margin-bottom: 16px;
-      color: var(--muted);
-    }
-
-    .modal-form input,
-    .modal-form textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
-
-    .modal-form textarea {
-      height: 100px;
-      resize: vertical;
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-    }
-
-    .modal-btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .modal-btn.cancel {
-      background: #f0f0f0;
-      color: var(--muted);
-    }
-
-    .modal-btn.submit {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .location {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .back-btn {
-      color: red;
-      font-size: 18px;
-      text-decoration: none;
-      margin-right: 6px;
-    }
-
-    .back-btn:hover {
-      color: red;
-    }
-
 
     .alert-popup {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: #d32f2f;
+      background: #48bb78;
       color: #fff;
       padding: 12px 20px;
       border-radius: 8px;
@@ -663,8 +349,14 @@
       font-size: 14px;
       display: none;
       z-index: 99999;
-      /* way above header */
       animation: fadeInOut 3s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateX(100%); }
+      20% { opacity: 1; transform: translateX(0); }
+      80% { opacity: 1; transform: translateX(0); }
+      100% { opacity: 0; transform: translateX(100%); }
     }
 
     .loader-overlay {
@@ -684,586 +376,234 @@
     .loader-spinner {
       width: 80px;
       height: 80px;
-      border: 8px dashed #e53935;
+      border: 8px dashed #1a365d;
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
 
     @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 
 <body>
+  <div class="background-animation"></div>
 
   <div id="alertPopup" class="alert-popup">
-    Alert set successfully
+    Welcome to CEO Operating System!
   </div>
 
   <header>
     <div class="left">
-      <img src="/images/s1.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <!-- REPLACE THIS IMAGE -->
+      <img src="/images/astro-logo.png" alt="Astro Rescue Ventures" class="logo" />
       <div>
-        <h1>Pregnancy Aid</h1>
-        <p class="locate"><i class="fas fa-map-marker-alt"></i> Location Detected</p>
+        <h1>Astro Rescue Ventures</h1>
+        <p class="tagline">CEO Operating System</p>
       </div>
-    </div>
-
-    <div class="right">
-      <i class="fas fa-bell"></i>
-      <i class="fas fa-times" id="closeBtn"></i> <!-- X button -->
     </div>
   </header>
 
   <div class="wrap">
-    <h2>Pregnancy Assistance</h2>
+    <h2>Transform Your Productivity</h2>
 
-    <div class="status-card">
-      <div class="status-icon">
-        <i class="fas fa-baby-carriage"></i>
+    <div class="hero-card">
+      <div class="hero-icon">
+        <i class="fas fa-rocket"></i>
       </div>
-      <div class="status-info">
-        <h3>Maternal Care Support</h3>
-        <p>Find nearby hospitals with maternity services</p>
-      </div>
-    </div>
-
-    <div class="cta">
-      <button id="emergencyBtn"><i class="fa-solid fa-triangle-exclamation"></i> Emergency Obstetric Care</button>
-    </div>
-
-    <div class="section-title">Nearby Hospitals with Maternity Services</div>
-
-    <div class="map-card">
-      <div class="map-wrap">
-        <div id="map"></div>
-        <div id="eta" class="eta-badge" aria-live="polite">Finding nearby hospitals...</div>
-      </div>
-    </div>
-
-    <div class="hospital-list" id="hospitalList">
-      <!-- Hospital items will be dynamically added here -->
-    </div>
-
-    <div class="contact-options" id="contactOptions">
-      <div class="contact-header">Contact Selected Hospital</div>
-      <div class="contact-buttons">
-        <button class="contact-btn" id="callBtn">
-          <i class="fas fa-phone"></i>
-          <span>Call</span>
-        </button>
-        <button class="contact-btn" id="whatsappBtn">
-          <i class="fab fa-whatsapp"></i>
-          <span>WhatsApp</span>
-        </button>
-        <button class="contact-btn" id="emailBtn">
-          <i class="fas fa-envelope"></i>
-          <span>Email</span>
+      <h3>CEO Operating System</h3>
+      <p>Go from chaotic to optimized in 60 minutes. Plan your week like a top CEO and execute with precision.</p>
+      
+      <div class="cta">
+        <button id="getStartedBtn">
+          <i class="fas fa-bolt"></i> Get Started - $197
         </button>
       </div>
     </div>
 
-    <p class="subcall">Pregnancy support resources</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chess-king"></i>
+        </div>
+        <h4>Strategic Planning</h4>
+        <p>CEO-style weekly planning that connects daily tasks to quarterly goals</p>
+      </div>
 
-    <!-- Contact Modal -->
-    <div class="modal" id="contactModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Contact Hospital</h3>
-          <span class="close">&times;</span>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-clock"></i>
         </div>
-        <div class="modal-body">
-          <p>Send a message to <span id="hospitalName">the hospital</span></p>
-          <form class="modal-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="tel" placeholder="Phone Number" required>
-            <textarea placeholder="Type your message here"
-              required>I would like to make an appointment for a prenatal check-up.</textarea>
-          </form>
+        <h4>Auto-Calendar</h4>
+        <p>Automated time blocking and calendar optimization based on your priorities</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-bolt"></i>
         </div>
-        <div class="modal-footer">
-          <button class="modal-btn cancel">Cancel</button>
-          <button class="modal-btn submit">Send Message</button>
+        <h4>60-Minute Setup</h4>
+        <p>Quick implementation that busy founders actually use every week</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-infinity"></i>
         </div>
+        <h4>One-Time Payment</h4>
+        <p>Own your productivity system forever - no subscriptions</p>
       </div>
     </div>
 
-    <nav>
-      <div class="nav-item active">
-        <a href="home.html" id="homeLink" style="color: #2c3e50; text-decoration: none;">
-          <i class="fas fa-home"></i> Home
-        </a>
-      </div>
-      <div class="nav-item active"> <a href="map.html" id="mapLink" style="color: #2c3e50; text-decoration: none;"><i
-            class="fas fa-map-marker-alt"></i>Map</a></div>
+    <div class="testimonial">
+      <p>"This system transformed how I work. From chaotic to strategic in one week. Worth every penny!"</p>
+      <div class="author">- Sarah K., Tech Founder</div>
+    </div>
 
-
-      <div class="nav-item "> <a href="soslog.html" id="sosBtn" style="color: #2c3e50; text-decoration: none;"><i
-            class="fas fa-circle-exclamation"></i>
-          SOS</a></div>
-
-
-      <div class="nav-item" id="alertsBtn" style="cursor: pointer;">
-        <i class="fas fa-bell"></i> Alerts
-      </div>
-
-      <div class="nav-item" id="profileBtn" style="cursor: pointer;">
-        <i class="fas fa-user"></i> Profile
+    <div class="pricing">
+      <h3>Ready to Command Your Week?</h3>
+      <div class="price">$197</div>
+      <div class="price-note">One-time payment • Lifetime access</div>
+      
+      <div class="benefits-list">
+        <li>✓ Weekly CEO Planning System</li>
+        <li>✓ Automated Calendar Optimization</li>
+        <li>✓ Priority-Based Time Blocking</li>
+        <li>✓ Energy Management Tools</li>
+        <li>✓ Lifetime Updates & Support</li>
       </div>
 
-      <div id="loaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
+      <div class="cta">
+        <button id="buyNowBtn">
+          <i class="fas fa-shield-alt"></i> Get CEO System Now
+        </button>
       </div>
-
-      <div id="sosLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-      </div>
-
-      <div id="alertsLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-      </div>
-
-      <div id="profileLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-      </div>
-
-      <div id="homeLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-      </div>
-
-      <div id="mapLoaderOverlay" class="loader-overlay">
-        <div class="loader-spinner"></div>
-      </div>
-
-
-
-      <script>
-
-        const bell = document.querySelector('.right i');
-        const popup = document.getElementById('alertPopup');
-
-        bell.addEventListener('click', () => {
-
-          popup.style.display = 'block';
-
-          bell.classList.add('bell-active');
-
-          setTimeout(() => {
-            popup.style.display = 'none';
-            bell.classList.remove('bell-active');
-          }, 3000);
-        });
-
-        document.getElementById("closeBtn").addEventListener("click", function () {
-          window.location.href = "map.html";
-        });
-
-
-        document.getElementById('homeLink').addEventListener('click', function (event) {
-          event.preventDefault();
-
-          document.getElementById('homeLoaderOverlay').style.display = 'flex';
-
-          setTimeout(function () {
-            window.location.href = "home.html";
-          }, 3000);
-        });
-
-        document.getElementById('sosBtn').addEventListener('click', function (event) {
-          event.preventDefault();
-
-
-          document.getElementById('sosLoaderOverlay').style.display = 'flex';
-
-
-          setTimeout(function () {
-            window.location.href = "soslog.html";
-          }, 3000);
-        });
-
-        document.getElementById('alertsBtn').addEventListener('click', function (event) {
-          event.preventDefault();
-
-          document.getElementById('alertsLoaderOverlay').style.display = 'flex';
-
-          setTimeout(function () {
-            window.location.href = "alert.html";
-          }, 3000);
-        });
-
-
-        document.getElementById('profileBtn').addEventListener('click', function (event) {
-          event.preventDefault();
-
-
-          document.getElementById('profileLoaderOverlay').style.display = 'flex';
-
-          setTimeout(function () {
-            window.location.href = "profile.html";
-          }, 3000);
-        });
-
-        document.getElementById('mapLink').addEventListener('click', function (event) {
-          event.preventDefault();
-
-          document.getElementById('mapLoaderOverlay').style.display = 'flex';
-
-          setTimeout(function () {
-            window.location.href = "map.html";
-          }, 3000);
-        });
-
-        // Custom professional alert
-function showAlert(message, type = "success") {
-  const alertBox = document.createElement("div");
-  alertBox.textContent = message;
-  alertBox.style.position = "fixed";
-  alertBox.style.top = "20px";
-  alertBox.style.right = "20px";
-  alertBox.style.padding = "15px 20px";
-  alertBox.style.fontFamily = "Poppins, sans-serif";
-  alertBox.style.fontSize = "14px";
-  alertBox.style.fontWeight = "500";
-  alertBox.style.color = "#333";
-  alertBox.style.background = "#fff";
-  alertBox.style.borderLeft = "5px solid " + (type === "error" ? "#f44336" : "#4CAF50");
-  alertBox.style.borderRadius = "8px";
-  alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-  alertBox.style.zIndex = "9999";
-  alertBox.style.opacity = "0";
-  alertBox.style.transform = "translateX(100%)";
-  alertBox.style.transition = "all 0.4s ease";
-
-  document.body.appendChild(alertBox);
-
-  requestAnimationFrame(() => {
-    alertBox.style.opacity = "1";
-    alertBox.style.transform = "translateX(0)";
-  });
-
-  setTimeout(() => {
-    alertBox.style.opacity = "0";
-    alertBox.style.transform = "translateX(100%)";
-    setTimeout(() => alertBox.remove(), 400);
-  }, 3000);
-}
-
-        // User location and map variables
-        let userLocation = null;
-        let userMarker = null;
-        let hospitalMarkers = [];
-        let map;
-        let selectedHospital = null;
-
-        // Sample hospital data with maternity services
-        const sampleHospitals = [
-          {
-            id: 1,
-            position: [6.4541, 3.3942],
-            name: "Ikeja Maternal Center",
-            specialty: "Obstetrics & Gynecology",
-            distance: "0.8 km",
-            phone: "+234123456789",
-            email: "appointments@ikejamaternal.com",
-            whatsapp: "+234123456789",
-            availability: "24/7"
-          },
-          {
-            id: 2,
-            position: [6.4580, 3.4000],
-            name: "Lagos Women Hospital",
-            specialty: "Women's Health",
-            distance: "1.2 km",
-            phone: "+234987654321",
-            email: "info@lagoswomenhospital.com",
-            whatsapp: "+234987654321",
-            availability: "24/7"
-          },
-          {
-            id: 3,
-            position: [6.4500, 3.3900],
-            name: "Mother & Child Clinic",
-            specialty: "Pediatrics & Obstetrics",
-            distance: "0.5 km",
-            phone: "+234567891234",
-            email: "care@motherchildclinic.com",
-            whatsapp: "+234567891234",
-            availability: "6am - 10pm"
-          },
-          {
-            id: 4,
-            position: [6.4600, 3.4100],
-            name: "St. Mary's Maternity Home",
-            specialty: "Midwifery Services",
-            distance: "1.8 km",
-            phone: "+234678912345",
-            email: "contact@stmarysmaternity.com",
-            whatsapp: "+234678912345",
-            availability: "24/7"
-          }
-        ];
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function () {
-          initMap();
-          getUserLocation();
-          setupEventListeners();
-        });
-
-        // Initialize the map
-        function initMap() {
-          // Set a default location (Ikeja, Lagos)
-          map = L.map('map').setView([6.4541, 3.3942], 13);
-
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap'
-          }).addTo(map);
-        }
-
-        // Get user's current location
-        function getUserLocation() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              position => {
-                userLocation = [position.coords.latitude, position.coords.longitude];
-
-                // Update the map view
-                map.setView(userLocation, 14);
-
-                // Add user marker
-                userMarker = L.marker(userLocation, {
-                  icon: L.icon({
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                  })
-                })
-                  .addTo(map)
-                  .bindPopup('Your Location')
-                  .openPopup();
-
-                // Update location text with actual coordinates
-                document.getElementById('userLocation').textContent =
-                  `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
-
-                // Generate hospitals near user location
-                generateHospitalsNearUser();
-
-                // Show nearby hospitals
-                showNearbyHospitals();
-              },
-              error => {
-                console.error('Error getting location:', error);
-                document.getElementById('userLocation').textContent = 'Location access denied';
-                document.getElementById('eta').textContent = 'Enable location to see hospitals';
-                showAlert('Please enable location services to use this feature.');
-              }
-            );
-          } else {
-            showAlert('Geolocation is not supported by this browser.');
-            document.getElementById('userLocation').textContent = 'Not supported';
-          }
-        }
-
-        // Generate hospitals near user location
-        function generateHospitalsNearUser() {
-          // Clear previous hospitals
-          sampleHospitals.length = 0;
-
-          // Generate 4 hospitals near the user with random offsets
-          for (let i = 0; i < 4; i++) {
-            // Add small random offsets to user location (0.01-0.03 degrees approx 1-3km)
-            const latOffset = (Math.random() * 0.02 - 0.01);
-            const lngOffset = (Math.random() * 0.02 - 0.01);
-
-            sampleHospitals.push({
-              id: i + 1,
-              position: [userLocation[0] + latOffset, userLocation[1] + lngOffset],
-              name: `Maternity Hospital ${i + 1}`,
-              specialty: "Obstetrics & Gynecology",
-              distance: `${(Math.random() * 2 + 0.5).toFixed(1)} km`,
-              phone: "+23412345678" + i,
-              email: `hospital${i + 1}@maternity.com`,
-              whatsapp: "+23412345678" + i,
-              availability: "24/7"
-            });
-          }
-        }
-
-        // Display hospitals on the map and list
-        function showNearbyHospitals() {
-          // Clear existing hospital markers
-          hospitalMarkers.forEach(marker => map.removeLayer(marker));
-          hospitalMarkers = [];
-
-          // Add sample hospitals to map
-          sampleHospitals.forEach(hospital => {
-            const hospitalIcon = L.icon({
-              iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-              shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-              iconSize: [25, 41],
-              iconAnchor: [12, 41],
-              popupAnchor: [1, -34],
-              shadowSize: [41, 41]
-            });
-
-            const marker = L.marker(hospital.position, { icon: hospitalIcon })
-              .addTo(map)
-              .bindPopup(`
-            <b>${hospital.name}</b><br>
-            ${hospital.specialty}<br>
-            Distance: ${hospital.distance}<br>
-            <button onclick="selectHospital(${hospital.id})" style="margin-top: 8px; padding: 5px 10px; background: #e91e63; color: white; border: none; border-radius: 4px; cursor: pointer;">
-              Select This Hospital
-            </button>
-          `);
-
-            hospitalMarkers.push(marker);
-          });
-
-          // Update ETA badge
-          document.getElementById('eta').textContent = `${sampleHospitals.length} hospitals nearby`;
-
-          // Populate hospital list
-          const hospitalList = document.getElementById('hospitalList');
-          hospitalList.innerHTML = '';
-
-          sampleHospitals.forEach(hospital => {
-            const hospitalItem = document.createElement('div');
-            hospitalItem.className = 'hospital-item';
-            hospitalItem.id = `hospital-${hospital.id}`;
-            hospitalItem.innerHTML = `
-          <div class="hospital-icon">
-            <i class="fas fa-hospital"></i>
-          </div>
-          <div class="hospital-info">
-            <h4>${hospital.name}</h4>
-            <p>${hospital.specialty} • ${hospital.availability}</p>
-          </div>
-          <div class="hospital-distance">${hospital.distance}</div>
-        `;
-            hospitalItem.addEventListener('click', () => selectHospital(hospital.id));
-            hospitalList.appendChild(hospitalItem);
-          });
-        }
-
-        // Select a hospital
-        function selectHospital(hospitalId) {
-          // Remove selected class from all hospitals
-          document.querySelectorAll('.hospital-item').forEach(item => {
-            item.classList.remove('selected');
-          });
-
-          // Add selected class to the clicked hospital
-          const hospitalItem = document.getElementById(`hospital-${hospitalId}`);
-          hospitalItem.classList.add('selected');
-
-          // Store the selected hospital
-          selectedHospital = sampleHospitals.find(h => h.id === hospitalId);
-
-          // Show contact options
-          document.getElementById('contactOptions').style.display = 'block';
-
-          // Scroll to contact options
-          document.getElementById('contactOptions').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-          // Emergency button
-          document.getElementById('emergencyBtn').addEventListener('click', () => {
-            window.location.href = 'tel://112';
-          });
-
-          // Call button
-          document.getElementById('callBtn').addEventListener('click', () => {
-            if (selectedHospital) {
-              window.location.href = `tel:${selectedHospital.phone}`;
-            } else {
-              showAlert('Please select a hospital first');
-            }
-          });
-
-          // WhatsApp button
-          document.getElementById('whatsappBtn').addEventListener('click', () => {
-            if (selectedHospital) {
-              const message = "Hello, I would like to make an appointment for a prenatal check-up.";
-              window.open(`https://wa.me/${selectedHospital.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
-            } else {
-              showAlert('Please select a hospital first');
-            }
-          });
-
-          // Email button
-          document.getElementById('emailBtn').addEventListener('click', () => {
-            if (selectedHospital) {
-              const subject = "Appointment Request";
-              const body = "Hello, I would like to make an appointment for a prenatal check-up.";
-              window.location.href = `mailto:${selectedHospital.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            } else {
-              showAlert('Please select a hospital first');
-            }
-          });
-
-          // Quick action chips
-          document.querySelectorAll('.chip').forEach(el => {
-            el.addEventListener('click', () => {
-              const type = el.dataset.type;
-              switch (type) {
-                case 'contractions':
-                  showAlert('Opening Contraction Timer...');
-                  break;
-                case 'checklist':
-                  showAlert('Opening Hospital Bag Checklist...');
-                  break;
-                case 'tips':
-                  showAlert('Displaying Pregnancy Tips...');
-                  break;
-                case 'community':
-                  showAlert('Opening Community Forum...');
-                  break;
-              }
-            });
-          });
-
-          // Modal close button
-          document.querySelector('.close').addEventListener('click', () => {
-            document.getElementById('contactModal').style.display = 'none';
-          });
-
-          // Modal cancel button
-          document.querySelector('.modal-btn.cancel').addEventListener('click', () => {
-            document.getElementById('contactModal').style.display = 'none';
-          });
-
-          // Modal submit button
-          document.querySelector('.modal-btn.submit').addEventListener('click', () => {
-            showAlert('Your message has been sent to the hospital!');
-            document.getElementById('contactModal').style.display = 'none';
-          });
-
-          // Close modal when clicking outside
-          window.addEventListener('click', (event) => {
-            if (event.target === document.getElementById('contactModal')) {
-              document.getElementById('contactModal').style.display = 'none';
-            }
-          });
-        }
-
-        // Make selectHospital function available globally for map popups
-        window.selectHospital = selectHospital;
-      </script>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-item active">
+      <a href="home.html" id="homeLink" style="color: #1a365d; text-decoration: none;">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="system.html" id="systemLink" style="color: #4a5568; text-decoration: none;">
+        <i class="fas fa-cog"></i> System
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="testimonials.html" id="testimonialsLink" style="color: #4a5568; text-decoration: none;">
+        <i class="fas fa-star"></i> Results
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="contact.html" id="contactLink" style="color: #4a5568; text-decoration: none;">
+        <i class="fas fa-envelope"></i> Contact
+      </a>
+    </div>
+  </nav>
+
+  <!-- Loaders -->
+  <div id="homeLoaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <script>
+    // Custom professional alert
+    function showAlert(message, type = "success") {
+      const alertBox = document.createElement("div");
+      alertBox.textContent = message;
+      alertBox.style.position = "fixed";
+      alertBox.style.top = "20px";
+      alertBox.style.right = "20px";
+      alertBox.style.padding = "15px 20px";
+      alertBox.style.fontFamily = "Inter, sans-serif";
+      alertBox.style.fontSize = "14px";
+      alertBox.style.fontWeight = "500";
+      alertBox.style.color = "#fff";
+      alertBox.style.background = type === "error" ? "#f44336" : "#48bb78";
+      alertBox.style.borderRadius = "8px";
+      alertBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+      alertBox.style.zIndex = "9999";
+      alertBox.style.opacity = "0";
+      alertBox.style.transform = "translateX(100%)";
+      alertBox.style.transition = "all 0.4s ease";
+
+      document.body.appendChild(alertBox);
+
+      requestAnimationFrame(() => {
+        alertBox.style.opacity = "1";
+        alertBox.style.transform = "translateX(0)";
+      });
+
+      setTimeout(() => {
+        alertBox.style.opacity = "0";
+        alertBox.style.transform = "translateX(100%)";
+        setTimeout(() => alertBox.remove(), 400);
+      }, 3000);
+    }
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show welcome alert
+      setTimeout(() => {
+        showAlert('🚀 Welcome to CEO Operating System!');
+      }, 1000);
+
+      // Setup event listeners
+      setupEventListeners();
+    });
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Get Started Button - Links to your Flask upload portal
+      document.getElementById('getStartedBtn').addEventListener('click', () => {
+        // REPLACE WITH YOUR ACTUAL FLASK APP URL
+        window.location.href = 'https://your-ceo-system-backend.onrender.com';
+      });
+
+      // Buy Now Button - Same as above
+      document.getElementById('buyNowBtn').addEventListener('click', () => {
+        // REPLACE WITH YOUR ACTUAL FLASK APP URL
+        window.location.href = 'https://your-ceo-system-backend.onrender.com';
+      });
+
+      // Navigation loaders
+      document.getElementById('homeLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('homeLoaderOverlay').style.display = 'flex';
+        setTimeout(function() {
+          window.location.href = "home.html";
+        }, 1000);
+      });
+
+      document.getElementById('systemLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        showAlert('Redirecting to system details...');
+        setTimeout(function() {
+          window.location.href = "system.html";
+        }, 500);
+      });
+
+      document.getElementById('testimonialsLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        showAlert('Loading success stories...');
+        setTimeout(function() {
+          window.location.href = "testimonials.html";
+        }, 500);
+      });
+
+      document.getElementById('contactLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        showAlert('Opening contact form...');
+        setTimeout(function() {
+          window.location.href = "contact.html";
+        }, 500);
+      });
+    }
+  </script>
 </body>
-
 </html>
