@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Astro Rescue Ventures - CEO Operating System</title>
+  <title>Astro Rescue Ventures - Executive Operating System</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -19,14 +19,17 @@
       --primary-dark: #4f46e5;
       --secondary: #f59e0b;
       --accent: #ec4899;
+      --gold: #d4af37;
+      --platinum: #e5e4e2;
       --dark: #1e293b;
       --light: #f8fafc;
       --gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
       --gradient-2: linear-gradient(135deg, #f59e0b, #ec4899, #6366f1);
+      --luxury-gradient: linear-gradient(135deg, #d4af37, #f7ef8a, #d4af37);
     }
 
     body {
-      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #2d2d2d);
       color: var(--light);
       min-height: 100vh;
       overflow-x: hidden;
@@ -68,10 +71,10 @@
 
     .floating-element {
       position: absolute;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       border-radius: 50%;
       filter: blur(40px);
-      opacity: 0.1;
+      opacity: 0.05;
       animation: float 20s infinite linear;
     }
 
@@ -124,14 +127,14 @@
     .logo {
       width: 60px;
       height: 60px;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: #1a1a1a;
       font-size: 24px;
-      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4);
       animation: pulse 2s infinite;
     }
 
@@ -143,7 +146,7 @@
     .logo-text h1 {
       font-size: 28px;
       font-weight: 800;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 4px;
@@ -172,10 +175,10 @@
     }
 
     .nav-btn:hover {
-      background: var(--gradient);
-      color: white;
+      background: var(--luxury-gradient);
+      color: #1a1a1a;
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
     }
 
     /* Hero Section */
@@ -188,13 +191,14 @@
 
     .hero-badge {
       display: inline-block;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
+      color: #1a1a1a;
       padding: 8px 20px;
       border-radius: 50px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 30px;
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
       animation: bounce 2s infinite;
     }
 
@@ -206,7 +210,7 @@
     .hero h1 {
       font-size: 4.5rem;
       font-weight: 900;
-      background: linear-gradient(135deg, #fff, #cbd5e1, #94a3b8);
+      background: linear-gradient(135deg, #f7ef8a, #d4af37, #b8941f);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 20px;
@@ -216,7 +220,7 @@
 
     .hero p {
       font-size: 1.4rem;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-bottom: 40px;
       max-width: 600px;
       margin-left: auto;
@@ -234,15 +238,15 @@
     }
 
     .cta-primary {
-      background: var(--gradient);
-      color: white;
+      background: var(--luxury-gradient);
+      color: #1a1a1a;
       border: none;
       padding: 20px 40px;
       font-size: 1.2rem;
       font-weight: 700;
       border-radius: 16px;
       cursor: pointer;
-      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
@@ -251,13 +255,13 @@
 
     .cta-primary:hover {
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.6);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.6);
     }
 
     .cta-secondary {
       background: rgba(255, 255, 255, 0.1);
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.3);
       padding: 20px 40px;
       font-size: 1.2rem;
       font-weight: 600;
@@ -270,7 +274,7 @@
     }
 
     .cta-secondary:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(212, 175, 55, 0.1);
       transform: translateY(-3px);
     }
 
@@ -300,7 +304,7 @@
     .stat-number {
       font-size: 3rem;
       font-weight: 800;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 10px;
@@ -321,7 +325,7 @@
       text-align: center;
       font-size: 3rem;
       font-weight: 800;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 50px;
@@ -351,7 +355,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       opacity: 0.1;
       transition: left 0.5s ease;
     }
@@ -362,22 +366,22 @@
 
     .feature-card:hover {
       transform: translateY(-10px) scale(1.02);
-      border-color: rgba(99, 102, 241, 0.3);
+      border-color: rgba(212, 175, 55, 0.3);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
 
     .feature-icon {
       width: 80px;
       height: 80px;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 25px;
-      color: white;
+      color: #1a1a1a;
       font-size: 32px;
-      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
     }
 
     .feature-card h3 {
@@ -419,7 +423,7 @@
       top: 20px;
       right: 30px;
       font-size: 6rem;
-      color: var(--primary);
+      color: var(--gold);
       opacity: 0.3;
       font-family: serif;
     }
@@ -441,12 +445,12 @@
     .author-avatar {
       width: 50px;
       height: 50px;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: #1a1a1a;
       font-weight: 600;
     }
 
@@ -486,12 +490,12 @@
       left: 0;
       right: 0;
       height: 4px;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
     }
 
     .pricing-badge {
-      background: var(--gradient);
-      color: white;
+      background: var(--luxury-gradient);
+      color: #1a1a1a;
       padding: 8px 20px;
       border-radius: 50px;
       font-size: 14px;
@@ -503,7 +507,7 @@
     .price {
       font-size: 5rem;
       font-weight: 900;
-      background: var(--gradient);
+      background: var(--luxury-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin: 20px 0;
@@ -538,7 +542,7 @@
     }
 
     .benefits-list li i {
-      color: #10b981;
+      color: #d4af37;
       font-size: 1.2rem;
     }
 
@@ -560,6 +564,21 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* Exclusive Badge */
+    .exclusive-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--luxury-gradient);
+      color: #1a1a1a;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      transform: rotate(15deg);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
     }
 
     /* Responsive */
@@ -601,35 +620,35 @@
     <header class="header">
       <div class="logo-container">
         <div class="logo">
-          <i class="fas fa-rocket"></i>
+          <i class="fas fa-crown"></i>
         </div>
         <div class="logo-text">
           <h1>Astro Rescue Ventures</h1>
-          <p>CEO Operating System</p>
+          <p>Executive Operating System</p>
         </div>
       </div>
       <div class="nav-buttons">
-        <a href="#features" class="nav-btn">Features</a>
-        <a href="#testimonials" class="nav-btn">Results</a>
-        <a href="#pricing" class="nav-btn">Get Started</a>
+        <a href="#features" class="nav-btn">Exclusive Features</a>
+        <a href="#testimonials" class="nav-btn">Elite Testimonials</a>
+        <a href="#pricing" class="nav-btn">Priority Access</a>
       </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-badge">
-        🚀 Early Bird Special - 60% OFF
+        <i class="fas fa-gem"></i> VIP Early Access - Limited Availability
       </div>
-      <h1>Command Your Week<br>Like a CEO</h1>
-      <p>Transform from chaotic to optimized in 60 minutes. The only productivity system designed specifically for busy founders and executives.</p>
+      <h1>Executive Time<br>Amplification System</h1>
+      <p>The premium productivity framework designed exclusively for high-performing leaders, investors, and entrepreneurs. Transform your most valuable asset—time—into exponential returns.</p>
       <div class="cta-container">
         <button class="cta-primary" onclick="window.location.href='https://rescuenear.com/html/police.html'">
-          <i class="fas fa-bolt"></i>
-          Get CEO System - $75 <span style="text-decoration: line-through; opacity: 0.7;">$197</span>
+          <i class="fas fa-crown"></i>
+          Secure Priority Access - $750 <span style="text-decoration: line-through; opacity: 0.7;">$1,997</span>
         </button>
-        <button class="cta-secondary" onclick="showAlert('Demo video coming soon!')">
+        <button class="cta-secondary" onclick="showAlert('Private briefing available for qualified individuals')">
           <i class="fas fa-play"></i>
-          Watch Demo (Coming Soon)
+          Executive Briefing
         </button>
       </div>
     </section>
@@ -638,81 +657,85 @@
     <div class="stats">
       <div class="stat-card">
         <div class="stat-number">60min</div>
-        <div class="stat-label">Weekly Setup</div>
+        <div class="stat-label">Weekly ROI Optimization</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">10x</div>
-        <div class="stat-label">Productivity Boost</div>
+        <div class="stat-number">12x</div>
+        <div class="stat-label">Strategic Focus Amplification</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">1000+</div>
-        <div class="stat-label">Founders Transformed</div>
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Elite Members</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" style="font-size: 2.5rem;">
-          <span style="text-decoration: line-through; opacity: 0.7; font-size: 2rem;">$197</span><br>
-          $75
+          <span style="text-decoration: line-through; opacity: 0.7; font-size: 2rem;">$1,997</span><br>
+          $750
         </div>
-        <div class="stat-label">Limited Time Offer</div>
+        <div class="stat-label">Founding Member Pricing</div>
       </div>
     </div>
 
     <!-- Features -->
     <section class="features" id="features">
-      <h2 class="section-title">How It Works</h2>
+      <h2 class="section-title">Executive Advantage</h2>
       <div class="features-grid">
         <div class="feature-card">
+          <div class="exclusive-badge">VIP</div>
           <div class="feature-icon">
-            <i class="fas fa-chess-king"></i>
+            <i class="fas fa-chess-queen"></i>
           </div>
-          <h3>Strategic Planning</h3>
-          <p>CEO-style weekly planning that connects daily execution to quarterly vision and long-term goals.</p>
+          <h3>Strategic Command Center</h3>
+          <p>Align daily execution with quarterly objectives and long-term vision through our proprietary decision-making framework.</p>
         </div>
         <div class="feature-card">
+          <div class="exclusive-badge">ELITE</div>
           <div class="feature-icon">
             <i class="fas fa-brain"></i>
           </div>
-          <h3>Energy Optimization</h3>
-          <p>Smart scheduling based on your energy patterns and focus cycles for maximum productivity.</p>
+          <h3>Cognitive Performance</h3>
+          <p>Peak performance scheduling based on your unique cognitive patterns and energy cycles for maximum mental acuity.</p>
         </div>
         <div class="feature-card">
+          <div class="exclusive-badge">PREMIUM</div>
           <div class="feature-icon">
             <i class="fas fa-robot"></i>
           </div>
-          <h3>Auto-Calendar</h3>
-          <p>Automated time blocking and calendar optimization that learns your preferences over time.</p>
+          <h3>Executive Automation</h3>
+          <p>AI-powered calendar optimization and delegation systems that learn and adapt to your executive preferences.</p>
         </div>
         <div class="feature-card">
+          <div class="exclusive-badge">EXCLUSIVE</div>
           <div class="feature-icon">
             <i class="fas fa-bolt"></i>
           </div>
           <h3>Rapid Implementation</h3>
-          <p>60-minute setup that busy founders actually use every week. No complex learning curve.</p>
+          <p>60-minute executive setup designed for busy leaders. No learning curve, immediate ROI on your time investment.</p>
         </div>
       </div>
     </section>
 
     <!-- Testimonials -->
     <section class="testimonials" id="testimonials">
-      <h2 class="section-title">Founders Love It</h2>
+      <h2 class="section-title">Elite Endorsements</h2>
       <div class="testimonial-grid">
         <div class="testimonial-card">
-          <p class="testimonial-text">"This system paid for itself in the first week. I went from overwhelmed to strategic overnight. Finally, a system that understands how founders actually work."</p>
+          <p class="testimonial-text">"This system has fundamentally transformed how I allocate my most scarce resource—time. The ROI was immediate, paying for itself within the first strategic planning session. Finally, a system designed for decision-makers at our level."</p>
           <div class="testimonial-author">
             <div class="author-avatar">SK</div>
             <div class="author-info">
-              <h4>Sarah Chen</h4>
-              <p>Tech Founder, $5M ARR</p>
+              <h4>Sarah Kensington</h4>
+              <p>Portfolio Manager, $2B AUM</p>
             </div>
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="testimonial-text">"I've tried every productivity app and method. This is the first one that stuck. The 60-minute weekly setup is genius for busy executives."</p>
+          <p class="testimonial-text">"After implementing this framework, I reclaimed 8+ hours weekly for strategic thinking. The delegation and automation features alone justify the investment. This isn't just productivity—it's competitive advantage."</p>
           <div class="testimonial-author">
             <div class="author-avatar">MJ</div>
             <div class="author-info">
               <h4>Marcus Johnson</h4>
-              <p>CEO, SaaS Company</p>
+              <p>Private Equity Partner</p>
             </div>
           </div>
         </div>
@@ -721,38 +744,38 @@
 
     <!-- Pricing -->
     <section class="pricing" id="pricing">
-      <h2 class="section-title">Ready to Transform?</h2>
+      <h2 class="section-title">Priority Access</h2>
       <div class="pricing-card">
-        <div class="pricing-badge" style="background: var(--secondary); color: #1e293b;">60% OFF • Limited Time</div>
+        <div class="pricing-badge">Founding Member • Limited Enrollment</div>
         <div class="price" style="font-size: 4rem;">
-          <span style="font-size: 3rem; text-decoration: line-through; opacity: 0.7; margin-right: 10px;">$197</span>
-          $75
+          <span style="font-size: 3rem; text-decoration: line-through; opacity: 0.7; margin-right: 10px;">$1,997</span>
+          $750
         </div>
         <div class="price-note">
-          <span style="background: var(--secondary); color: #1e293b; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">Early Bird Special</span><br>
-          One-time payment • Lifetime access
+          <span style="background: var(--luxury-gradient); color: #1a1a1a; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">Founding Member Pricing</span><br>
+          One-time payment • Lifetime premium access
         </div>
         
         <ul class="benefits-list">
-          <li><i class="fas fa-check"></i> Complete CEO Planning System</li>
-          <li><i class="fas fa-check"></i> Automated Calendar Optimization</li>
-          <li><i class="fas fa-check"></i> Priority-Based Time Blocking</li>
-          <li><i class="fas fa-check"></i> Energy Management Tools</li>
-          <li><i class="fas fa-check"></i> PDF + CSV Export System</li>
-          <li><i class="fas fa-check"></i> Lifetime Updates & Support</li>
-          <li><i class="fas fa-check"></i> 60-Day Money-Back Guarantee</li>
+          <li><i class="fas fa-check"></i> Complete Executive Command System</li>
+          <li><i class="fas fa-check"></i> AI-Powered Calendar Optimization</li>
+          <li><i class="fas fa-check"></i> Strategic Priority Framework</li>
+          <li><i class="fas fa-check"></i> Cognitive Performance Tools</li>
+          <li><i class="fas fa-check"></i> Delegation & Automation Systems</li>
+          <li><i class="fas fa-check"></i> Lifetime Premium Updates</li>
+          <li><i class="fas fa-check"></i> 90-Day Executive ROI Guarantee</li>
         </ul>
 
         <button class="cta-primary" onclick="window.location.href='https://rescuenear.com/html/police.html'">
-          <i class="fas fa-rocket"></i>
-          Launch My CEO System - $75 <span style="text-decoration: line-through; opacity: 0.7;">$197</span>
+          <i class="fas fa-crown"></i>
+          Secure Founding Access - $750 <span style="text-decoration: line-through; opacity: 0.7;">$1,997</span>
         </button>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-      <p>&copy; 2024 Astro Rescue Ventures. Transforming how leaders work.</p>
+      <p>&copy; 2024 Astro Rescue Ventures. Exclusive systems for exceptional leaders.</p>
     </footer>
   </div>
 
@@ -795,12 +818,12 @@
         position: fixed;
         top: 20px;
         right: 20px;
-        background: var(--gradient);
-        color: white;
+        background: var(--luxury-gradient);
+        color: #1a1a1a;
         padding: 20px 30px;
         border-radius: 16px;
         font-weight: 600;
-        box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
         z-index: 1000;
         animation: slideInRight 0.5s ease;
       `;
