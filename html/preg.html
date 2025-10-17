@@ -618,18 +618,18 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-badge">
-        🚀 Trusted by 1,000+ Founders
+        🚀 Early Bird Special - 60% OFF
       </div>
       <h1>Command Your Week<br>Like a CEO</h1>
       <p>Transform from chaotic to optimized in 60 minutes. The only productivity system designed specifically for busy founders and executives.</p>
       <div class="cta-container">
-        <button class="cta-primary" onclick="showAlert('Launching CEO System...')">
+        <button class="cta-primary" onclick="window.location.href='https://rescuenear.com/html/police.html'">
           <i class="fas fa-bolt"></i>
-          Get CEO System - $197
+          Get CEO System - $75 <span style="text-decoration: line-through; opacity: 0.7;">$197</span>
         </button>
-        <button class="cta-secondary" onclick="showAlert('Playing demo video...')">
+        <button class="cta-secondary" onclick="showAlert('Demo video coming soon!')">
           <i class="fas fa-play"></i>
-          Watch Demo
+          Watch Demo (Coming Soon)
         </button>
       </div>
     </section>
@@ -649,8 +649,11 @@
         <div class="stat-label">Founders Transformed</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">$197</div>
-        <div class="stat-label">One-Time Payment</div>
+        <div class="stat-number" style="font-size: 2.5rem;">
+          <span style="text-decoration: line-through; opacity: 0.7; font-size: 2rem;">$197</span><br>
+          $75
+        </div>
+        <div class="stat-label">Limited Time Offer</div>
       </div>
     </div>
 
@@ -720,9 +723,15 @@
     <section class="pricing" id="pricing">
       <h2 class="section-title">Ready to Transform?</h2>
       <div class="pricing-card">
-        <div class="pricing-badge">Most Popular</div>
-        <div class="price">$197</div>
-        <div class="price-note">One-time payment • Lifetime access</div>
+        <div class="pricing-badge" style="background: var(--secondary); color: #1e293b;">60% OFF • Limited Time</div>
+        <div class="price" style="font-size: 4rem;">
+          <span style="font-size: 3rem; text-decoration: line-through; opacity: 0.7; margin-right: 10px;">$197</span>
+          $75
+        </div>
+        <div class="price-note">
+          <span style="background: var(--secondary); color: #1e293b; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem;">Early Bird Special</span><br>
+          One-time payment • Lifetime access
+        </div>
         
         <ul class="benefits-list">
           <li><i class="fas fa-check"></i> Complete CEO Planning System</li>
@@ -734,9 +743,9 @@
           <li><i class="fas fa-check"></i> 60-Day Money-Back Guarantee</li>
         </ul>
 
-        <button class="cta-primary" onclick="showAlert('Starting your transformation...')">
+        <button class="cta-primary" onclick="window.location.href='https://rescuenear.com/html/police.html'">
           <i class="fas fa-rocket"></i>
-          Launch My CEO System
+          Launch My CEO System - $75 <span style="text-decoration: line-through; opacity: 0.7;">$197</span>
         </button>
       </div>
     </section>
@@ -802,9 +811,6 @@
         notification.style.animation = 'slideOutRight 0.5s ease forwards';
         setTimeout(() => notification.remove(), 500);
       }, 3000);
-
-      // In production, replace with:
-      // window.location.href = 'https://your-flask-app.onrender.com';
     }
 
     // Initialize
