@@ -601,56 +601,58 @@
     </section>
   </div>
 
-  <!-- PayPal Modal -->
-  <div id="paypalModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Manual PayPal Payment</h3>
-        <button class="close-modal" onclick="closePayPalModal()">&times;</button>
-      </div>
-      
-      <div class="account-details">
-        <div style="color: #94a3b8; font-size: 0.9rem;">Send exactly</div>
-        <div class="payment-amount" style="font-size: 2.5rem;">$75</div>
-        <div style="color: #94a3b8; margin: 10px 0;">to PayPal email:</div>
-        <div class="account-number">jimekafairr@outlook.com</div>
-        <div class="account-name">Astro Rescue Ventures</div>
-      </div>
-
-      <div class="instructions">
-        <h4 style="color: white; margin-bottom: 15px;">After Payment:</h4>
-        
-        <div class="instruction-step">
-          <div class="step-number">1</div>
-          <span>Send $75 via PayPal to: jimekafairr@outlook.com</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">2</div>
-          <span>Include your email address in the payment note</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">3</div>
-          <span>We'll automatically send your CEO Planner PDF</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">4</div>
-          <span>Check your email within 5 minutes</span>
-        </div>
-      </div>
-
-      <button class="cta-primary" onclick="copyPayPalEmail()">
-        <i class="fas fa-copy"></i>
-        Copy PayPal Email
-      </button>
-      
-      <button class="cta-secondary" onclick="closePayPalModal()" style="margin-top: 10px;">
-        I'll Pay Later
-      </button>
+ <!-- PayPal Modal -->
+<div id="paypalModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Manual PayPal Payment</h3>
+      <button class="close-modal" onclick="closePayPalModal()">&times;</button>
     </div>
+    
+    <div class="account-details">
+      <div style="color: #94a3b8; font-size: 0.9rem;">Send exactly</div>
+      <div class="payment-amount" style="font-size: 2.5rem;">$75</div>
+      <div style="color: #94a3b8; margin: 10px 0;">to PayPal email:</div>
+      <div class="account-number" style="font-size: 1.4rem; word-break: break-all; padding: 0 10px;">
+        jimekafairr@outlook.com
+      </div>
+      <div class="account-name">Astro Rescue Ventures</div>
+    </div>
+
+    <div class="instructions">
+      <h4 style="color: white; margin-bottom: 15px;">After Payment:</h4>
+      
+      <div class="instruction-step">
+        <div class="step-number">1</div>
+        <span>Send $75 via PayPal to the email above</span>
+      </div>
+      
+      <div class="instruction-step">
+        <div class="step-number">2</div>
+        <span>Include your email address in the payment note</span>
+      </div>
+      
+      <div class="instruction-step">
+        <div class="step-number">3</div>
+        <span>We'll automatically send your CEO Planner PDF</span>
+      </div>
+      
+      <div class="instruction-step">
+        <div class="step-number">4</div>
+        <span>Check your email within 5 minutes</span>
+      </div>
+    </div>
+
+    <button class="cta-primary" onclick="copyPayPalEmail()">
+      <i class="fas fa-copy"></i>
+      Copy PayPal Email
+    </button>
+    
+    <button class="cta-secondary" onclick="closePayPalModal()" style="margin-top: 10px;">
+      I'll Pay Later
+    </button>
   </div>
+</div>
 
   <!-- PalmPay Modal -->
   <div id="palmPayModal" class="modal">
