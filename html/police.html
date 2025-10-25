@@ -15,74 +15,27 @@
     }
 
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #f59e0b;
-      --accent: #ec4899;
-      --dark: #0f172a;
+      --primary: #1a56db;
+      --primary-dark: #1e3a8a;
+      --secondary: #0e9f6e;
+      --accent: #7e3af2;
+      --dark: #111827;
       --darker: #0a0f1c;
       --light: #f8fafc;
-      --gray: #94a3b8;
-      --gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-      --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-      --success: #10b981;
+      --gray: #6b7280;
+      --gray-light: #9ca3af;
+      --border: #e5e7eb;
+      --success: #0e9f6e;
+      --warning: #f59e0b;
     }
 
     body {
-      background: linear-gradient(135deg, var(--darker), var(--dark), #1e293b);
-      color: var(--light);
+      background: #f9fafb;
+      color: #111827;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
       line-height: 1.6;
-    }
-
-    /* Stars Animation */
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 5s infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-
-    .floating-elements {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .floating-element {
-      position: absolute;
-      background: var(--gradient);
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.05;
-      animation: float 25s infinite linear;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
-      100% { transform: translateY(0px) rotate(360deg); }
     }
 
     .container {
@@ -95,28 +48,15 @@
 
     /* Header */
     .header {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
+      background: white;
+      border-radius: 12px;
       padding: 20px 30px;
       margin-bottom: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      animation: slideDown 0.8s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .logo-container {
@@ -126,26 +66,22 @@
     }
 
     .logo {
-      width: 60px;
-      height: 60px;
-      background: var(--gradient);
-      border-radius: 16px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 24px;
-      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
+      font-size: 20px;
     }
 
     .logo-text h1 {
-      font-size: 24px;
-      font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
       margin-bottom: 4px;
-      letter-spacing: -0.5px;
     }
 
     .logo-text p {
@@ -155,64 +91,54 @@
     }
 
     .nav-btn {
-      padding: 12px 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
       color: var(--gray);
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: 14px;
     }
 
     .nav-btn:hover {
-      background: var(--gradient);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      background: #f3f4f6;
+      color: var(--dark);
     }
 
     /* Hero Section */
     .hero {
       text-align: center;
-      padding: 40px 20px;
+      padding: 20px;
       position: relative;
       margin-bottom: 40px;
     }
 
     .hero-badge {
       display: inline-block;
-      background: var(--gradient);
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-size: 14px;
+      background: var(--primary);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 30px;
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-      animation: pulse 3s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-      line-height: 1.1;
-      letter-spacing: -1px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.2;
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--gray);
       margin-bottom: 40px;
       max-width: 600px;
@@ -231,36 +157,18 @@
     }
 
     .payment-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 35px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s ease;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
       position: relative;
       overflow: hidden;
-    }
-
-    .payment-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--gradient);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     .payment-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(99, 102, 241, 0.2);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    .payment-card:hover::before {
-      opacity: 1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     .payment-badge {
@@ -268,61 +176,58 @@
       top: -10px;
       right: 20px;
       background: var(--secondary);
-      color: #1e293b;
-      padding: 5px 15px;
+      color: white;
+      padding: 4px 12px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
     }
 
     .payment-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .payment-icon {
-      width: 80px;
-      height: 80px;
-      background: var(--gradient-subtle);
-      border-radius: 20px;
+      width: 70px;
+      height: 70px;
+      background: #eff6ff;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin: 0 auto 15px;
       color: var(--primary);
-      font-size: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 28px;
+      border: 1px solid #dbeafe;
     }
 
     .payment-amount {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--dark);
       margin: 10px 0;
-      letter-spacing: -1px;
     }
 
     .payment-note {
       color: var(--gray);
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .payment-details {
-      margin: 25px 0;
+      margin: 20px 0;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
 
     .detail-item {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f3f4f6;
     }
 
     .detail-item:last-child {
@@ -335,60 +240,58 @@
     }
 
     .detail-value {
-      color: white;
+      color: var(--dark);
       font-weight: 600;
     }
 
     .cta-primary {
-      background: var(--gradient);
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 18px 30px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      border-radius: 16px;
+      padding: 16px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.3);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
       text-decoration: none;
     }
 
     .cta-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.4);
+      background: var(--primary-dark);
     }
 
     .cta-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 18px 30px;
-      font-size: 1.1rem;
+      background: white;
+      color: var(--dark);
+      border: 1px solid var(--border);
+      padding: 16px 24px;
+      font-size: 1rem;
       font-weight: 600;
-      border-radius: 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
     }
 
     .cta-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
+      background: #f9fafb;
+      border-color: var(--gray-light);
     }
 
     /* PayPal Button Container */
     #paypal-button-container {
       margin-top: 20px;
-      border-radius: 16px;
+      border-radius: 8px;
       overflow: hidden;
     }
 
@@ -396,7 +299,27 @@
     .manual-payment {
       margin-top: 20px;
       padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Security Badges */
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .security-badge i {
+      color: var(--success);
     }
 
     /* Modal */
@@ -407,10 +330,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.5);
       z-index: 1000;
-      backdrop-filter: blur(10px);
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.2s ease;
     }
 
     @keyframes fadeIn {
@@ -423,25 +345,13 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.95);
-      padding: 40px;
-      border-radius: 24px;
-      border: 1px solid rgba(99, 102, 241, 0.2);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
       max-width: 500px;
       width: 90%;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      animation: modalSlideIn 0.4s ease;
-    }
-
-    @keyframes modalSlideIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
     .modal-header {
@@ -449,11 +359,13 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
     }
 
     .modal-title {
-      color: white;
-      font-size: 1.5rem;
+      color: var(--dark);
+      font-size: 1.3rem;
       font-weight: 700;
     }
 
@@ -463,9 +375,9 @@
       color: var(--gray);
       font-size: 1.5rem;
       cursor: pointer;
-      transition: color 0.3s ease;
-      width: 32px;
-      height: 32px;
+      transition: color 0.2s ease;
+      width: 30px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -473,31 +385,31 @@
     }
 
     .close-modal:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.1);
+      color: var(--dark);
+      background: #f3f4f6;
     }
 
     .account-details {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 25px;
-      border-radius: 16px;
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
       margin: 20px 0;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
     }
 
     .account-number {
-      font-size: 2rem;
-      font-weight: 800;
-      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
       margin: 10px 0;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       word-break: break-all;
     }
 
     .account-name {
       color: var(--gray);
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     .instructions {
@@ -512,21 +424,22 @@
       gap: 12px;
       margin-bottom: 12px;
       padding: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: #f9fafb;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
 
     .step-number {
-      background: var(--gradient);
-      width: 24px;
-      height: 24px;
+      background: var(--primary);
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
+      color: white;
       flex-shrink: 0;
     }
 
@@ -536,7 +449,8 @@
       margin-top: 60px;
       padding: 20px;
       color: var(--gray);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
     }
 
     .footer-links {
@@ -549,11 +463,11 @@
     .footer-link {
       color: var(--gray);
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.2s ease;
     }
 
     .footer-link:hover {
-      color: white;
+      color: var(--dark);
     }
 
     @media (max-width: 768px) {
@@ -562,11 +476,11 @@
       }
       
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
       }
       
       .payment-amount {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
       
       .header {
@@ -576,49 +490,59 @@
       }
       
       .payment-card {
-        padding: 25px;
+        padding: 20px;
       }
       
       .modal-content {
-        padding: 25px;
+        padding: 20px;
+      }
+      
+      .security-badges {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="stars" id="stars"></div>
-  <div class="floating-elements">
-    <div class="floating-element" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
-    <div class="floating-element" style="width: 200px; height: 200px; top: 60%; right: 10%;"></div>
-    <div class="floating-element" style="width: 250px; height: 250px; top: 30%; right: 5%;"></div>
-  </div>
-
   <div class="container">
     <!-- Header -->
     <header class="header">
       <div class="logo-container">
         <div class="logo">
-          <i class="fas fa-rocket"></i>
+          <i class="fas fa-shield-alt"></i>
         </div>
         <div class="logo-text">
           <h1>Astro Rescue Ventures</h1>
-          <p>Secure Payment Portal</p>
+          <p>Payment Processing</p>
         </div>
       </div>
       <a href="https://rescuenear.com/html/preg.html" class="nav-btn">
         <i class="fas fa-arrow-left"></i>
-        Back to Home
+        Return to Site
       </a>
     </header>
 
     <!-- Payment Section -->
     <section class="hero">
       <div class="hero-badge">
-        <i class="fas fa-bolt"></i> Early Access Special
+        LIMITED TIME OFFER
       </div>
-      <h1>Complete Your CEO Journey Setup</h1>
-      <p>Select your preferred payment method below. All transactions are secure and encrypted.</p>
+      <h1>Complete Your Purchase</h1>
+      <p>Select your preferred payment method. All transactions are secured with bank-level encryption.</p>
+      
+      <!-- Security Badges -->
+      <div class="security-badges">
+        <div class="security-badge">
+          <i class="fas fa-lock"></i>
+          <span>256-bit SSL Encryption</span>
+        </div>
+        <div class="security-badge">
+          <i class="fas fa-shield-alt"></i>
+          <span>PCI DSS Compliant</span>
+        </div>
+      </div>
       
       <div class="payment-options">
         <!-- International Payment -->
@@ -628,19 +552,19 @@
             <div class="payment-icon">
               <i class="fab fa-paypal"></i>
             </div>
-            <h3 style="color: white; margin-bottom: 10px;">PayPal Payment</h3>
-            <div class="payment-amount">$75</div>
-            <div class="payment-note">Limited Time Offer • One-time payment</div>
+            <h3 style="color: var(--dark); margin-bottom: 10px;">PayPal Payment</h3>
+            <div class="payment-amount">$75.00</div>
+            <div class="payment-note">One-time payment • Limited time offer</div>
           </div>
           
           <div class="payment-details">
             <div class="detail-item">
               <span class="detail-label">Regular Price:</span>
-              <span class="detail-value" style="text-decoration: line-through; color: var(--gray);">$197</span>
+              <span class="detail-value" style="text-decoration: line-through; color: var(--gray);">$197.00</span>
             </div>
             <div class="detail-item">
               <span class="detail-label">You Save:</span>
-              <span class="detail-value" style="color: var(--success);">$122 (62%)</span>
+              <span class="detail-value" style="color: var(--success);">$122.00 (62%)</span>
             </div>
             <div class="detail-item">
               <span class="detail-label">Delivery:</span>
@@ -653,10 +577,10 @@
 
           <!-- Manual PayPal Option -->
           <div class="manual-payment">
-            <p style="text-align: center; color: var(--gray); margin-bottom: 15px;">Prefer manual PayPal?</p>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 15px;">Alternative PayPal method</p>
             <button class="cta-secondary" onclick="showPayPalModal()">
               <i class="fas fa-envelope"></i>
-              Pay via PayPal Email
+              Manual PayPal Payment
             </button>
           </div>
         </div>
@@ -668,9 +592,9 @@
             <div class="payment-icon">
               <i class="fas fa-mobile-alt"></i>
             </div>
-            <h3 style="color: white; margin-bottom: 10px;">PalmPay Transfer</h3>
+            <h3 style="color: var(--dark); margin-bottom: 10px;">Bank Transfer</h3>
             <div class="payment-amount">₦100,000</div>
-            <div class="payment-note">Local Price • One-time payment</div>
+            <div class="payment-note">Local price • One-time payment</div>
           </div>
           
           <div class="payment-details">
@@ -690,11 +614,11 @@
 
           <button class="cta-primary" onclick="showPalmPayModal()">
             <i class="fas fa-qrcode"></i>
-            Pay with PalmPay
+            Proceed with Transfer
           </button>
           
-          <p style="text-align: center; color: var(--gray); margin-top: 15px; font-size: 0.9rem;">
-            Secure transfer to PalmPay account
+          <p style="text-align: center; color: var(--gray); margin-top: 15px; font-size: 0.85rem;">
+            Secure transfer to bank account
           </p>
         </div>
       </div>
@@ -721,20 +645,20 @@
       
       <div class="account-details">
         <div style="color: var(--gray); font-size: 0.9rem;">Send exactly</div>
-        <div class="payment-amount" style="font-size: 2.5rem;">$75</div>
+        <div class="payment-amount" style="font-size: 2rem;">$75.00</div>
         <div style="color: var(--gray); margin: 10px 0;">to PayPal email:</div>
-        <div class="account-number" style="font-size: 1.4rem;">
+        <div class="account-number" style="font-size: 1.2rem;">
           jimekafairr@outlook.com
         </div>
         <div class="account-name">Astro Rescue Ventures</div>
       </div>
 
       <div class="instructions">
-        <h4 style="color: white; margin-bottom: 15px;">After Payment:</h4>
+        <h4 style="color: var(--dark); margin-bottom: 15px;">Payment Instructions:</h4>
         
         <div class="instruction-step">
           <div class="step-number">1</div>
-          <span>Send $75 via PayPal to the email above</span>
+          <span>Send $75.00 via PayPal to the email address above</span>
         </div>
         
         <div class="instruction-step">
@@ -744,12 +668,12 @@
         
         <div class="instruction-step">
           <div class="step-number">3</div>
-          <span>We'll automatically send your CEO Planner PDF</span>
+          <span>Your CEO Planner PDF will be sent automatically</span>
         </div>
         
         <div class="instruction-step">
           <div class="step-number">4</div>
-          <span>Check your email within 5 minutes</span>
+          <span>Check your email within 5 minutes of payment</span>
         </div>
       </div>
 
@@ -759,7 +683,7 @@
       </button>
       
       <button class="cta-secondary" onclick="closePayPalModal()" style="margin-top: 10px;">
-        I'll Pay Later
+        Cancel
       </button>
     </div>
   </div>
@@ -768,20 +692,21 @@
   <div id="palmPayModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">PalmPay Payment</h3>
+        <h3 class="modal-title">Bank Transfer Details</h3>
         <button class="close-modal" onclick="closePalmPayModal()">&times;</button>
       </div>
       
       <div class="account-details">
         <div style="color: var(--gray); font-size: 0.9rem;">Send exactly</div>
-        <div class="payment-amount" style="font-size: 2.5rem;">₦100,000</div>
-        <div style="color: var(--gray); margin: 10px 0;">to PalmPay account:</div>
+        <div class="payment-amount" style="font-size: 2rem;">₦100,000</div>
+        <div style="color: var(--gray); margin: 10px 0;">to account:</div>
         <div class="account-number">9114910367</div>
         <div class="account-name">Alade Dimitris</div>
+        <div style="color: var(--gray); font-size: 0.9rem; margin-top: 5px;">PalmPay</div>
       </div>
 
       <div class="instructions">
-        <h4 style="color: white; margin-bottom: 15px;">After Payment:</h4>
+        <h4 style="color: var(--dark); margin-bottom: 15px;">After Payment:</h4>
         
         <div class="instruction-step">
           <div class="step-number">1</div>
@@ -800,7 +725,7 @@
         
         <div class="instruction-step">
           <div class="step-number">4</div>
-          <span>We'll send your CEO Planner within 1 hour</span>
+          <span>Your CEO Planner will be sent within 1 hour</span>
         </div>
       </div>
 
@@ -810,7 +735,7 @@
       </button>
       
       <button class="cta-secondary" onclick="closePalmPayModal()" style="margin-top: 10px;">
-        I'll Pay Later
+        Cancel
       </button>
     </div>
   </div>
@@ -821,7 +746,7 @@
       style: {
         layout: 'vertical',
         color: 'blue',
-        shape: 'pill',
+        shape: 'rect',
         label: 'paypal'
       },
       createOrder: function(data, actions) {
@@ -872,22 +797,7 @@
 
     function copyPalmPayNumber() {
       navigator.clipboard.writeText('9114910367');
-      alert('PalmPay account number copied to clipboard!');
-    }
-
-    // Initialize stars background
-    function createStars() {
-      const stars = document.getElementById('stars');
-      for (let i = 0; i < 100; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.width = Math.random() * 3 + 'px';
-        star.style.height = star.style.width;
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDelay = Math.random() * 5 + 's';
-        stars.appendChild(star);
-      }
+      alert('Account number copied to clipboard!');
     }
 
     // Close modal when clicking outside
@@ -909,8 +819,6 @@
         closePalmPayModal();
       }
     });
-
-    document.addEventListener('DOMContentLoaded', createStars);
   </script>
 
   <!-- PayPal SDK -->
