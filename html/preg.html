@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Complete Your Purchase - CEO Planner System</title>
+  <title>CEO Planner System - Executive Productivity Tools</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -17,6 +17,7 @@
     :root {
       --primary: #1a56db;
       --primary-dark: #1e3a8a;
+      --primary-light: #e0f2fe;
       --secondary: #0e9f6e;
       --accent: #7e3af2;
       --dark: #111827;
@@ -30,7 +31,7 @@
     }
 
     body {
-      background: #f9fafb;
+      background: linear-gradient(135deg, #f9fafb, #f0f4f8);
       color: #111827;
       min-height: 100vh;
       overflow-x: hidden;
@@ -48,15 +49,31 @@
 
     /* Header */
     .header {
-      background: white;
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
       padding: 20px 30px;
       margin-bottom: 40px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      animation: slideDown 0.8s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .logo-container {
@@ -66,22 +83,31 @@
     }
 
     .logo {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       background: var(--primary);
-      border-radius: 10px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 20px;
+      font-size: 24px;
+      box-shadow: 0 8px 20px rgba(26, 86, 219, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     .logo-text h1 {
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
       color: var(--dark);
       margin-bottom: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .logo-text p {
@@ -90,534 +116,541 @@
       font-weight: 500;
     }
 
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
     .nav-btn {
-      padding: 10px 20px;
+      padding: 12px 24px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 10px;
       background: white;
       color: var(--gray);
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
+      transition: all 0.3s ease;
     }
 
     .nav-btn:hover {
-      background: #f3f4f6;
-      color: var(--dark);
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(26, 86, 219, 0.3);
     }
 
     /* Hero Section */
     .hero {
       text-align: center;
-      padding: 20px;
+      padding: 80px 20px;
       position: relative;
-      margin-bottom: 40px;
+      margin-bottom: 80px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
     }
 
     .hero-badge {
       display: inline-block;
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
-      padding: 6px 16px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 20px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(26, 86, 219, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .hero h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
+      font-size: 3.5rem;
+      font-weight: 800;
       color: var(--dark);
-      margin-bottom: 16px;
-      line-height: 1.2;
+      margin-bottom: 24px;
+      line-height: 1.1;
+      animation: fadeInUp 1s ease;
     }
 
     .hero p {
-      font-size: 1rem;
+      font-size: 1.3rem;
       color: var(--gray);
-      margin-bottom: 40px;
-      max-width: 600px;
+      margin-bottom: 50px;
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
       line-height: 1.6;
+      animation: fadeInUp 1s ease 0.2s both;
     }
 
-    /* Payment Options */
-    .payment-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 30px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .payment-card {
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      border: 1px solid var(--border);
-      transition: all 0.2s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .payment-card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .payment-badge {
-      position: absolute;
-      top: -10px;
-      right: 20px;
-      background: var(--secondary);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .payment-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .payment-icon {
-      width: 70px;
-      height: 70px;
-      background: #eff6ff;
-      border-radius: 12px;
+    .cta-container {
       display: flex;
-      align-items: center;
+      gap: 20px;
       justify-content: center;
-      margin: 0 auto 15px;
-      color: var(--primary);
-      font-size: 28px;
-      border: 1px solid #dbeafe;
-    }
-
-    .payment-amount {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--dark);
-      margin: 10px 0;
-    }
-
-    .payment-note {
-      color: var(--gray);
-      font-size: 0.9rem;
-    }
-
-    .payment-details {
-      margin: 20px 0;
-      padding: 20px;
-      background: #f9fafb;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    .detail-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      padding: 6px 0;
-      border-bottom: 1px solid #f3f4f6;
-    }
-
-    .detail-item:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
-
-    .detail-label {
-      color: var(--gray);
-    }
-
-    .detail-value {
-      color: var(--dark);
-      font-weight: 600;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.4s both;
     }
 
     .cta-primary {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border: none;
-      padding: 16px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 8px;
+      padding: 20px 40px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 14px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      box-shadow: 0 12px 30px rgba(26, 86, 219, 0.3);
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
+      gap: 12px;
       text-decoration: none;
     }
 
     .cta-primary:hover {
-      background: var(--primary-dark);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(26, 86, 219, 0.4);
     }
 
     .cta-secondary {
       background: white;
       color: var(--dark);
       border: 1px solid var(--border);
-      padding: 16px 24px;
-      font-size: 1rem;
+      padding: 20px 40px;
+      font-size: 1.2rem;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
+      gap: 12px;
     }
 
     .cta-secondary:hover {
-      background: #f9fafb;
-      border-color: var(--gray-light);
+      background: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
-    /* PayPal Button Container */
-    #paypal-button-container {
-      margin-top: 20px;
-      border-radius: 8px;
-      overflow: hidden;
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
     }
 
-    /* Manual PayPal Option */
-    .manual-payment {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
+    .stat-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
 
-    /* Security Badges */
-    .security-badges {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 30px 0;
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
     }
 
-    .security-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      line-height: 1;
+    }
+
+    .stat-label {
       color: var(--gray);
-      font-size: 14px;
-    }
-
-    .security-badge i {
-      color: var(--success);
+      font-size: 1.1rem;
+      font-weight: 600;
     }
 
     /* Features Grid */
     .features {
-      margin-bottom: 60px;
+      margin-bottom: 100px;
     }
 
     .section-title {
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: 700;
+      font-size: 2.8rem;
+      font-weight: 800;
       color: var(--dark);
-      margin-bottom: 40px;
+      margin-bottom: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
     }
 
     .feature-card {
       background: white;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border);
-      text-align: center;
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
     }
 
     .feature-icon {
-      width: 50px;
-      height: 50px;
-      background: #eff6ff;
-      border-radius: 10px;
+      width: 90px;
+      height: 90px;
+      background: var(--primary-light);
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 15px;
+      margin-bottom: 30px;
       color: var(--primary);
-      font-size: 20px;
-      border: 1px solid #dbeafe;
+      font-size: 36px;
+      box-shadow: 0 8px 20px rgba(26, 86, 219, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
     }
 
     .feature-card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.6rem;
+      font-weight: 700;
       color: var(--dark);
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .feature-card p {
       color: var(--gray);
-      line-height: 1.5;
-      font-size: 0.9rem;
+      line-height: 1.7;
+      font-size: 1.1rem;
     }
 
     /* Testimonials */
     .testimonials {
-      margin-bottom: 60px;
+      margin-bottom: 100px;
     }
 
     .testimonial-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
     }
 
     .testimonial-card {
       background: white;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 6rem;
+      color: var(--primary);
+      opacity: 0.3;
+      font-family: serif;
+      line-height: 1;
     }
 
     .testimonial-text {
-      font-size: 0.95rem;
+      font-size: 1.2rem;
       color: var(--gray);
-      line-height: 1.5;
-      margin-bottom: 15px;
+      line-height: 1.7;
+      margin-bottom: 30px;
       font-style: italic;
     }
 
     .testimonial-author {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 20px;
     }
 
     .author-avatar {
-      width: 40px;
-      height: 40px;
-      background: var(--primary);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 20px rgba(26, 86, 219, 0.3);
     }
 
     .author-info h4 {
       color: var(--dark);
-      font-weight: 600;
-      margin-bottom: 2px;
-      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
     }
 
     .author-info p {
       color: var(--gray);
-      font-size: 0.8rem;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 1000;
-      animation: fadeIn 0.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .modal-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .modal-title {
-      color: var(--dark);
-      font-size: 1.3rem;
-      font-weight: 700;
-    }
-
-    .close-modal {
-      background: none;
-      border: none;
-      color: var(--gray);
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.2s ease;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    .close-modal:hover {
-      color: var(--dark);
-      background: #f3f4f6;
-    }
-
-    .account-details {
-      background: #f9fafb;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-      text-align: center;
-      border: 1px solid var(--border);
-    }
-
-    .account-number {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin: 10px 0;
-      letter-spacing: 1px;
-      word-break: break-all;
-    }
-
-    .account-name {
-      color: var(--gray);
       font-size: 1rem;
     }
 
-    .instructions {
+    /* Pricing */
+    .pricing {
+      margin-bottom: 100px;
+      text-align: center;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 30px;
+      padding: 70px 50px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    .pricing-badge {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 20px rgba(14, 159, 110, 0.3);
+    }
+
+    .price {
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--dark);
+      margin: 30px 0;
+      line-height: 1;
+    }
+
+    .price-note {
       color: var(--gray);
-      margin: 20px 0;
-      line-height: 1.6;
+      font-size: 1.3rem;
+      margin-bottom: 50px;
     }
 
-    .instruction-step {
+    .benefits-list {
+      text-align: left;
+      max-width: 500px;
+      margin: 0 auto 60px;
+    }
+
+    .benefits-list li {
+      margin-bottom: 25px;
+      color: var(--gray);
+      font-size: 1.2rem;
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-      padding: 12px;
-      background: #f9fafb;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      align-items: center;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f4f8;
     }
 
-    .step-number {
-      background: var(--primary);
-      width: 22px;
-      height: 22px;
+    .benefits-list li:last-child {
+      border-bottom: none;
+    }
+
+    .benefits-list li i {
+      color: var(--secondary);
+      font-size: 1.4rem;
+      background: #f0fdf4;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: white;
-      flex-shrink: 0;
+    }
+
+    /* FAQ Section */
+    .faq {
+      margin-bottom: 100px;
+    }
+
+    .faq-grid {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .faq-question {
+      padding: 25px 30px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: #f9fafb;
+    }
+
+    .faq-answer {
+      padding: 0 30px 25px;
+      color: var(--gray);
+      line-height: 1.7;
+      font-size: 1.1rem;
     }
 
     /* Footer */
     .footer {
       text-align: center;
-      margin-top: 60px;
-      padding: 20px;
+      padding: 60px 20px;
       color: var(--gray);
-      font-size: 0.85rem;
       border-top: 1px solid var(--border);
+      background: white;
+      border-radius: 24px 24px 0 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 10px;
+      gap: 30px;
+      margin: 30px 0;
     }
 
     .footer-link {
       color: var(--gray);
       text-decoration: none;
-      transition: color 0.2s ease;
+      transition: color 0.3s ease;
+      font-weight: 500;
     }
 
     .footer-link:hover {
-      color: var(--dark);
+      color: var(--primary);
     }
 
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .payment-options {
-        grid-template-columns: 1fr;
-      }
-      
       .hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .payment-amount {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
       
       .header {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         text-align: center;
       }
       
-      .payment-card {
-        padding: 20px;
-      }
-      
-      .modal-content {
-        padding: 20px;
-      }
-      
-      .security-badges {
+      .cta-container {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+      }
+      
+      .cta-primary, .cta-secondary {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
       }
       
       .features-grid, .testimonial-grid {
         grid-template-columns: 1fr;
+      }
+      
+      .pricing-card {
+        padding: 40px 20px;
+      }
+      
+      .price {
+        font-size: 3.5rem;
       }
     }
   </style>
@@ -632,156 +665,110 @@
         </div>
         <div class="logo-text">
           <h1>CEO Planner System</h1>
-          <p>Complete Your Purchase</p>
+          <p>Executive Productivity Tools</p>
         </div>
       </div>
-      <a href="https://rescuenear.com/html/preg.html" class="nav-btn">
-        <i class="fas fa-arrow-left"></i>
-        Return to Site
-      </a>
+      <div class="nav-buttons">
+        <a href="#features" class="nav-btn">Features</a>
+        <a href="#testimonials" class="nav-btn">Testimonials</a>
+        <a href="#pricing" class="nav-btn">Pricing</a>
+      </div>
     </header>
 
-    <!-- Payment Section -->
+    <!-- Hero Section -->
     <section class="hero">
       <div class="hero-badge">
-        LIMITED TIME OFFER
+        <i class="fas fa-crown"></i> Executive Edition - Limited Time Offer
       </div>
-      <h1>Get Your CEO Planner Today</h1>
-      <p>Select your preferred payment method. All transactions are secured with bank-level encryption.</p>
-      
-      <!-- Security Badges -->
-      <div class="security-badges">
-        <div class="security-badge">
-          <i class="fas fa-lock"></i>
-          <span>256-bit SSL Encryption</span>
-        </div>
-        <div class="security-badge">
-          <i class="fas fa-shield-alt"></i>
-          <span>PCI DSS Compliant</span>
-        </div>
-      </div>
-      
-      <div class="payment-options">
-        <!-- International Payment -->
-        <div class="payment-card">
-          <div class="payment-badge">International</div>
-          <div class="payment-header">
-            <div class="payment-icon">
-              <i class="fab fa-paypal"></i>
-            </div>
-            <h3 style="color: var(--dark); margin-bottom: 10px;">PayPal Payment</h3>
-            <div class="payment-amount">$75.00</div>
-            <div class="payment-note">One-time payment • Limited time offer</div>
-          </div>
-          
-          <div class="payment-details">
-            <div class="detail-item">
-              <span class="detail-label">Regular Price:</span>
-              <span class="detail-value" style="text-decoration: line-through; color: var(--gray);">$197.00</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">You Save:</span>
-              <span class="detail-value" style="color: var(--success);">$122.00 (62%)</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Delivery:</span>
-              <span class="detail-value">Instant Access</span>
-            </div>
-          </div>
-
-          <!-- PayPal Button Container -->
-          <div id="paypal-button-container"></div>
-
-          <!-- Manual PayPal Option -->
-          <div class="manual-payment">
-            <p style="text-align: center; color: var(--gray); margin-bottom: 15px;">Alternative PayPal method</p>
-            <button class="cta-secondary" onclick="showPayPalModal()">
-              <i class="fas fa-envelope"></i>
-              Manual PayPal Payment
-            </button>
-          </div>
-        </div>
-
-        <!-- Local Payment -->
-        <div class="payment-card">
-          <div class="payment-badge">Nigeria</div>
-          <div class="payment-header">
-            <div class="payment-icon">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h3 style="color: var(--dark); margin-bottom: 10px;">Bank Transfer</h3>
-            <div class="payment-amount">₦100,000</div>
-            <div class="payment-note">Local price • One-time payment</div>
-          </div>
-          
-          <div class="payment-details">
-            <div class="detail-item">
-              <span class="detail-label">Regular Price:</span>
-              <span class="detail-value" style="text-decoration: line-through; color: var(--gray);">₦150,000</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">You Save:</span>
-              <span class="detail-value" style="color: var(--success);">₦50,000 (33%)</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Delivery:</span>
-              <span class="detail-value">Within 1 Hour</span>
-            </div>
-          </div>
-
-          <button class="cta-primary" onclick="showPalmPayModal()">
-            <i class="fas fa-qrcode"></i>
-            Proceed with Transfer
-          </button>
-          
-          <p style="text-align: center; color: var(--gray); margin-top: 15px; font-size: 0.85rem;">
-            Secure transfer to bank account
-          </p>
-        </div>
+      <h1>Master Your Time,<br>Amplify Your Impact</h1>
+      <p>The comprehensive planning system designed specifically for executives, founders, and leaders who want to achieve more in less time while reducing stress and overwhelm.</p>
+      <div class="cta-container">
+        <a href="#pricing" class="cta-primary">
+          <i class="fas fa-rocket"></i>
+          Get Instant Access - $75 <span style="text-decoration: line-through; opacity: 0.7; margin-left: 5px;">$197</span>
+        </a>
+        <button class="cta-secondary" onclick="scrollToSection('features')">
+          <i class="fas fa-play-circle"></i>
+          See How It Works
+        </button>
       </div>
     </section>
 
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Hours Saved Weekly</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3x</div>
+        <div class="stat-label">More Focused</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2,500+</div>
+        <div class="stat-label">Executives Transformed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">94%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+
     <!-- Features -->
-    <section class="features">
-      <h2 class="section-title">What You'll Get</h2>
+    <section class="features" id="features">
+      <h2 class="section-title">Designed for High Achievers</h2>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="fas fa-chess-queen"></i>
           </div>
           <h3>Strategic Planning</h3>
-          <p>Organize your priorities with our CEO-focused planning system</p>
+          <p>Move beyond simple to-do lists with our executive-level strategic planning system that aligns daily actions with long-term vision.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <i class="fas fa-tasks"></i>
+            <i class="fas fa-bullseye"></i>
           </div>
-          <h3>Productivity System</h3>
-          <p>Maximize your daily output with proven productivity techniques</p>
+          <h3>Priority Focus</h3>
+          <p>Identify and focus on the 20% of activities that deliver 80% of results using our proprietary priority matrix.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-chart-line"></i>
           </div>
-          <h3>Goal Tracking</h3>
-          <p>Track progress toward your most important business objectives</p>
+          <h3>Progress Tracking</h3>
+          <p>Monitor key metrics and progress toward strategic goals with our intuitive tracking system designed for executives.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <i class="fas fa-clock"></i>
           </div>
-          <h3>Time Management</h3>
-          <p>Master your schedule with executive time blocking strategies</p>
+          <h3>Time Optimization</h3>
+          <p>Master executive time blocking and delegation strategies to maximize productivity during peak energy hours.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>Decision Framework</h3>
+          <p>Make faster, better decisions with our structured framework that reduces analysis paralysis and improves outcomes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3>Work-Life Integration</h3>
+          <p>Achieve harmony between professional ambitions and personal priorities with our balanced approach to planning.</p>
         </div>
       </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials">
-      <h2 class="section-title">What Our Clients Say</h2>
+    <section class="testimonials" id="testimonials">
+      <h2 class="section-title">Trusted by Industry Leaders</h2>
       <div class="testimonial-grid">
         <div class="testimonial-card">
-          <p class="testimonial-text">"The CEO Planner transformed how I manage my time and priorities. I've reclaimed 5+ hours per week and feel more in control of my business than ever before."</p>
+          <p class="testimonial-text">"The CEO Planner System completely transformed how I approach my workweek. I've reclaimed over 6 hours per week and feel more in control of my priorities than ever before. The strategic planning framework alone was worth the investment."</p>
           <div class="testimonial-author">
             <div class="author-avatar">MJ</div>
             <div class="author-info">
@@ -791,7 +778,7 @@
           </div>
         </div>
         <div class="testimonial-card">
-          <p class="testimonial-text">"As an executive with multiple responsibilities, this system helped me focus on what truly matters. The investment paid for itself in the first week of use."</p>
+          <p class="testimonial-text">"As a C-level executive with multiple responsibilities across different business units, this system helped me focus on what truly moves the needle. The decision framework has improved my judgment calls, and I'm achieving better results with less effort."</p>
           <div class="testimonial-author">
             <div class="author-avatar">SR</div>
             <div class="author-info">
@@ -803,9 +790,86 @@
       </div>
     </section>
 
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+      <h2 class="section-title">Simple, Transparent Pricing</h2>
+      <div class="pricing-card">
+        <div class="pricing-badge">Executive Edition • Money-Back Guarantee</div>
+        <div class="price">
+          <span style="font-size: 2.5rem; text-decoration: line-through; opacity: 0.7; margin-right: 10px;">$197</span>
+          $75
+        </div>
+        <div class="price-note">
+          <span style="background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 1rem;">62% Off Limited Time</span><br><br>
+          One-time payment • Lifetime access • Free updates
+        </div>
+        
+        <ul class="benefits-list">
+          <li><i class="fas fa-check"></i> Complete CEO Planning System</li>
+          <li><i class="fas fa-check"></i> Strategic Planning Templates</li>
+          <li><i class="fas fa-check"></i> Priority Matrix Framework</li>
+          <li><i class="fas fa-check"></i> Executive Time Blocking System</li>
+          <li><i class="fas fa-check"></i> Decision-Making Framework</li>
+          <li><i class="fas fa-check"></i> Progress Tracking Dashboard</li>
+          <li><i class="fas fa-check"></i> Video Training Series</li>
+          <li><i class="fas fa-check"></i> Lifetime Updates & Support</li>
+        </ul>
+
+        <a href="payment.html" class="cta-primary">
+          <i class="fas fa-lock"></i>
+          Get Instant Access - $75
+        </a>
+        
+        <p style="color: var(--gray); margin-top: 20px; font-size: 0.9rem;">30-day money-back guarantee • Secure payment processing</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            How is this different from other planners?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            The CEO Planner System is specifically designed for executives and high achievers who need to manage complex responsibilities. Unlike generic planners, it includes strategic frameworks for decision-making, priority management, and progress tracking that align with executive needs.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            Is this a physical or digital product?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            This is a digital product delivered instantly after purchase. You'll receive PDF templates, video training, and access to our online dashboard. You can print the templates if you prefer physical copies.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            What's included in the purchase?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            You'll receive the complete CEO Planner System including planning templates, priority matrix, time blocking system, decision framework, progress tracking dashboard, video training series, and lifetime updates.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            Do you offer a money-back guarantee?
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Yes, we offer a 30-day money-back guarantee. If you're not completely satisfied with the system, simply contact us for a full refund.
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
-      <p>© 2024 CEO Planner System. All rights reserved.</p>
+      <p>&copy; 2024 CEO Planner System. Executive productivity tools for modern leaders.</p>
       <div class="footer-links">
         <a href="#" class="footer-link">Privacy Policy</a>
         <a href="#" class="footer-link">Terms of Service</a>
@@ -814,193 +878,53 @@
     </footer>
   </div>
 
-  <!-- PayPal Modal -->
-  <div id="paypalModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Manual PayPal Payment</h3>
-        <button class="close-modal" onclick="closePayPalModal()">&times;</button>
-      </div>
-      
-      <div class="account-details">
-        <div style="color: var(--gray); font-size: 0.9rem;">Send exactly</div>
-        <div class="payment-amount" style="font-size: 2rem;">$75.00</div>
-        <div style="color: var(--gray); margin: 10px 0;">to PayPal email:</div>
-        <div class="account-number" style="font-size: 1.2rem;">
-          jimekafairr@outlook.com
-        </div>
-        <div class="account-name">Astro Rescue Ventures</div>
-      </div>
-
-      <div class="instructions">
-        <h4 style="color: var(--dark); margin-bottom: 15px;">Payment Instructions:</h4>
-        
-        <div class="instruction-step">
-          <div class="step-number">1</div>
-          <span>Send $75.00 via PayPal to the email address above</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">2</div>
-          <span>Include your email address in the payment note</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">3</div>
-          <span>Your CEO Planner PDF will be sent automatically</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">4</div>
-          <span>Check your email within 5 minutes of payment</span>
-        </div>
-      </div>
-
-      <button class="cta-primary" onclick="copyPayPalEmail()">
-        <i class="fas fa-copy"></i>
-        Copy PayPal Email
-      </button>
-      
-      <button class="cta-secondary" onclick="closePayPalModal()" style="margin-top: 10px;">
-        Cancel
-      </button>
-    </div>
-  </div>
-
-  <!-- PalmPay Modal -->
-  <div id="palmPayModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Bank Transfer Details</h3>
-        <button class="close-modal" onclick="closePalmPayModal()">&times;</button>
-      </div>
-      
-      <div class="account-details">
-        <div style="color: var(--gray); font-size: 0.9rem;">Send exactly</div>
-        <div class="payment-amount" style="font-size: 2rem;">₦100,000</div>
-        <div style="color: var(--gray); margin: 10px 0;">to account:</div>
-        <div class="account-number">9114910367</div>
-        <div class="account-name">Alade Dimitris</div>
-        <div style="color: var(--gray); font-size: 0.9rem; margin-top: 5px;">PalmPay</div>
-      </div>
-
-      <div class="instructions">
-        <h4 style="color: var(--dark); margin-bottom: 15px;">After Payment:</h4>
-        
-        <div class="instruction-step">
-          <div class="step-number">1</div>
-          <span>Take a screenshot of your payment confirmation</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">2</div>
-          <span>Email the screenshot to: astrorescue50@gmail.com</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">3</div>
-          <span>Include your email address in the message</span>
-        </div>
-        
-        <div class="instruction-step">
-          <div class="step-number">4</div>
-          <span>Your CEO Planner will be sent within 1 hour</span>
-        </div>
-      </div>
-
-      <button class="cta-primary" onclick="copyPalmPayNumber()">
-        <i class="fas fa-copy"></i>
-        Copy Account Number
-      </button>
-      
-      <button class="cta-secondary" onclick="closePalmPayModal()" style="margin-top: 10px;">
-        Cancel
-      </button>
-    </div>
-  </div>
-
   <script>
-    // PayPal Button Integration
-    paypal.Buttons({
-      style: {
-        layout: 'vertical',
-        color: 'blue',
-        shape: 'rect',
-        label: 'paypal'
-      },
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: '75.00'
-            }
-          }]
+    // Scroll animations
+    function initAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 1s ease forwards';
+          }
         });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          // Show success message
-          alert('Payment successful! Thank you for your purchase.');
-          // Redirect to thank you page
-          window.location.href = '/thank-you?payment_id=' + data.orderID + '&type=paypal';
-        });
-      },
-      onError: function(err) {
-        console.error('PayPal error:', err);
-        alert('Payment failed. Please try again or use manual payment.');
-      }
-    }).render('#paypal-button-container');
+      });
 
-    // PayPal Modal Functions
-    function showPayPalModal() {
-      document.getElementById('paypalModal').style.display = 'block';
+      document.querySelectorAll('.feature-card, .stat-card, .testimonial-card').forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+      });
     }
 
-    function closePayPalModal() {
-      document.getElementById('paypalModal').style.display = 'none';
-    }
-
-    function copyPayPalEmail() {
-      navigator.clipboard.writeText('jimekafairr@outlook.com');
-      alert('PayPal email copied to clipboard!');
-    }
-
-    // PalmPay Modal Functions
-    function showPalmPayModal() {
-      document.getElementById('palmPayModal').style.display = 'block';
-    }
-
-    function closePalmPayModal() {
-      document.getElementById('palmPayModal').style.display = 'none';
-    }
-
-    function copyPalmPayNumber() {
-      navigator.clipboard.writeText('9114910367');
-      alert('Account number copied to clipboard!');
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-      const paypalModal = document.getElementById('paypalModal');
-      const palmPayModal = document.getElementById('palmPayModal');
-      if (event.target === paypalModal) {
-        closePayPalModal();
-      }
-      if (event.target === palmPayModal) {
-        closePalmPayModal();
+    // FAQ toggle functionality
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('i');
+      
+      if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        answer.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)';
       }
     }
 
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closePayPalModal();
-        closePalmPayModal();
-      }
+    // Initialize all FAQs to be closed
+    document.querySelectorAll('.faq-answer').forEach(answer => {
+      answer.style.display = 'none';
+    });
+
+    // Smooth scrolling
+    function scrollToSection(sectionId) {
+      document.getElementById(sectionId).scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      initAnimations();
     });
   </script>
-
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
 </body>
 </html>
