@@ -622,6 +622,243 @@
       color: var(--success);
     }
 
+    /* Payment Page Styles */
+    .payment-page {
+      display: none;
+    }
+
+    /* Payment Options */
+    .payment-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .payment-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .payment-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .payment-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: var(--secondary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .payment-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .payment-icon {
+      width: 70px;
+      height: 70px;
+      background: #eff6ff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: var(--primary);
+      font-size: 28px;
+      border: 1px solid #dbeafe;
+    }
+
+    .payment-amount {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 10px 0;
+    }
+
+    .payment-note {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .payment-details {
+      margin: 20px 0;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .detail-label {
+      color: var(--gray);
+    }
+
+    .detail-value {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    /* PayPal Button Container */
+    #paypal-button-container {
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* Manual PayPal Option */
+    .manual-payment {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      color: var(--dark);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .close-modal:hover {
+      color: var(--dark);
+      background: #f3f4f6;
+    }
+
+    .account-details {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .account-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 10px 0;
+      letter-spacing: 1px;
+      word-break: break-all;
+    }
+
+    .account-name {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+
+    .instructions {
+      color: var(--gray);
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .instruction-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .step-number {
+      background: var(--primary);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
     /* Animations */
     @keyframes fadeInUp {
       from {
@@ -672,11 +909,34 @@
       .price {
         font-size: 3.5rem;
       }
+      
+      .payment-options {
+        grid-template-columns: 1fr;
+      }
+      
+      .payment-amount {
+        font-size: 2rem;
+      }
+      
+      .payment-card {
+        padding: 20px;
+      }
+      
+      .modal-content {
+        padding: 20px;
+      }
+      
+      .security-badges {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Landing Page -->
+  <div class="container landing-page">
     <!-- Header -->
     <header class="header">
       <div class="logo-container">
@@ -716,10 +976,10 @@
       </div>
       
       <div class="cta-container">
-        <a href="#pricing" class="cta-primary">
+        <button class="cta-primary" onclick="showPaymentPage()">
           <i class="fas fa-rocket"></i>
           Get Instant Access - $75 <span style="text-decoration: line-through; opacity: 0.7; margin-left: 5px;">$197</span>
-        </a>
+        </button>
         <button class="cta-secondary" onclick="scrollToSection('features')">
           <i class="fas fa-play-circle"></i>
           See How It Works
@@ -848,11 +1108,10 @@
           <li><i class="fas fa-check"></i> Lifetime Updates & Support</li>
         </ul>
 
-        <!-- This button now links to the payment page -->
-        <a href="payment.html" class="cta-primary">
+        <button class="cta-primary" onclick="showPaymentPage()">
           <i class="fas fa-lock"></i>
           Get Instant Access - $75
-        </a>
+        </button>
         
         <p style="color: var(--gray); margin-top: 20px; font-size: 0.9rem;">30-day money-back guarantee • Secure payment processing</p>
       </div>
@@ -912,7 +1171,255 @@
     </footer>
   </div>
 
+  <!-- Payment Page -->
+  <div class="container payment-page">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <div class="logo">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="logo-text">
+          <h1>Astro Rescue Ventures</h1>
+          <p>Secure Payment Portal</p>
+        </div>
+      </div>
+      <a href="#" class="nav-btn" onclick="showLandingPage()">
+        <i class="fas fa-arrow-left"></i>
+        Back to Landing Page
+      </a>
+    </header>
+
+    <!-- Payment Section -->
+    <section class="hero">
+      <div class="hero-badge">
+        LIMITED TIME OFFER
+      </div>
+      <h1>Complete Your Purchase</h1>
+      <p>Select your preferred payment method. All transactions are secured with bank-level encryption.</p>
+      
+      <!-- Security Badges -->
+      <div class="security-badges">
+        <div class="security-badge">
+          <i class="fas fa-lock"></i>
+          <span>256-bit SSL Encryption</span>
+        </div>
+        <div class="security-badge">
+          <i class="fas fa-shield-alt"></i>
+          <span>PCI DSS Compliant</span>
+        </div>
+      </div>
+      
+      <div class="payment-options">
+        <!-- International Payment -->
+        <div class="payment-card">
+          <div class="payment-badge">International</div>
+          <div class="payment-header">
+            <div class="payment-icon">
+              <i class="fab fa-paypal"></i>
+            </div>
+            <h3 style="color: var(--dark); margin-bottom: 10px;">PayPal Payment</h3>
+            <div class="payment-amount">$75.00</div>
+            <div class="payment-note">One-time payment • Limited time offer</div>
+          </div>
+          
+          <div class="payment-details">
+            <div class="detail-item">
+              <span class="detail-label">Regular Price:</span>
+              <span class="detail-value" style="text-decoration: line-through; color: var(--gray);">$197.00</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">You Save:</span>
+              <span class="detail-value" style="color: var(--success);">$122.00 (62%)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Delivery:</span>
+              <span class="detail-value">Instant Access</span>
+            </div>
+          </div>
+
+          <!-- PayPal Button Container -->
+          <div id="paypal-button-container"></div>
+
+          <!-- Manual PayPal Option -->
+          <div class="manual-payment">
+            <p style="text-align: center; color: var(--gray); margin-bottom: 15px;">Alternative PayPal method</p>
+            <button class="cta-secondary" onclick="showPayPalModal()">
+              <i class="fas fa-envelope"></i>
+              Manual PayPal Payment
+            </button>
+          </div>
+        </div>
+
+        <!-- Local Payment -->
+        <div class="payment-card">
+          <div class="payment-badge">Nigeria</div>
+          <div class="payment-header">
+            <div class="payment-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3 style="color: var(--dark); margin-bottom: 10px;">Bank Transfer</h3>
+            <div class="payment-amount">₦100,000</div>
+            <div class="payment-note">Local price • One-time payment</div>
+          </div>
+          
+          <div class="payment-details">
+            <div class="detail-item">
+              <span class="detail-label">Regular Price:</span>
+              <span class="detail-value" style="text-decoration: line-through; color: var(--gray);">₦150,000</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">You Save:</span>
+              <span class="detail-value" style="color: var(--success);">₦50,000 (33%)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Delivery:</span>
+              <span class="detail-value">Within 1 Hour</span>
+            </div>
+          </div>
+
+          <button class="cta-primary" onclick="showPalmPayModal()">
+            <i class="fas fa-qrcode"></i>
+            Proceed with Transfer
+          </button>
+          
+          <p style="text-align: center; color: var(--gray); margin-top: 15px; font-size: 0.85rem;">
+            Secure transfer to bank account
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2024 Astro Rescue Ventures. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Contact Support</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PayPal Modal -->
+  <div id="paypalModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Manual PayPal Payment</h3>
+        <button class="close-modal" onclick="closePayPalModal()">&times;</button>
+      </div>
+      
+      <div class="account-details">
+        <div style="color: var(--gray); font-size: 0.9rem;">Send exactly</div>
+        <div class="payment-amount" style="font-size: 2rem;">$75.00</div>
+        <div style="color: var(--gray); margin: 10px 0;">to PayPal email:</div>
+        <div class="account-number" style="font-size: 1.2rem;">
+          jimekafairr@outlook.com
+        </div>
+        <div class="account-name">Astro Rescue Ventures</div>
+      </div>
+
+      <div class="instructions">
+        <h4 style="color: var(--dark); margin-bottom: 15px;">Payment Instructions:</h4>
+        
+        <div class="instruction-step">
+          <div class="step-number">1</div>
+          <span>Send $75.00 via PayPal to the email address above</span>
+        </div>
+        
+        <div class="instruction-step">
+          <div class="step-number">2</div>
+          <span>Include your email address in the payment note</span>
+        </div>
+        
+        <div class="instruction-step">
+          <div class="step-number">3</div>
+          <span>Your CEO Planner PDF will be sent automatically</span>
+        </div>
+        
+        <div class="instruction-step">
+          <div class="step-number">4</div>
+          <span>Check your email within 5 minutes of payment</span>
+        </div>
+      </div>
+
+      <button class="cta-primary" onclick="copyPayPalEmail()">
+        <i class="fas fa-copy"></i>
+        Copy PayPal Email
+      </button>
+      
+      <button class="cta-secondary" onclick="closePayPalModal()" style="margin-top: 10px;">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- PalmPay Modal -->
+  <div id="palmPayModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Bank Transfer Details</h3>
+        <button class="close-modal" onclick="closePalmPayModal()">&times;</button>
+      </div>
+      
+      <div class="account-details">
+        <div style="color: var(--gray); font-size: 0.9rem;">Send exactly</div>
+        <div class="payment-amount" style="font-size: 2rem;">₦100,000</div>
+        <div style="color: var(--gray); margin: 10px 0;">to account:</div>
+        <div class="account-number">9114910367</div>
+        <div class="account-name">Alade Dimitris</div>
+        <div style="color: var(--gray); font-size: 0.9rem; margin-top: 5px;">PalmPay</div>
+      </div>
+
+      <div class="instructions">
+        <h4 style="color: var(--dark); margin-bottom: 15px;">After Payment:</h4>
+        
+        <div class="instruction-step">
+          <div class="step-number">1</div>
+          <span>Take a screenshot of your payment confirmation</span>
+        </div>
+        
+        <div class="instruction-step">
+          <div class="step-number">2</div>
+          <span>Email the screenshot to: astrorescue50@gmail.com</span>
+        </div>
+        
+        <div class="instruction-step">
+          <div class="step-number">3</div>
+          <span>Include your email address in the message</span>
+        </div>
+        
+        <div class="instruction-step">
+          <div class="step-number">4</div>
+          <span>Your CEO Planner will be sent within 1 hour</span>
+        </div>
+      </div>
+
+      <button class="cta-primary" onclick="copyPalmPayNumber()">
+        <i class="fas fa-copy"></i>
+        Copy Account Number
+      </button>
+      
+      <button class="cta-secondary" onclick="closePalmPayModal()" style="margin-top: 10px;">
+        Cancel
+      </button>
+    </div>
+  </div>
+
   <script>
+    // Page navigation
+    function showPaymentPage() {
+      document.querySelector('.landing-page').style.display = 'none';
+      document.querySelector('.payment-page').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function showLandingPage() {
+      document.querySelector('.payment-page').style.display = 'none';
+      document.querySelector('.landing-page').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
     // Scroll animations
     function initAnimations() {
       const observer = new IntersectionObserver((entries) => {
@@ -955,10 +1462,92 @@
       });
     }
 
+    // PayPal Modal Functions
+    function showPayPalModal() {
+      document.getElementById('paypalModal').style.display = 'block';
+    }
+
+    function closePayPalModal() {
+      document.getElementById('paypalModal').style.display = 'none';
+    }
+
+    function copyPayPalEmail() {
+      navigator.clipboard.writeText('jimekafairr@outlook.com');
+      alert('PayPal email copied to clipboard!');
+    }
+
+    // PalmPay Modal Functions
+    function showPalmPayModal() {
+      document.getElementById('palmPayModal').style.display = 'block';
+    }
+
+    function closePalmPayModal() {
+      document.getElementById('palmPayModal').style.display = 'none';
+    }
+
+    function copyPalmPayNumber() {
+      navigator.clipboard.writeText('9114910367');
+      alert('Account number copied to clipboard!');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const paypalModal = document.getElementById('paypalModal');
+      const palmPayModal = document.getElementById('palmPayModal');
+      if (event.target === paypalModal) {
+        closePayPalModal();
+      }
+      if (event.target === palmPayModal) {
+        closePalmPayModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closePayPalModal();
+        closePalmPayModal();
+      }
+    });
+
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
       initAnimations();
     });
+
+    // PayPal Button Integration
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'blue',
+        shape: 'rect',
+        label: 'paypal'
+      },
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '75.00'
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          // Show success message
+          alert('Payment successful! Thank you for your purchase.');
+          // Redirect to thank you page
+          window.location.href = '/thank-you?payment_id=' + data.orderID + '&type=paypal';
+        });
+      },
+      onError: function(err) {
+        console.error('PayPal error:', err);
+        alert('Payment failed. Please try again or use manual payment.');
+      }
+    }).render('#paypal-button-container');
   </script>
+
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
 </body>
 </html>
