@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verify OTP</title>
+  <script src="../config.js"></script>
   <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
@@ -103,18 +104,19 @@ inputs.forEach((input, index) => {
 async function verifyOTP() {
   const userOTP = Array.from(inputs).map(i => i.value).join("");
   const phone = localStorage.getItem("login_phone");
-
+  const API = window.API_BASE;
   if(!phone) {
     showMessage("No phone number found. Please login again.", "error");
     return;
   }
 
   try {
-    const res = await fetch("/api/verify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone, otp: userOTP })
-    });
+  const res = await fetch(`${window.API_BASE}/api/verify`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, otp: userOTP })
+  });
+
     const data = await res.json();
 
     if(data.success){
