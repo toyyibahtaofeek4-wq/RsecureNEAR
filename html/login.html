@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="/images/s1.png" type="image/x-icon">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
-
+  <script src="../config.js"></script>
   <!-- intl-tel-input CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css"/>
 
@@ -217,13 +217,14 @@ async function handleLogin(e) {
   }
 
   const phone = iti.getNumber(); 
-
+ const API = window.API_BASE;
   try {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone })
-    });
+  const res = await fetch(`${window.API_BASE}/api/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone })
+  });
+  
     const data = await res.json();
 
     if(data.success){
